@@ -1,0 +1,134 @@
+#grid-container {
+    /*-webkit-transform: rotate(90deg);*/
+    /*-moz-transform: rotate(90deg);*/
+    /*-o-transform: rotate(90deg);*/
+    /*-ms-transform: rotate(90deg);*/
+    /*transform: rotate(90deg);*/
+}
+
+.grid-map-transform {
+    -webkit-transform: translateX(0px) translateY(0px) translateZ(0px) rotateX(45deg) rotateY(0deg) rotateZ(0deg);
+    -webkit-transform-origin-x: 50%;
+    -webkit-transform-origin-y: 50%;
+}
+
+
+.grid-image {
+    position:absolute;
+    /*transform: rotateZ(-90deg);*/
+}
+
+.base-grid-marker{
+    position:absolute;
+    background: rgba(85,255,28,0.1) !important;
+    -webkit-box-shadow: inset 0px 0px 5px 0px rgb(233, 255, 7);
+    -moz-box-shadow: inset 0px 0px 5px 0px rgba(233,255,28,1);
+    box-shadow: inset 0px 0px 5px 0px rgba(233,255,28,1);
+    border:1px dashed yellow;
+    border-radius:10px;
+}
+
+
+#grid-container .w{
+    background: #A19C73;
+    float: left;
+    z-index: 1;
+    cursor: pointer;
+}
+
+#grid-container .b{
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    float: left;
+    z-index: 1;
+    cursor: pointer;
+}
+
+#grid-container .u{
+    background: #333;
+    float: left;
+    z-index: 1;
+    cursor: pointer;
+}
+#grid-container .d{
+    background: #333;
+    float: left;
+    z-index: 1;
+    cursor: pointer;
+}
+
+#grid-container .player{
+    background-image: url("../img/car_top.png");
+    position: absolute;
+    z-index: 3;
+}
+
+#grid-container .exit{
+    background-image: url("../img/warp.png");
+    position: absolute;
+    z-index: 2;
+}
+
+.road-01{
+    background: url("../img/road/road_01.jpg") no-repeat center center ;
+}
+.road-02{
+    background: url("../img/road/road_02.jpg") no-repeat center center ;
+}
+.road-03{
+    background: url("../img/road/road_03.jpg") no-repeat center center ;
+}
+.road-04{
+    background: url("../img/road/road_04.jpg") no-repeat center center ;
+}
+.road-05{
+    background: url("../img/road/road_05.jpg") no-repeat center center ;
+}
+.road-06{
+    background: url("../img/road/road_06.jpg") no-repeat center center ;
+}
+.road-07{
+    background: url("../img/road/road_07.jpg") no-repeat center center ;
+}
+.road-08{
+    background: url("../img/road/road_08.jpg") no-repeat center center ;
+}
+.road-09{
+    background: url("../img/road/road_09.jpg") no-repeat center center ;
+}
+.road-10{
+    background: url("../img/road/road_10.jpg") no-repeat center center ;
+}
+.road-11{
+    background: url("../img/road/road_11.jpg") no-repeat center center ;
+}
+.road-12{
+    background: url("../img/road/road_12.jpg") no-repeat center center ;
+}
+.road-13{
+    background: url("../img/road/road_13.jpg") no-repeat center center ;
+}
+.road-14{
+    background: url("../img/road/road_14.jpg") no-repeat center center ;
+}
+.road-15{
+    background: url("../img/road/road_15.jpg") no-repeat center center ;
+}
+
+.map-object {
+    position:absolute;
+    padding:5px;
+
+}
+
+.map-object:hover {
+    padding:0;
+    background: rgba(239, 255, 0, 0.2) !important;
+    -webkit-box-shadow: inset 0px 0px 5px 0px rgb(5, 20, 20);
+    -moz-box-shadow: inset 0px 0px 5px 0px rgb(5, 20, 20);
+    box-shadow: inset 0px 0px 5px 0px rgb(5, 20, 20);
+    border: 5px solid rgba(150,200,200, 0.2);
+    border-radius: 50%;
+}

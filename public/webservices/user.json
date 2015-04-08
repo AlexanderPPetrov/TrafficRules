@@ -1,0 +1,16 @@
+{
+  "user": {
+    "userName": "Александър Петров",
+    "userRole": "pedestrian",
+    "userPoints": "1202",
+    "rank":"новак",
+    "achievements": [
+
+    ],
+    "preferredRoles":[],
+    "questsAchieved":[],
+    "activeQuests":[]
+
+  }
+}
+
