@@ -37,11 +37,6 @@
 # mpeltonen/sbt-idea plugin
 .idea_modules/
 
-# Company framework
-/public/scripts/vendor/
-/public/scripts/buildMultiPage.js
-/public/scripts/multiPage.js
-/public/scripts/singlePage.js
 
 # Dependency directory
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
