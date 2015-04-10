@@ -121,7 +121,6 @@ h1, .h1 {
     padding-top: 15px;
     padding-bottom: 15px;
     border: 5px solid #fff;
-    min-height: 405px;
     background: #453B3B;
 
 }
@@ -371,4 +370,8 @@ h1, .h1 {
 
 .control-menu-row {
     margin-top: 15px;
+}
+.control-menu p {
+    padding-left: 15px;
+    color: rgb(255, 194, 0);
 }

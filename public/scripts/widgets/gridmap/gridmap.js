@@ -15,7 +15,9 @@ Backbone.widget({
     },
 
     listen: {
-        'NEW_LEVEL': 'newLevel'
+        'NEW_LEVEL': 'newLevel',
+        'MOVE_TO_NEXT': 'moveToNext'
+
     },
 
     newLevel: function(data){
@@ -233,6 +235,10 @@ Backbone.widget({
             el: $playerPosition,
             data: {modelImage: model, width: this.boxSize, height: this.boxSize}
         })
+    },
+
+    moveToNext: function(){
+        console.log('move to next')
     }
 
 
