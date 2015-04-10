@@ -2,30 +2,23 @@ Backbone.widget({
 
     model: {},
 
-
     events: {
-
+        'click #new-level': 'newLevel'
     },
 
     loaded: function () {
-        this.ajaxRequest({
-            url: 'webservices/user.json',
-            renderCallback: function(data){
-                this.model = data;
-                this.render(this.model);
 
-            }
-        })
+
     },
 
     render: function () {
-        this.renderTemplate({
-            template: 'userstats',
-            data: this.model,
-            renderCallback: function () {
 
-            }
-        })
+    },
+
+    newLevel: function () {
+        var rows = this.$el.find('#new-level-rows').val();
+        var cols = this.$el.find('#new-level-cols').val();
+        this.fire('NEW_LEVEL',{rows: rows, cols: cols});
     }
 
 

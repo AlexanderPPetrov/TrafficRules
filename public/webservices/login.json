@@ -1,6 +1,9 @@
 {
-"status": {
-    "login":"success"
+  "status": "ok",
+  "data": {
+    "myArray": [
+      "edno",
+      "Andrey"
+    ]
   }
 }
-

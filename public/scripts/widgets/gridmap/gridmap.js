@@ -5,13 +5,23 @@ Backbone.widget({
     rowCount: 4,
     columnCount: 4,
     rowWidthPx: 0,
-    roadTiles: [],
+
 
 
     events: {
         'click .map-object': 'displayInfoText',
         'mouseenter .base-grid': 'showSelection',
         'mouseleave .base-grid': 'hideSelection'
+    },
+
+    listen: {
+        'NEW_LEVEL': 'newLevel'
+    },
+
+    newLevel: function(data){
+        this.rowCount = data.rows;
+        this.columnCount = data.cols;
+        this.render();
     },
 
     loaded: function () {
@@ -38,7 +48,7 @@ Backbone.widget({
 
     initializeMap: function () {
 
-        Map.generate("grid-container", this.rowCount, this.columnCount, 1);
+        Map.generate("grid-container", this.columnCount, this.rowCount, 1);
         $('#grid-container').find('.r').css({'width': this.rowWidthPx, 'height': this.rowHeight});
         $('#grid-container').find('.b, .w').css({
             'width': this.boxSize,
@@ -50,21 +60,23 @@ Backbone.widget({
         $('#grid-container').find('.b, .w').addClass('base-grid');
 
 
-        var mapMatrix = this.getMapMatrix(9, 9);
+        var mapMatrix = this.getMapMatrix(this.columnCount * 2 + 1, this.rowCount * 2 + 1);
         this.mapTiles(mapMatrix);
         this.renderScene();
+        this.placePlayer(0, 'car_01.png');
 
     },
 
 
-    getMapMatrix: function (rowCount, columnCount) {
+    getMapMatrix: function (colCount, rowCount) {
+        this.roadTiles = [];
         var mapMatrix = [];
 
         var $tiles = this.$el.find('#grid-container').find('.base-grid');
         var tilesIndex = 0;
-        for (var i = 0; i < columnCount; i++) {
+        for (var i = 0; i < rowCount; i++) {
             mapMatrix[i] = [];
-            for (var j = 0; j < rowCount; j++) {
+            for (var j = 0; j < colCount; j++) {
                 if ($($tiles[tilesIndex]).hasClass('w')) {
                     mapMatrix[i][j] = 0;
                 } else mapMatrix[i][j] = 1;
@@ -94,17 +106,20 @@ Backbone.widget({
                     //-------------------------------------
                     mapMatrix[i][j + 1] ? roadTile.push(mapMatrix[i][j + 1]) : roadTile.push(0);
                     mapMatrix[i][j - 1] ? roadTile.push(mapMatrix[i][j - 1]) : roadTile.push(0);
-                    mapMatrix[i - 1][j] ? roadTile.push(mapMatrix[i - 1][j]) : roadTile.push(0);
-                    mapMatrix[i + 1][j] ? roadTile.push(mapMatrix[i + 1][j]) : roadTile.push(0);
-
+                    if(mapMatrix[i - 1]){
+                        mapMatrix[i - 1][j] ? roadTile.push(mapMatrix[i - 1][j]) : roadTile.push(0);
+                    }
+                    if(mapMatrix[i + 1]){
+                        mapMatrix[i + 1][j] ? roadTile.push(mapMatrix[i + 1][j]) : roadTile.push(0);
+                    }
                     roadTiles.push(roadTile);
                 }
             }
         }
 
         // If first or last row -> Entrance | and Exit | road tiles
-        roadTiles[0] = [1,1,0,0];
-        roadTiles[roadTiles.length-1] = [1,1,0,0];
+        roadTiles[0] = [1, 1, 0, 0];
+        roadTiles[roadTiles.length - 1] = [1, 1, 0, 0];
 
         for (var k = 0; k < roadTiles.length; k++) {
             this.roadTiles.push(this.getRoadTileImage(roadTiles[k]));
@@ -176,13 +191,12 @@ Backbone.widget({
             $(this).append(grass);
             var randomHouse = Math.floor((Math.random() * 10) + 1);
             if (randomHouse < 5) {
-                var houseNumber = context.zeroFill(Math.floor((Math.random() * 5) + 1),2);
-                var template = 'house-' + houseNumber
+                var houseNumber = context.zeroFill(Math.floor((Math.random() * 5) + 1), 2);
                 context.renderTemplate({
-                    template: template,
+                    template: 'house',
                     el: $(this),
                     append: true,
-                    data: {'width': context.boxSize, 'height': context.boxSize}
+                    data: {'houseNumber': houseNumber, 'width': context.boxSize, 'height': context.boxSize}
                 })
             }
         })
@@ -209,9 +223,18 @@ Backbone.widget({
         this.$el.find('.base-grid-marker').remove();
     },
 
-    displayInfoText: function(e){
+    displayInfoText: function (e) {
         var dataInfo = $(e.currentTarget).attr('data-info');
         this.fire('DISPLAY_INFO', dataInfo);
+    },
+
+    placePlayer: function (roadIndex, model) {
+        var $playerPosition = $('#grid-container').find('.b').get(roadIndex);
+        this.renderTemplate({
+            template: 'player',
+            el: $playerPosition,
+            data: {modelImage: model, width: this.boxSize, height: this.boxSize}
+        })
     }
 
 

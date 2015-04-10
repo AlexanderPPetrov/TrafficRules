@@ -120,7 +120,7 @@
 .map-object {
     position:absolute;
     padding:5px;
-
+    z-index:999;
 }
 
 .map-object:hover {
