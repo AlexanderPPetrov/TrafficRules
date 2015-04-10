@@ -1,22 +1,20 @@
-#grid-container {
-    /*-webkit-transform: rotate(90deg);*/
-    /*-moz-transform: rotate(90deg);*/
-    /*-o-transform: rotate(90deg);*/
-    /*-ms-transform: rotate(90deg);*/
-    /*transform: rotate(90deg);*/
-}
-
 .grid-map-transform {
-    -webkit-transform: translateX(0px) translateY(0px) translateZ(0px) rotateX(45deg) rotateY(0deg) rotateZ(0deg);
-    -webkit-transform-origin-x: 50%;
-    -webkit-transform-origin-y: 50%;
+    position: absolute;
+    -moz-transform: rotate(-45deg) skew(15deg, 15deg);
+    -webkit-transform: rotate(-45deg) skew(15deg, 15deg);
+    -ms-transform: rotate(-45deg) skew(15deg, 15deg);
+    transform: rotate(-45deg) skew(15deg, 15deg);
 }
-
 
 .grid-image {
     position:absolute;
-    /*transform: rotateZ(-90deg);*/
 }
+/*.house{*/
+    /*-moz-transform:  matrix(0.666667, 0.66667, -2, 2, 46, -58);*/
+    /*-webkit-transform:  matrix(0.666667, 0.66667, -2, 2, 46, -58);*/
+    /*-ms-transform:  matrix(0.666667, 0.66667, -2, 2, 46, -58);*/
+    /*transform: matrix(0.666667, 0.66667, -2, 2, 46, -58);*/
+/*}*/
 
 .base-grid-marker{
     position:absolute;
@@ -60,7 +58,6 @@
 }
 
 #grid-container .player{
-    background-image: url("../img/car_top.png");
     position: absolute;
     z-index: 3;
 }

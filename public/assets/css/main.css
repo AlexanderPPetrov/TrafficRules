@@ -365,7 +365,7 @@ h1, .h1 {
 .control-menu-select {
     padding: 3px;
     background: rgb(48, 48, 48);
-    border: 1px solid #2A2A2A;
+    border: 1px solid rgba(0,0,0,0.1);
 }
 
 .control-menu-row {

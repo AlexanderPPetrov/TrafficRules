@@ -2,10 +2,10 @@ Backbone.widget({
     template: false,
 
     model: [],
-    rowCount: 3,
+    rowCount: 4,
     columnCount: 4,
     rowWidthPx: 0,
-
+    currentPlayerPosition:0,
 
 
     events: {
@@ -27,17 +27,18 @@ Backbone.widget({
     },
 
     loaded: function () {
+
         this.render();
     },
 
     render: function () {
-        this.renderTemplate({
 
+
+        this.renderTemplate({
             template: 'gridmap',
             data: this.model,
             renderCallback: function () {
                 this.setGridSize();
-                this.initializeMap();
             }
         })
     },
@@ -46,6 +47,7 @@ Backbone.widget({
         this.boxSize = Math.floor(this.$el.find('#grid-container').width() / (this.columnCount * 2 + 1));
         this.rowWidthPx = (this.columnCount * 2 + 1) * this.boxSize;
         this.rowHeight = this.boxSize;
+        this.initializeMap();
     },
 
     initializeMap: function () {
@@ -92,7 +94,6 @@ Backbone.widget({
 
         var roadTiles = [];
         for (var i = 0; i < mapMatrix.length; i++) {
-            console.log('Map row: ', mapMatrix[i].toString());
             for (var j = 0; j < mapMatrix[i].length; j++) {
                 var currentTile = mapMatrix[i][j]
                 if (currentTile == 1) {
@@ -183,23 +184,28 @@ Backbone.widget({
 
     renderScene: function () {
         var context = this;
+
         this.$el.find('.w').each(function () {
 
             var randomGrass = Math.floor((Math.random() * 5) + 1);
             var grass = '<img class="grid-image" src="assets/img/grass/' + 1 + '.jpg"/>'
 
             $(this).append(grass);
-            var randomHouse = Math.floor((Math.random() * 10) + 1);
-            if (randomHouse < 5) {
-                var houseNumber = context.zeroFill(Math.floor((Math.random() * 5) + 1), 2);
-                context.renderTemplate({
-                    template: 'house',
-                    el: $(this),
-                    append: true,
-                    data: {'houseNumber': houseNumber, 'width': context.boxSize, 'height': context.boxSize}
-                })
-            }
+            var houseNumber = context.zeroFill(Math.floor((Math.random() * 3) + 1), 2);
+
+            var house = '<div class="map-object" style="width:'+ context.boxSize +'px; height:' + context.boxSize + 'px;" data-info="Family house"><img class="grid-image house" src="assets/img/houses/h_'+ houseNumber +'.png" style="width:'+ context.boxSize +'px; pointer-events:none;" /></div>'
+            $(this).append(house);
+
+            var $lastPlaced = context.$el.find('.house').last();
+            var inversedOffset =  Math.floor(- context.boxSize * 0.66667);
+            var matrix = 'matrix(0.66667, 0.66667, -2, 2, ' + context.boxSize*0.57 +',' + inversedOffset +')';
+            $lastPlaced.css('transform', matrix);
+
+
         })
+
+
+
 
         var context = this;
         this.$el.find('.b').each(function (index, roadTile) {
@@ -229,16 +235,30 @@ Backbone.widget({
     },
 
     placePlayer: function (roadIndex, model) {
+        this.currentPlayerPosition = roadIndex;
         var $playerPosition = $('#grid-container').find('.b').get(roadIndex);
         this.renderTemplate({
             template: 'player',
             el: $playerPosition,
-            data: {modelImage: model, width: this.boxSize, height: this.boxSize}
+            data: {modelImage: model, width: this.boxSize, height: this.boxSize},
+            renderCallback: function(){
+                var inversedOffset =  Math.floor(- this.boxSize * 0.7);
+                var matrix = 'matrix(0.66667, 0.66667, -1, 1, ' + Math.floor(this.boxSize*0.3) +',' + inversedOffset +')';
+                var $playerImage = this.$el.find('.player').find('img');
+                $playerImage.css('transform', matrix);
+            }
         })
     },
 
     moveToNext: function(){
-        console.log('move to next')
+        this.$el.find('.player').fadeOut(function(){
+            $(this).remove();
+        });
+        this.currentPlayerPosition++;
+        if(this.currentPlayerPosition == $('#grid-container').find('.b').length){
+            this.currentPlayerPosition = 0;
+        }
+        this.placePlayer(this.currentPlayerPosition, 'car_01.png');
     }
 
 
