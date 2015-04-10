@@ -2,7 +2,7 @@ Backbone.widget({
     template: false,
 
     model: [],
-    rowCount: 4,
+    rowCount: 3,
     columnCount: 4,
     rowWidthPx: 0,
 
@@ -52,10 +52,8 @@ Backbone.widget({
         $('#grid-container').find('.r').css({'width': this.rowWidthPx, 'height': this.rowHeight});
         $('#grid-container').find('.b, .w').css({
             'width': this.boxSize,
-            'height': this.boxSize,
-            'background-size': this.boxSize + 'px ' + this.boxSize + 'px'
+            'height': this.boxSize
         });
-        $('#grid-container').closest('.white-background').height((this.rowCount * 2 ) * this.boxSize)
 
         $('#grid-container').find('.b, .w').addClass('base-grid');
 

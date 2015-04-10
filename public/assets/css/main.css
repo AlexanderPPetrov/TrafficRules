@@ -118,8 +118,8 @@ h1, .h1 {
 .white-background {
     box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1), -1px 1px 0 rgba(0, 0, 0, 0.1), 0 0 0 4px rgba(0, 0, 0, 0.0), 0 2px 0 rgba(0, 0, 0, 0.1);
     border-radius: 2px;
-    padding-top: 30px;
-    padding-bottom: 73px;
+    padding-top: 15px;
+    padding-bottom: 15px;
     border: 5px solid #fff;
     min-height: 405px;
     background: #453B3B;
@@ -370,7 +370,5 @@ h1, .h1 {
 }
 
 .control-menu-row {
-    border-top: 1px solid #2a2a2a;
-    padding-top: 15px;
     margin-top: 15px;
 }
