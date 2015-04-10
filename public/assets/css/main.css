@@ -368,3 +368,9 @@ h1, .h1 {
     background: rgb(48, 48, 48);
     border: 1px solid #2A2A2A;
 }
+
+.control-menu-row {
+    border-top: 1px solid #2a2a2a;
+    padding-top: 15px;
+    margin-top: 15px;
+}
