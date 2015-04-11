@@ -9,6 +9,9 @@
 .grid-image {
     position:absolute;
 }
+.base-grid {
+
+}
 /*.house{*/
     /*-moz-transform:  matrix(0.666667, 0.66667, -2, 2, 46, -58);*/
     /*-webkit-transform:  matrix(0.666667, 0.66667, -2, 2, 46, -58);*/
