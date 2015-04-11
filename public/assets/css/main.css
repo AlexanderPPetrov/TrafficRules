@@ -340,6 +340,7 @@ h1, .h1 {
 */
 
 .base-container {
+    position: absolute; right: 0; z-index: 999999;
     width:100%;
     padding:15px;
     min-height:100px;
@@ -355,6 +356,14 @@ h1, .h1 {
     text-shadow: 1px 1px 3px #2A2A2A;
 }
 
+.no-select {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
 
 /*
 
