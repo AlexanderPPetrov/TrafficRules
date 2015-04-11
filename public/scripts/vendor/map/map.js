@@ -108,21 +108,21 @@ Map = (function() {
           }
 
           for (y = 0, _ref3 = this.height; 0 <= _ref3 ? y < _ref3 : y > _ref3; 0 <= _ref3 ? y++ : y--) {
-              className = this.isWest(0, y, z) ? "b" : "w";
+              className = this.isWest(0, y, z) ? "road" : "block";
 
               row1 = "<div class='r'><div class='" + className + "'></div>";
 
-              row2 = "<div class='r'><div class='w'></div>";
+              row2 = "<div class='r'><div class='block'></div>";
 
               for (x = 0, _ref4 = this.width; 0 <= _ref4 ? x < _ref4 : x > _ref4; 0 <= _ref4 ? x++ : x--) {
-                  eastClass = this.isEast(x, y, z) ? "b" : "w";
-                  southClass = this.isSouth(x, y, z) ? "b" : "w";
-                  cell = "<div class='b'>";
+                  eastClass = this.isEast(x, y, z) ? "road" : "block";
+                  southClass = this.isSouth(x, y, z) ? "road" : "block";
+                  cell = "<div class='road'>";
                   cell += "<div class='" + (this.isUp(x, y, z) ? 'u' : 'h') + "'></div>";
                   cell += "<div class='" + (this.isDown(x, y, z) ? 'd' : 'h') + "'></div>";
                   cell += "</div>";
                   row1 += "" + cell + "<div class='" + eastClass + "'></div>";
-                  row2 += "<div class='" + southClass + "'></div><div class='w'></div>";
+                  row2 += "<div class='" + southClass + "'></div><div class='block'></div>";
               }
               html += row1 + "</div>\n" + row2 + "</div>\n";
           }
@@ -145,22 +145,22 @@ Map = (function() {
 
             html += "</div>\n<div class='r'>";
             for (x = 0, _ref2 = this.width * 2 + 1; 0 <= _ref2 ? x < _ref2 : x > _ref2; 0 <= _ref2 ? x++ : x--) {
-                html += "<div class='w'></div>";
+                html += "<div class='block'></div>";
             }
             html += "</div>\n";
             for (y = 0, _ref3 = this.height; 0 <= _ref3 ? y < _ref3 : y > _ref3; 0 <= _ref3 ? y++ : y--) {
-                className = this.isWest(0, y, z) ? "b" : "w";
+                className = this.isWest(0, y, z) ? "road" : "block";
                 row1 = "<div class='r'><div class='" + className + "'></div>";
-                row2 = "<div class='r'><div class='w'></div>";
+                row2 = "<div class='r'><div class='block'></div>";
                 for (x = 0, _ref4 = this.width; 0 <= _ref4 ? x < _ref4 : x > _ref4; 0 <= _ref4 ? x++ : x--) {
-                    eastClass = this.isEast(x, y, z) ? "b" : "w";
-                    southClass = this.isSouth(x, y, z) ? "b" : "w";
-                    cell = "<div class='b'>";
+                    eastClass = this.isEast(x, y, z) ? "road" : "block";
+                    southClass = this.isSouth(x, y, z) ? "road" : "block";
+                    cell = "<div class='road'>";
                     cell += "<div class='" + (this.isUp(x, y, z) ? 'u' : 'h') + "'></div>";
                     cell += "<div class='" + (this.isDown(x, y, z) ? 'd' : 'h') + "'></div>";
                     cell += "</div>";
                     row1 += "" + cell + "<div class='" + eastClass + "'></div>";
-                    row2 += "<div class='" + southClass + "'></div><div class='w'></div>";
+                    row2 += "<div class='" + southClass + "'></div><div class='block'></div>";
                 }
                 html += row1 + "</div>\n" + row2 + "</div>\n";
             }

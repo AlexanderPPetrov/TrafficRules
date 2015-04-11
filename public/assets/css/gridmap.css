@@ -16,6 +16,7 @@
     /*transform: matrix(0.666667, 0.66667, -2, 2, 46, -58);*/
 /*}*/
 
+
 .base-grid-marker{
     position:absolute;
     background: rgba(85,255,28,0.1) !important;
@@ -26,15 +27,34 @@
     border-radius:10px;
 }
 
+.move-arrow {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display:none;
+}
 
-#grid-container .w{
+.move-arrow i {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: rgba(161, 255, 0, 0.7);
+    font-size: 300%;
+    padding-top: 10%;
+    border: 10px dashed rgba(161, 255, 0, 0.7);
+    width: 100%;
+    height: 100%;
+}
+
+
+#grid-container .block{
     background: #A19C73;
     float: left;
     z-index: 1;
     cursor: pointer;
 }
 
-#grid-container .b{
+#grid-container .road{
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -59,7 +79,7 @@
 
 #grid-container .player{
     position: absolute;
-    z-index: 3;
+    z-index: 99999;
 }
 
 #grid-container .exit{
