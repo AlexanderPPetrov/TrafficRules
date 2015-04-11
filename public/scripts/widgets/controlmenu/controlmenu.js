@@ -4,6 +4,7 @@ Backbone.widget({
 
     events: {
         // Map control
+        'change .fog-of-war input':'triggerFog',
         'click #new-level': 'newLevel',
         'click #load-level': 'loadLevel',
         //Player controls
@@ -17,6 +18,14 @@ Backbone.widget({
 
     render: function () {
 
+    },
+
+    triggerFog: function(e){
+        if($(e.currentTarget).is(':checked')){
+            $('.fog').show();
+        }else{
+            $('.fog').hide();
+        }
     },
 
     newLevel: function () {

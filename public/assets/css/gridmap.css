@@ -16,6 +16,14 @@
     /*transform: matrix(0.666667, 0.66667, -2, 2, 46, -58);*/
 /*}*/
 
+canvas{
+    position: absolute;
+    top: -35px;
+    left: -100px;
+    z-index: 1000;
+    pointer-events: none;
+}
+
 
 .base-grid-marker{
     position:absolute;

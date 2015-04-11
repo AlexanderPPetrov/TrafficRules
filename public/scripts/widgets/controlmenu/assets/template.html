@@ -1,7 +1,12 @@
 <div class="control-menu base-container">
     <span>Control menu</span>
-    <div class="row control-menu-row" style="border-top:1px solid rgba(0,0,0,0.1);; padding-top: 10px;">
+    <div class="row control-menu-row" style="border-top:1px solid rgba(0,0,0,0.1); padding-top: 10px; position:relative;">
         <p>Map</p>
+        <div class="fog-of-war checkbox" style="position:absolute; top:0;right:15px;">
+            <label>
+                <input type="checkbox" checked> Fog of war
+            </label>
+        </div>
         <div class="col-lg-4">
             <button class="btn btn-primary" id="new-level">New Level</button>
         </div>
