@@ -15,6 +15,7 @@
 
     ], paths: {
         'jquery': 'vendor/jquery/jquery',
+        'jqueryui': 'vendor/jqueryui/jqueryui.min',
         'underscore': 'vendor/lodash/lodash',
         'backbone': 'vendor/backbone-amd/backbone',
         'bootstrap': 'vendor/bootstrap/bootstrap',

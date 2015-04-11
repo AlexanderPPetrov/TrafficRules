@@ -12,7 +12,7 @@ Backbone.widget({
     },
 
     loaded: function () {
-
+        $(".base-container").draggable();
 
     },
 
@@ -29,6 +29,7 @@ Backbone.widget({
     },
 
     newLevel: function () {
+        $('.fog-of-war input').prop('checked', true);
         var rows = this.$el.find('#new-level-rows').val();
         var cols = this.$el.find('#new-level-cols').val();
         this.fire('NEW_LEVEL',{rows: rows, cols: cols});
@@ -44,4 +45,4 @@ Backbone.widget({
 
 
 
-}, ['map']);
+}, ['map','jqueryui']);

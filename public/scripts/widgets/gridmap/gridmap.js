@@ -109,10 +109,10 @@ Backbone.widget({
         var pX = posX,
             pY = posY;
 
-        // reveal wherever we drag
+        // reveal wherever we move
         var radGrd = ctx.createRadialGradient(pX, pY, r1, pX, pY, r2);
         radGrd.addColorStop(0, 'rgba( 0, 0, 0,  1 )');
-        radGrd.addColorStop(density, 'rgba( 0, 0, 0, .1 )');
+        radGrd.addColorStop(density, 'rgba( 0, 0, 0, .3 )');
         radGrd.addColorStop(1, 'rgba( 0, 0, 0,  0 )');
 
         ctx.fillStyle = radGrd;
