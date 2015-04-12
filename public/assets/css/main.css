@@ -426,6 +426,6 @@ h1, .h1 {
 .edit-menu .image-preview {
     width: 100%;
     border: 1px solid rgba(0,0,0,0.2);
-    background: rgba(0,0,0,0.2);
+    background: rgba(0,0,0,0.4);
     padding: 5px;
 }

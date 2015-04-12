@@ -302,7 +302,7 @@ Backbone.widget({
     },
 
     replaceImage: function(imageSrc){
-        console.log('asdasd')
+        if( this.selected == null) { return };
         this.selected.find('.house').attr('src', imageSrc);
     },
 
