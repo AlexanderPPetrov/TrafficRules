@@ -185,10 +185,10 @@ Backbone.widget({
             for (var j = 0; j < mapMatrix[i].length; j++) {
 
                 //Set attributes posx and posy to .base-grid
-                var $row = $(this.$el.find('.r').get(j));
-                var $col = $($row.find('.base-grid').get(i));
-                $col.attr({"posx": i, "posy": j});
-                $col.css({'left': this.boxSize*i + 15, 'top': this.boxSize*j +15})
+                var $row = $(this.$el.find('.r').get(i));
+                var $col = $($row.find('.base-grid').get(j));
+                $col.attr({"posx": j, "posy": i});
+                $col.css({'left': this.boxSize*j + 15, 'top': this.boxSize*i +15})
                 var currentTile = mapMatrix[i][j]
                 if (currentTile == 1) {
                     var roadTile = [];
