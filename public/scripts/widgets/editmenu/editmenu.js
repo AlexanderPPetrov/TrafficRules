@@ -6,6 +6,8 @@ Backbone.widget({
         // Map control
         'change #select-tile':'changeImagePreview',
         'click #replace-image':'replaceImage',
+        'click #rotate-image':'rotateImage',
+        'click #remove-image':'removeImage',
         'click #new-level': 'newLevel',
         'click #load-level': 'loadLevel'
 
@@ -35,9 +37,15 @@ Backbone.widget({
         this.$el.find('.image-preview').attr('src',this.$el.find('#select-tile').val())
     },
 
-    replaceImage: function(){
-        console.log('asd');
+    removeImage: function(){
+        this.fire('REMOVE_IMAGE')
+    },
 
+    rotateImage: function(){
+        this.fire('ROTATE_IMAGE')
+    },
+
+    replaceImage: function(){
         this.fire('REPLACE_IMAGE', this.$el.find('#select-tile').val())
     }
 

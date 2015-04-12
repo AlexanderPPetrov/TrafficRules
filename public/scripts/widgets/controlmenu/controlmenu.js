@@ -13,7 +13,6 @@ Backbone.widget({
 
     loaded: function () {
         $(".base-container").draggable();
-
     },
 
     render: function () {
@@ -28,7 +27,7 @@ Backbone.widget({
         }
     },
 
-    newLevel: function () {
+    newLevel: function (e) {
         $('.fog-of-war input').prop('checked', false);
         var rows = this.$el.find('#new-level-rows').val();
         var cols = this.$el.find('#new-level-cols').val();

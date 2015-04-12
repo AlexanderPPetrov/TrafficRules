@@ -10,7 +10,7 @@
     position:absolute;
 }
 .base-grid {
-
+    position:absolute;
 }
 /*.house{*/
     /*-moz-transform:  matrix(0.666667, 0.66667, -2, 2, 46, -58);*/
@@ -46,6 +46,11 @@ canvas{
     z-index: 9;
     border: 1px dashed white;
 }
+
+.selected-map-object {
+    opacity:0.6;
+}
+
 .selected-inner {
     width: 100%;
     height: 100%;
@@ -76,7 +81,6 @@ canvas{
 
 #grid-container .block{
     background: #A19C73;
-    float: left;
     z-index: 1;
     cursor: pointer;
 }
