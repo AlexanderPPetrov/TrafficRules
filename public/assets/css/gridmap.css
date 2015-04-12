@@ -26,6 +26,9 @@ canvas{
     z-index: 1000;
     pointer-events: none;
 }
+.fog {
+    display:none;
+}
 
 
 .base-grid-marker{
@@ -36,6 +39,19 @@ canvas{
     box-shadow: inset 0px 0px 5px 0px rgba(233,255,28,1);
     border:1px dashed yellow;
     border-radius:10px;
+}
+.base-grid-selected {
+    position: absolute;
+    background: rgba(254, 255, 0, 0.3);
+    z-index: 9;
+    border: 1px dashed white;
+}
+.selected-inner {
+    width: 100%;
+    height: 100%;
+    background: rgba(65, 255, 0, 0.2);
+    padding: 15px;
+    border: 5px solid green;
 }
 
 .move-arrow {

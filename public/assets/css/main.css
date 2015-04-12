@@ -1,7 +1,7 @@
 body {
-    background: #c6c6c6;
-
+    background: #2a6200;
 }
+
 
 h1, .h1 {
     font-size: 70px;
@@ -333,27 +333,61 @@ h1, .h1 {
 }
 
 
-/*
-
-    Info container css
-
-*/
 
 .base-container {
-    position: absolute; right: 0; z-index: 999999;
+    position: fixed;
+    z-index: 999999;
     width:100%;
-    padding:15px;
+    padding-bottom:15px;
     min-height:100px;
     background: rgba(40, 40, 40, 0.4);
     border: 1px solid rgba(0,0,0,0.1);
     color:#BDBDBD;
     margin-bottom: 15px;
 }
+.base-container label{
+    font-size: 14px;
+    font-weight: normal;
+    text-shadow: -1px 1px 3px rgba(0,0,0,0.5);
+}
+
+.base-container p {
+    padding-left: 15px;
+    color: rgb(255, 194, 0);
+    text-shadow: -1px 1px 3px rgba(0,0,0,0.5);
+}
+.base-container h3{
+    width: 100%;
+    height: 100%;
+    display: block;
+    background: rgba(0,0,0,0.1);
+    padding: 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    margin: 0;
+    font-size: 14px;
+}
+.base-container .text-container {
+    padding: 3px;
+    background: rgb(48, 48, 48);
+    border: 1px solid rgba(0,0,0,0.1);
+    min-width: 30px;
+    height: 27px;
+    margin-left: 11px;
+    margin-top: -3px;
+}
+
+/*
+    Info container css
+*/
+
 
 .info-container {
+    right:0;
     font-weight: bold;
     color: rgb(253, 255, 163);
     text-shadow: 1px 1px 3px #2A2A2A;
+    width: 350px;
+    padding:15px;
 }
 
 .no-select {
@@ -371,6 +405,9 @@ h1, .h1 {
 
 */
 
+.control-menu {
+    width:350px;
+}
 .control-menu-select {
     padding: 3px;
     background: rgb(48, 48, 48);
@@ -380,7 +417,15 @@ h1, .h1 {
 .control-menu-row {
     margin-top: 15px;
 }
-.control-menu p {
-    padding-left: 15px;
-    color: rgb(255, 194, 0);
+
+.edit-menu {
+    top:101px;
+    right:0;
+}
+
+.edit-menu .image-preview {
+    width: 100%;
+    border: 1px solid rgba(0,0,0,0.2);
+    background: rgba(0,0,0,0.2);
+    padding: 5px;
 }

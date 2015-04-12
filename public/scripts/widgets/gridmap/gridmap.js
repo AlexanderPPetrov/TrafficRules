@@ -9,18 +9,20 @@ Backbone.widget({
         x: 0,
         y: 0
     },
+    selected: null,
 
 
     events: {
         'click .map-object': 'displayInfoText',
         'click .move-arrow': 'movePlayer',
         'mouseenter .base-grid': 'showSelection',
+        'click .block': 'selectTile',
         'mouseleave .base-grid': 'hideSelection'
     },
 
     listen: {
         'NEW_LEVEL': 'newLevel',
-        'MOVE_TO_NEXT': 'moveToNext'
+        'REPLACE_IMAGE': 'replaceImage'
 
     },
 
@@ -104,7 +106,7 @@ Backbone.widget({
             r1 = this.boxSize,
             r2 = this.boxSize * 3,
             density = .4,
-            hideFill = 'rgba( 0, 0, 0, .7 )'
+            hideFill = 'rgba( 0, 0, 0, .3 )'
 
         var pX = posX,
             pY = posY;
@@ -136,7 +138,7 @@ Backbone.widget({
     },
 
     getMapMatrix: function (colCount, rowCount) {
-        this.roadTiles = [];
+
         var mapMatrix = [];
 
         var $tiles = this.$el.find('#grid-container').find('.base-grid');
@@ -160,6 +162,12 @@ Backbone.widget({
         var roadTiles = [];
         for (var i = 0; i < mapMatrix.length; i++) {
             for (var j = 0; j < mapMatrix[i].length; j++) {
+
+                //Set attributes posx and posy to .base-grid
+                var $row = $(this.$el.find('.r').get(j));
+                var $col = $($row.find('.base-grid').get(i));
+                $col.attr({"posx": i, "posy": j});
+
                 var currentTile = mapMatrix[i][j]
                 if (currentTile == 1) {
                     var roadTile = [];
@@ -186,7 +194,7 @@ Backbone.widget({
         // If first or last row -> Entrance | and Exit | road tiles
         roadTiles[0] = [1, 1, 0, 0];
         roadTiles[roadTiles.length - 1] = [1, 1, 0, 0];
-
+        this.roadTiles = [];
         for (var k = 0; k < roadTiles.length; k++) {
             this.roadTiles.push(this.getRoadTileImage(roadTiles[k]));
         }
@@ -277,6 +285,25 @@ Backbone.widget({
 
         this.$el.find('.grid-image').css({'width': this.boxSize, 'height': this.boxSize})
 
+    },
+
+    selectTile: function(e){
+        this.selected = $(e.currentTarget);
+        this.$el.find('.base-grid-selected').remove();
+        this.selected.prepend('<div class="base-grid-selected"><div class="selected-inner"></div></div>');
+        this.$el.find('.base-grid-selected').last().css({'width':this.boxSize, 'height': this.boxSize})
+
+        var blockData = {};
+        blockData.x = this.selected.attr('posx');
+        blockData.y = this.selected.attr('posy');
+        blockData.image = this.selected.find('.house').attr('src');
+        this.fire('BLOCK_SELECTED', blockData);
+
+    },
+
+    replaceImage: function(imageSrc){
+        console.log('asdasd')
+        this.selected.find('.house').attr('src', imageSrc);
     },
 
     showSelection: function (e) {
@@ -384,16 +411,6 @@ Backbone.widget({
 
             }
         }
-    },
-
-    moveToNext: function () {
-
-        this.currentPlayerPosition++;
-        if (this.currentPlayerPosition == $('#grid-container').find('.road').length) {
-            this.currentPlayerPosition = 0;
-        }
-        this.placePlayer(this.currentPlayerPosition, 'car_01.png');
     }
-
 
 }, ['map']);
