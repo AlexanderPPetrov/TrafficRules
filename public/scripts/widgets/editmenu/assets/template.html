@@ -2,12 +2,18 @@
     <h3>Edit menu</h3>
     <div class="col-lg-12">
         <div class="row control-menu-row">
-            <p>Selected tile</p>
+            <p>
+                Selected tile
+                <span class="pull-right" style="margin-right: 10px;"> Info text</span>
+            </p>
 
             <div class="col-lg-4">
                 <img class="image-preview" src="assets/img/houses/h_01.png">
             </div>
-            <div class="col-lg-8 text-left" style="padding:4px;">
+            <div class="col-lg-8 text-left" style="padding:4px;margin-top: -4px;">
+                <textarea id="edit-info-text" rows="4" cols="27" style="width: 100%;">
+
+                </textarea>
                 <select id="select-tile" class="control-menu-select" style="width:100%;">
                     <option value="assets/img/houses/h_01.png">House 1</option>
                     <option value="assets/img/houses/h_02.png">House 2</option>
@@ -16,17 +22,17 @@
                     <option value="assets/img/buildings/test.png">Test</option>
                 </select>
             </div>
-            <div class="col-lg-8" style="padding:4px;">
-                <div class="selected-y pull-right text-container"></div>
-                <label class="pull-right" style="margin-left: 15px;">PosY:</label>
-                <div class="selected-x pull-right text-container"></div>
-                <label class="pull-right">PosX:</label>
+            <div class="col-lg-4">
+                <button class="btn btn-primary pull-left" id="rotate-image" style="width:100%;">Rotate</button>
             </div>
-
-            <div class="col-lg-8 " style="padding:4px; margin-top:10px;">
-                <button class="btn btn-primary pull-left" id="rotate-image">Rotate</button>
-                <button class="btn btn-primary pull-right" id="replace-image">Replace</button>
-                <button class="btn btn-primary pull-right" id="remove-image">Remove</button>
+            <div class="col-lg-8" style="padding:4px;">
+                <div style="margin-top:3px;">
+                    <label class="pull-left">PosX:</label>
+                    <div class="selected-x pull-left text-container"></div>
+                    <label class="pull-left" style="margin-left: 15px;">PosY:</label>
+                    <div class="selected-y pull-left text-container"></div>
+                </div>
+                <button class="btn btn-primary pull-right" id="remove-image" style="position: absolute; top: 0; right: 5px;"><i class="fa fa-times"></i></button>
             </div>
 
         </div>

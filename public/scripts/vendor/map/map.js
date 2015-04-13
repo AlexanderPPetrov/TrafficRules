@@ -4,6 +4,7 @@ Map = (function() {
     var carved, cell, cells, dir, index, nx, ny, nz, x, y, z, _i, _len, _ref;
     this.width = width;
     this.height = height;
+    if(!depth) depth = 1;
     this.depth = depth;
     this.grid = (function() {
       var _ref, _results;
@@ -214,8 +215,33 @@ Map.generate = function(id, width, height, depth) {
   var element;
   element = document.getElementById(id);
   element.innerHTML = new Map(width, height, depth).toHTML();
+
+
   return element;
 };
+
+Map.getMapMatrix = function(rowCount, colCount){
+
+    var map = new Map((colCount-1)*0.5, (rowCount-1)*0.5).toHTML();
+    var mapMatrix = [];
+
+    var $tiles = $(map).find('.road, .block');
+    var tilesIndex = 0;
+    for (var i = 0; i < rowCount; i++) {
+        mapMatrix[i] = [];
+        for (var j = 0; j < colCount; j++) {
+            if ($($tiles[tilesIndex]).hasClass('block')) {
+                mapMatrix[i][j] = 0;
+            } else mapMatrix[i][j] = 1;
+
+            tilesIndex++;
+        }
+    }
+
+    return mapMatrix;
+}
+
+
 showLevel = function(z) {
   var element;
   element = document.getElementById("level_" + z);

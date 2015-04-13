@@ -5,7 +5,7 @@ Backbone.widget({
     events: {
         // Map control
         'change #select-tile':'changeImagePreview',
-        'click #replace-image':'replaceImage',
+        'change #edit-info-text':'setInfoText',
         'click #rotate-image':'rotateImage',
         'click #remove-image':'removeImage',
         'click #new-level': 'newLevel',
@@ -14,7 +14,8 @@ Backbone.widget({
     },
 
     listen: {
-        'BLOCK_SELECTED': 'blockSelected'
+        'BLOCK_SELECTED': 'blockSelected',
+        'DISPLAY_INFO': 'displayInfoText'
     },
 
     loaded: function () {
@@ -33,8 +34,17 @@ Backbone.widget({
         this.$el.find('.image-preview').attr('src', blockData.image)
 
     },
+    displayInfoText: function(infoText){
+        this.$el.find('#edit-info-text').val(infoText);
+    },
+
     changeImagePreview: function(){
         this.$el.find('.image-preview').attr('src',this.$el.find('#select-tile').val())
+        this.fire('REPLACE_IMAGE', this.$el.find('#select-tile').val())
+    },
+
+    setInfoText: function(e){
+        this.fire('SET_INFO_TEXT', $(e.currentTarget).val());
     },
 
     removeImage: function(){
@@ -43,10 +53,6 @@ Backbone.widget({
 
     rotateImage: function(){
         this.fire('ROTATE_IMAGE')
-    },
-
-    replaceImage: function(){
-        this.fire('REPLACE_IMAGE', this.$el.find('#select-tile').val())
     }
 
 

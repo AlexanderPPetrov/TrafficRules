@@ -375,6 +375,16 @@ h1, .h1 {
     margin-left: 11px;
     margin-top: -3px;
 }
+.base-container input[type="text"] {
+    padding: 6px 12px;
+    background: rgb(48, 48, 48);
+    border: 1px solid rgba(0,0,0,0.1);
+    width: 100%;
+}
+.base-container textarea {
+    background: rgb(48, 48, 48);
+    border: 1px solid rgba(0,0,0,0.1);
+}
 
 /*
     Info container css
@@ -419,7 +429,6 @@ h1, .h1 {
 }
 
 .edit-menu {
-    top:101px;
     right:0;
 }
 

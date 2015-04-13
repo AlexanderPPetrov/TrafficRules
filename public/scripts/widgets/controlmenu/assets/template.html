@@ -13,7 +13,7 @@
         <div class="col-lg-4">
             <button class="btn btn-primary" id="new-level">New Level</button>
         </div>
-        <div class="col-lg-4 text-left" style="padding:4px;">
+        <div class="col-lg-4 text-left" style="padding: 3px 10px;">
             <label>Rows:</label>
             <select id="new-level-rows" class="control-menu-select">
                 <option value="2">5</option>
@@ -27,7 +27,7 @@
                 <option value="10">21</option>
             </select>
         </div>
-        <div class="col-lg-4 text-left" style="padding:4px;">
+        <div class="col-lg-4 text-right" style="padding: 3px 15px;">
             <label>Cols:</label>
             <select id="new-level-cols" class="control-menu-select">
                 <option value="2">5</option>
@@ -43,8 +43,16 @@
         </div>
     </div>
     <div class="row control-menu-row">
+        <div class="col-lg-8">
+            <input id="map-name" type="text" placeholder="Name"/>
+        </div>
         <div class="col-lg-4">
-            <button class="btn btn-primary" id="load-level">Load Level</button>
+            <button class="btn btn-primary" id="save-map" style="width:100%;">Save</button>
+        </div>
+    </div>
+    <div class="row control-menu-row">
+        <div class="col-lg-4">
+            <button class="btn btn-primary" id="load-map">Load Map</button>
         </div>
     </div>
     <div class="row control-menu-row">

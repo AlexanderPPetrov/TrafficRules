@@ -6,7 +6,8 @@ Backbone.widget({
         // Map control
         'change .fog-of-war input':'triggerFog',
         'click #new-level': 'newLevel',
-        'click #load-level': 'loadLevel',
+        'click #load-map': 'loadMap',
+        'click #save-map': 'saveMap',
         //Player controls
         'click #move-to-next': 'moveToNext'
     },
@@ -34,9 +35,19 @@ Backbone.widget({
         this.fire('NEW_LEVEL',{rows: rows, cols: cols});
     },
 
-    loadLevel: function(){
-
+    saveMap: function(){
+        var mapName = this.$el.find('#map-name').val();
+        if(mapName != ''){
+            this.fire('SAVE_MAP', mapName);
+            this.$el.find('#map-name').val('');
+        }
     },
+
+    loadMap: function(){
+        this.fire('LOAD_MAP');
+    },
+
+
 
     moveToNext: function(){
         this.fire('MOVE_TO_NEXT');
