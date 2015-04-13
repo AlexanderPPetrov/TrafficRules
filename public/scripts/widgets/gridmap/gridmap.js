@@ -93,7 +93,9 @@ Backbone.widget({
         $('#grid-container').find('.road, .block').addClass('base-grid');
 
         this.mapTiles(this.mapMatrix);
-        this.renderRoadAndGrass();
+        this.renderGrass();
+        this.renderHouses();
+        this.renderRoadTiles();
         this.setIndexes();
         this.initFogOfWar();
         this.placePlayer({x: 0, y: 1}, 'assets/img/models/car_01_E.png');
@@ -310,7 +312,7 @@ Backbone.widget({
         return roadTileImage;
     },
 
-    renderRoadAndGrass: function () {
+    renderGrass: function () {
 
         this.$el.find('.block').each(function () {
             var randomGrass = Math.floor((Math.random() * 5) + 1);
@@ -318,15 +320,19 @@ Backbone.widget({
             $(this).append(grass);
 
         })
-        this.renderHouses();
 
+
+
+
+    },
+    
+    renderRoadTiles: function(){
         var context = this;
         this.$el.find('.road').each(function (index, roadTile) {
             $(roadTile).addClass(context.roadTiles[index])
         })
 
         this.$el.find('.grid-image').css({'width': this.boxSize, 'height': this.boxSize})
-
     },
 
     renderHouses: function(e){
@@ -341,6 +347,25 @@ Backbone.widget({
             var inversedOffsetX = Math.floor(-context.boxSize) - 5;
             var offsetY = context.boxSize - 5;
             var matrix = 'matrix(1, 1, -3, 3, ' + offsetY + ',' + inversedOffsetX + ')';
+            $lastPlaced.css('transform', matrix);
+        })
+    },
+
+    loadBuildings: function(images){
+        var context = this;
+        this.$el.find('.block').each(function (index, block) {
+            var currentImage = images[index];
+            var house = '<div class="map-object" style="width:' + context.boxSize + 'px; height:' + context.boxSize + 'px;" data-info="'+ currentImage.info +'"><img class="grid-image house" src="'+ currentImage.src +'" style="width:' + context.boxSize + 'px; pointer-events:none;" /></div>'
+            $(block).append(house);
+
+            var $lastPlaced = context.$el.find('.house').last();
+            var inversedOffsetX = Math.floor(-context.boxSize) - 5;
+            var offsetY = context.boxSize - 5;
+            var matrix = 'matrix(1, 1, -3, 3, ' + offsetY + ',' + inversedOffsetX + ')';
+            if(currentImage.rotation){
+                matrix = 'matrix(-1, -1, -3, 3, ' + offsetY + ',' + inversedOffsetX + ')';
+
+            }
             $lastPlaced.css('transform', matrix);
         })
     },
@@ -536,7 +561,9 @@ Backbone.widget({
 
 
                 this.mapTiles(this.mapMatrix);
-                this.renderRoadAndGrass();
+                this.renderGrass();
+                this.loadBuildings(response.images);
+                this.renderRoadTiles();
                 this.setIndexes();
                 this.initFogOfWar();
                 var playerX = parseInt(response.player.posx)
