@@ -16,6 +16,7 @@
     ], paths: {
         'jquery': 'vendor/jquery/jquery',
         'jqueryui': 'vendor/jqueryui/jqueryui.min',
+        'spritely':"vendor/spritely/spritely",
         'underscore': 'vendor/lodash/lodash',
         'backbone': 'vendor/backbone-amd/backbone',
         'bootstrap': 'vendor/bootstrap/bootstrap',
