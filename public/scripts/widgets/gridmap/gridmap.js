@@ -23,23 +23,19 @@ Backbone.widget({
     },
 
     listen: {
-        'NEW_LEVEL': 'newLevel',
+        'NEW_LEVEL': 'newMap',
         'ROTATE_IMAGE': 'rotateImage',
         'REPLACE_IMAGE': 'replaceImage',
         'SET_INFO_TEXT': 'setInfoText',
         'REMOVE_IMAGE': 'removeImage',
         'ENABLE_DESELECT': 'enableDeselect',
         'DISABLE_DESELECT': 'disableDeselect',
+        'GET_COORDINATES': 'getCoordinates',
         'SAVE_MAP': 'saveMap',
         'LOAD_MAP': 'loadMap'
 
     },
 
-    newLevel: function (data) {
-        this.rowCount = data.rows;
-        this.columnCount = data.cols;
-        this.render();
-    },
 
     loaded: function () {
         //TODO enable deselect on mouseup outside of the map
@@ -47,22 +43,7 @@ Backbone.widget({
         this.render();
     },
 
-    enableDeselect: function(){
-        var context = this;
-        $("HTML").on('mouseup', function(e){
-            var container = $(".grid-map-transform");
-            if (!container.is(e.target) && container.has(e.target).length === 0){
-                context.deselectTile();
-            }
-        });
-    },
-
-    disableDeselect: function(){
-        $("HTML").off('mouseup')
-    },
-
     render: function () {
-
 
         this.renderTemplate({
             template: 'gridmap',
@@ -74,14 +55,51 @@ Backbone.widget({
         })
     },
 
+    newMap: function (data) {
+        this.rowCount = parseInt(data.rows);
+        this.columnCount = parseInt(data.cols);
+        this.render();
+    },
+
+    enableDeselect: function () {
+        var context = this;
+        $("HTML").on('mouseup', function (e) {
+            var container = $(".grid-map-transform");
+            if (!container.is(e.target) && container.has(e.target).length === 0) {
+                context.deselectTile();
+            }
+        });
+    },
+
+    disableDeselect: function () {
+        $("HTML").off('mouseup')
+    },
+
     setGridSize: function () {
-        this.boxSize = Math.floor(this.$el.find('#grid-container').width() / (this.columnCount * 2 + 1));
+        console.log(this.columnCount, this.rowCount)
+        var factor = this.columnCount * 2 + 1
+        if (this.columnCount < this.rowCount) {
+            factor = this.rowCount * 2 + 1;
+
+        }
+        this.boxSize = Math.floor(this.$el.find('#grid-container').width() / factor);
         this.rowWidthPx = (this.columnCount * 2 + 1) * this.boxSize;
         this.rowHeight = this.boxSize;
+
+        var marginTop = (this.columnCount - this.rowCount)*this.boxSize;
+        $('.grid-map-transform').css('marginTop', marginTop);
+    },
+
+    getCoordinates: function () {
+        var coordinatesData = {};
+        coordinatesData.gridSize = this.boxSize;
+        coordinatesData.cols = this.rowCount * 2 + 1;
+        coordinatesData.rows = this.columnCount * 2 + 1;
+        this.fire('SHOW_COORDINATES', coordinatesData);
     },
 
     initializeMap: function () {
-        this.mapMatrix = Map.getMapMatrix(this.rowCount * 2 + 1,this.columnCount * 2 + 1 );
+        this.mapMatrix = Map.getMapMatrix(this.rowCount * 2 + 1, this.columnCount * 2 + 1);
         this.definePath(this.mapMatrix);
 
         $('#grid-container').find('.r').css({'width': this.rowWidthPx, 'height': this.rowHeight});
@@ -103,7 +121,7 @@ Backbone.widget({
 
     },
 
-    definePath: function(mapMatrix){
+    definePath: function (mapMatrix) {
         var $container = this.$el.find('#grid-container');
 
         for (var i = 0; i < mapMatrix.length; i++) {
@@ -116,9 +134,7 @@ Backbone.widget({
                     $container.find('.r').last().append('<div class="road"></div>')
                 }
 
-
             }
-            console.log(mapMatrix[i])
         }
     },
 
@@ -185,7 +201,7 @@ Backbone.widget({
 
     getMapMatrix: function (colCount, rowCount) {
 
-        if(this.mapMatrix != null){
+        if (this.mapMatrix != null) {
             return this.mapMatrix;
         }
         var mapMatrix = [];
@@ -216,7 +232,7 @@ Backbone.widget({
                 var $row = $(this.$el.find('.r').get(i));
                 var $col = $($row.find('.base-grid').get(j));
                 $col.attr({"posx": j, "posy": i});
-                $col.css({'left': this.boxSize*j + 15, 'top': this.boxSize*i +15})
+                $col.css({'left': this.boxSize * j, 'top': this.boxSize * i})
                 var currentTile = mapMatrix[i][j]
                 if (currentTile == 1) {
                     var roadTile = [];
@@ -249,10 +265,10 @@ Backbone.widget({
         }
     },
 
-    setIndexes: function(){
-        this.$el.find('.r').each(function(){
-            $(this).find($('.base-grid').get().reverse()).each(function(index,gridTile){
-                $(gridTile).css('zIndex',index);
+    setIndexes: function () {
+        this.$el.find('.r').each(function () {
+            $(this).find($('.base-grid').get().reverse()).each(function (index, gridTile) {
+                $(gridTile).css('zIndex', index);
             })
         })
     },
@@ -313,20 +329,15 @@ Backbone.widget({
     },
 
     renderGrass: function () {
-
         this.$el.find('.block').each(function () {
             var randomGrass = Math.floor((Math.random() * 5) + 1);
             var grass = '<img class="grid-image" src="assets/img/grass/' + 1 + '.jpg"/>'
             $(this).append(grass);
 
         })
-
-
-
-
     },
-    
-    renderRoadTiles: function(){
+
+    renderRoadTiles: function () {
         var context = this;
         this.$el.find('.road').each(function (index, roadTile) {
             $(roadTile).addClass(context.roadTiles[index])
@@ -335,7 +346,7 @@ Backbone.widget({
         this.$el.find('.grid-image').css({'width': this.boxSize, 'height': this.boxSize})
     },
 
-    renderHouses: function(e){
+    renderHouses: function (e) {
         var context = this;
         this.$el.find('.block').each(function () {
             var houseNumber = context.zeroFill(Math.floor((Math.random() * 3) + 1), 2);
@@ -351,18 +362,18 @@ Backbone.widget({
         })
     },
 
-    loadBuildings: function(images){
+    loadBuildings: function (images) {
         var context = this;
         this.$el.find('.block').each(function (index, block) {
             var currentImage = images[index];
-            var house = '<div class="map-object" style="width:' + context.boxSize + 'px; height:' + context.boxSize + 'px;" data-info="'+ currentImage.info +'"><img class="grid-image house" src="'+ currentImage.src +'" style="width:' + context.boxSize + 'px; pointer-events:none;" /></div>'
+            var house = '<div class="map-object" style="width:' + context.boxSize + 'px; height:' + context.boxSize + 'px;" data-info="' + currentImage.info + '"><img class="grid-image house" src="' + currentImage.src + '" style="width:' + context.boxSize + 'px; pointer-events:none;" /></div>'
             $(block).append(house);
 
             var $lastPlaced = context.$el.find('.house').last();
             var inversedOffsetX = Math.floor(-context.boxSize) - 5;
             var offsetY = context.boxSize - 5;
             var matrix = 'matrix(1, 1, -3, 3, ' + offsetY + ',' + inversedOffsetX + ')';
-            if(currentImage.rotation){
+            if (currentImage.rotation) {
                 matrix = 'matrix(-1, -1, -3, 3, ' + offsetY + ',' + inversedOffsetX + ')';
 
             }
@@ -370,14 +381,14 @@ Backbone.widget({
         })
     },
 
-    selectTile: function(e){
+    selectTile: function (e) {
         this.selected = $(e.currentTarget);
         this.$el.find('.base-grid-selected').remove();
         this.$el.find('.selected-map-object').removeClass('selected-map-object');
 
         this.selected.find('.map-object').addClass('selected-map-object');
         this.selected.prepend('<div class="base-grid-selected"><div class="selected-inner"></div></div>');
-        this.$el.find('.base-grid-selected').last().css({'width':this.boxSize, 'height': this.boxSize})
+        this.$el.find('.base-grid-selected').last().css({'width': this.boxSize, 'height': this.boxSize})
 
         var blockData = {};
         blockData.x = this.selected.attr('posx');
@@ -387,36 +398,56 @@ Backbone.widget({
 
     },
 
-    deselectTile: function(){
+    deselectTile: function () {
         this.selected = null;
         this.$el.find('.base-grid-selected').remove();
         this.$el.find('.selected-map-object').removeClass('selected-map-object');
     },
 
-    rotateImage: function(){
-        if(this.selected == null) return;
+    rotateImage: function () {
+        if (this.selected == null) return;
         var currentMatrix = this.selected.find('.house').css('transform');
-            var values = currentMatrix.split('(')[1];
-            values = values.split(')')[0];
-            values = values.split(',');
-            var a = values[0]; var b = values[1]; var c = values[2]; var d = values[3]; var e = values[4]; var f = values[5];
-        if(a == '1'){a = '-1'; b = '-1';}else{a = '1';b = '1';}
-        var newMatrix = 'matrix('+ a +','+ b +','+ c +','+ d +','+ e +','+ f + ')'
+        var values = currentMatrix.split('(')[1];
+        values = values.split(')')[0];
+        values = values.split(',');
+        var a = values[0];
+        var b = values[1];
+        var c = values[2];
+        var d = values[3];
+        var e = values[4];
+        var f = values[5];
+        if (a == '1') {
+            a = '-1';
+            b = '-1';
+        } else {
+            a = '1';
+            b = '1';
+        }
+        var newMatrix = 'matrix(' + a + ',' + b + ',' + c + ',' + d + ',' + e + ',' + f + ')'
         this.selected.find('.house').css('transform', newMatrix);
     },
 
-    replaceImage: function(imageSrc){
-        if( this.selected == null) { return };
+    replaceImage: function (imageSrc) {
+        if (this.selected == null) {
+            return
+        }
+        ;
         this.selected.find('.house').attr('src', imageSrc);
     },
 
-    setInfoText: function(infoText){
-        if( this.selected == null) { return };
+    setInfoText: function (infoText) {
+        if (this.selected == null) {
+            return
+        }
+        ;
         this.selected.find('.house').parent().attr('data-info', infoText);
     },
 
-    removeImage: function(){
-        if( this.selected == null) { return };
+    removeImage: function () {
+        if (this.selected == null) {
+            return
+        }
+        ;
         this.selected.find('.house').remove();
     },
 
@@ -467,8 +498,8 @@ Backbone.widget({
     },
 
     placePlayer: function (position, model) {
-        var fogPosX = (position.x * this.boxSize) + this.boxSize + 15,
-            fogPosY = (position.y * this.boxSize) + this.boxSize + 15
+        var fogPosX = (position.x * this.boxSize) + this.boxSize,
+            fogPosY = (position.y * this.boxSize) + this.boxSize
 
         this.revealFog(fogPosX, fogPosY);
         this.$el.find('.player').fadeOut(function () {
@@ -527,7 +558,7 @@ Backbone.widget({
         }
     },
 
-    saveMap: function(mapName){
+    saveMap: function (mapName) {
 
         var dataParams = {};
         dataParams.mapName = mapName;
@@ -536,7 +567,7 @@ Backbone.widget({
 
     },
 
-    loadMap: function(){
+    loadMap: function () {
         var mapName = 'savedMap.json'
         this.ajaxRequest({
             url: 'webservices/' + mapName,
@@ -573,37 +604,37 @@ Backbone.widget({
         });
     },
 
-    getMapData: function(){
+    getMapData: function () {
         var mapData = {};
         var mapMatrix = this.getMapMatrix(this.columnCount * 2 + 1, this.rowCount * 2 + 1);
 
-            mapData.mapMatrix = [];
-            mapData.images = [];
+        mapData.mapMatrix = [];
+        mapData.images = [];
 
-            _.each(mapMatrix, function(row){
-                mapData.mapMatrix.push(row);
-            })
+        _.each(mapMatrix, function (row) {
+            mapData.mapMatrix.push(row);
+        })
 
-            this.$el.find('.house').each(function(){
-                var imageData = {};
-                imageData.src = $(this).attr('src');
-                var currentMatrix = $(this).css('transform');
-                var values = currentMatrix.split('(')[1];
-                values = values.split(')')[0];
-                values = values.split(',');
-                var a = values[0];
-                if(a == '-1'){
-                    imageData.rotation = -1;
-                }
-                imageData.info = $(this).parent().attr('data-info');
-                mapData.images.push(imageData);
+        this.$el.find('.house').each(function () {
+            var imageData = {};
+            imageData.src = $(this).attr('src');
+            var currentMatrix = $(this).css('transform');
+            var values = currentMatrix.split('(')[1];
+            values = values.split(')')[0];
+            values = values.split(',');
+            var a = values[0];
+            if (a == '-1') {
+                imageData.rotation = -1;
+            }
+            imageData.info = $(this).parent().attr('data-info');
+            mapData.images.push(imageData);
 
-            })
+        })
 
-            mapData.player = {};
-            mapData.player.image = this.$el.find('.player').find('img').attr('src');
-            mapData.player.posx = this.currPlayerPos.x;
-            mapData.player.posy = this.currPlayerPos.y;
+        mapData.player = {};
+        mapData.player.image = this.$el.find('.player').find('img').attr('src');
+        mapData.player.posx = this.currPlayerPos.x;
+        mapData.player.posy = this.currPlayerPos.y;
 
         return JSON.stringify(mapData);
     }

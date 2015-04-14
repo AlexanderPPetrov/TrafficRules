@@ -1,5 +1,5 @@
 body {
-    background: #2a6200;
+    background: #000;
 }
 
 
@@ -9,7 +9,24 @@ h1, .h1 {
     text-shadow: -3px 1px 1px rgba(0,0,0,0.5);
 }
 
+/*
+    bootstrap overwrite
+*/
+.btn-primary {
+    color: #fff;
+    background-color: #0E7920;
+    border-color: #089143;
+    border-radius:2px;
+}
 
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open .dropdown-toggle.btn-primary {
+    color: #fff;
+    background-color: #0F8622;
+    border-color: #08C158;
+}
+/*
+---------------------------
+*/
 
 .selected-role-container{
     position:absolute;
@@ -340,7 +357,7 @@ h1, .h1 {
     width:100%;
     padding-bottom:15px;
     min-height:100px;
-    background: rgba(40, 40, 40, 0.4);
+    background: rgba(60, 60, 60, 0.4);
     border: 1px solid rgba(0,0,0,0.1);
     color:#BDBDBD;
     margin-bottom: 15px;

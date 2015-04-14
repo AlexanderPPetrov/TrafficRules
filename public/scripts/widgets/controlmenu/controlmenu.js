@@ -4,7 +4,8 @@ Backbone.widget({
 
     events: {
         // Map control
-        'change .fog-of-war input':'triggerFog',
+        'change .toggle-fog input':'toggleFog',
+        'change .toggle-coordinates input':'toggleCoordinates',
         'click #new-level': 'newLevel',
         'click #load-map': 'loadMap',
         'click #save-map': 'saveMap',
@@ -20,7 +21,7 @@ Backbone.widget({
 
     },
 
-    triggerFog: function(e){
+    toggleFog: function(e){
         if($(e.currentTarget).is(':checked')){
             $('.fog').show();
         }else{
@@ -28,8 +29,16 @@ Backbone.widget({
         }
     },
 
+    toggleCoordinates: function(e){
+        if($(e.currentTarget).is(':checked')){
+            this.fire('GET_COORDINATES');
+        }else{
+            this.fire('HIDE_COORDINATES')
+        }
+    },
+
     newLevel: function (e) {
-        $('.fog-of-war input').prop('checked', false);
+        $('.toggle-fog input').prop('checked', false);
         var rows = this.$el.find('#new-level-rows').val();
         var cols = this.$el.find('#new-level-cols').val();
         this.fire('NEW_LEVEL',{rows: rows, cols: cols});
