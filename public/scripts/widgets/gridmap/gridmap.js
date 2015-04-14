@@ -30,7 +30,6 @@ Backbone.widget({
         'REMOVE_IMAGE': 'removeImage',
         'ENABLE_DESELECT': 'enableDeselect',
         'DISABLE_DESELECT': 'disableDeselect',
-        'GET_COORDINATES': 'getCoordinates',
         'SAVE_MAP': 'saveMap',
         'LOAD_MAP': 'loadMap'
 
@@ -88,14 +87,15 @@ Backbone.widget({
 
         var marginTop = (this.columnCount - this.rowCount)*this.boxSize;
         $('.grid-map-transform').css('marginTop', marginTop);
+        this.getCoordinates();
     },
 
     getCoordinates: function () {
         var coordinatesData = {};
         coordinatesData.gridSize = this.boxSize;
-        coordinatesData.cols = this.rowCount * 2 + 1;
-        coordinatesData.rows = this.columnCount * 2 + 1;
-        this.fire('SHOW_COORDINATES', coordinatesData);
+        coordinatesData.cols = this.columnCount * 2 + 1;
+        coordinatesData.rows = this.rowCount * 2 + 1;
+        this.fire('CALCULATE_COORDINATES', coordinatesData);
     },
 
     initializeMap: function () {
@@ -139,8 +139,8 @@ Backbone.widget({
     },
 
     initFogOfWar: function () {
-        var fogWidth = (this.columnCount * 2 + 2) * this.boxSize + 30,
-            fogHeight = (this.rowCount * 2 + 2) * this.boxSize + 30
+        var fogWidth = (this.columnCount * 2 + 3) * this.boxSize,
+            fogHeight = (this.rowCount * 2 + 3) * this.boxSize
 
         // init canvas
         var canvas = $('canvas'),
@@ -149,7 +149,7 @@ Backbone.widget({
 
         canvas.attr('width', fogWidth);
         canvas.attr('height', fogHeight);
-        canvas.css({top: -this.boxSize * 0.5 + 'px', left: -this.boxSize * 0.5 + 'px'})
+        canvas.css({top: -this.boxSize+ 'px', left: -this.boxSize + 'px'})
         // black out the canvas
         ctx.fillStyle = overlay;
         ctx.fillRect(0, 0, fogWidth, fogHeight);
@@ -160,8 +160,8 @@ Backbone.widget({
     },
 
     revealFog: function (posX, posY) {
-        var fogWidth = (this.columnCount * 2 + 2) * this.boxSize + 30,
-            fogHeight = (this.rowCount * 2 + 2) * this.boxSize + 30,
+        var fogWidth = (this.columnCount * 2 + 3) * this.boxSize,
+            fogHeight = (this.rowCount * 2 + 3) * this.boxSize,
             canvas = $('canvas'),
             ctx = canvas[0].getContext('2d'),
             ctx2 = canvas[1].getContext('2d'),

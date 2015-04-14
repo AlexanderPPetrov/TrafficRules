@@ -31,7 +31,7 @@ Backbone.widget({
 
     toggleCoordinates: function(e){
         if($(e.currentTarget).is(':checked')){
-            this.fire('GET_COORDINATES');
+            this.fire('SHOW_COORDINATES');
         }else{
             this.fire('HIDE_COORDINATES')
         }

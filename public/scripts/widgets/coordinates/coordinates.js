@@ -1,14 +1,13 @@
 Backbone.widget({
 
     model: {},
-    gridSize: 0,
 
-    events: {
 
-    },
+    events: {},
 
     listen: {
         'SHOW_COORDINATES': 'showCoordinates',
+        'CALCULATE_COORDINATES': 'calculateCoordinates',
         'HIDE_COORDINATES': 'hideCoordinates'
     },
 
@@ -21,28 +20,36 @@ Backbone.widget({
 
     },
 
-    showCoordinates: function(coordinatesData){
-        console.log(coordinatesData)
+    calculateCoordinates: function (coordinatesData) {
+
         this.$el.find('.coordinates').html('');
         var $container = this.$el.find('.coordinates');
-        var offsetTop = -(coordinatesData.rows-1)*0.5*coordinatesData.gridSize
-        var offsetLeft = -(coordinatesData.cols-1)*0.5*coordinatesData.gridSize
-        this.$el.find('.coordinates').css({'top': offsetTop +'px','left':offsetLeft + 'px'})
-        var coordinateRows = coordinatesData.rows*2 - 1
-        var coordinateCols = coordinatesData.cols*2 - 1
+        console.log('coordinates data received', coordinatesData);
+        var offsetTop = -coordinatesData.rows * coordinatesData.gridSize;
+        var offsetLeft = -coordinatesData.cols * coordinatesData.gridSize;
+        this.$el.find('.coordinates').css({'top': offsetTop + 'px', 'left': offsetLeft + 'px'});
+        var coordinateRows = coordinatesData.rows * 3;
+        var coordinateCols = coordinatesData.cols * 3;
         for (var i = 0; i < coordinateRows; i++) {
             for (var j = 0; j < coordinateCols; j++) {
-                $container.append('<div class="coordinate-grid" style="width:'+ coordinatesData.gridSize +'px; height:'+ coordinatesData.gridSize +'px; top: '+ coordinatesData.gridSize*j +'px; left:'+ coordinatesData.gridSize*i +'px;"></div>')
+                $container.append('<div class="coordinate-grid" style="width:' + coordinatesData.gridSize + 'px; height:' + coordinatesData.gridSize + 'px; top: ' + coordinatesData.gridSize * i + 'px; left:' + coordinatesData.gridSize * j + 'px;"></div>');
+              //  if(i == coordinatesData.rows){
+                    $('.coordinate-grid').last().append('<div class="coordinate-y"></div>')
+             //   }
             }
         }
 
+
+
+    },
+
+    showCoordinates: function () {
         this.$el.find('.coordinates').show();
     },
 
-    hideCoordinates: function(){
+    hideCoordinates: function () {
         this.$el.find('.coordinates').hide();
     }
-
 
 
 }, []);

@@ -9,15 +9,25 @@
 
 .coordinates{
     position:absolute;
-    z-index:10;
+    z-index:1000;
     left:-50%;
     top:-50%;
     pointer-events: none;
+    display:none;
 }
 .coordinate-grid {
-    position:absolute;
     border-top:1px solid #FF0000;
     border-left:1px solid #00FF00;
+    position:absolute;
+
+}
+
+.coordinate-y {
+    transform: matrix(1, 1, -1, 1, 0, 0);
+    border-left: 1px solid rgba(0, 80, 255, 0.5);
+    margin-top: -2px;
+    width: 100%;
+    height: 100%;
 }
 
 .grid-image {
