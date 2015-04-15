@@ -9,6 +9,7 @@ Backbone.widget({
         'click #new-level': 'newLevel',
         'click #load-map': 'loadMap',
         'click #save-map': 'saveMap',
+        'click #add-bot': 'addBot',
         //Player controls
         'click #move-to-next': 'moveToNext'
     },
@@ -53,10 +54,13 @@ Backbone.widget({
     },
 
     loadMap: function(){
-        this.fire('LOAD_MAP');
+        var mapToLoad = this.$el.find('#select-map').val();
+        this.fire('LOAD_MAP', mapToLoad);
     },
 
-
+    addBot: function(){
+        this.fire('ADD_BOT')
+    },
 
     moveToNext: function(){
         this.fire('MOVE_TO_NEXT');

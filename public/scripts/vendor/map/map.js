@@ -231,8 +231,8 @@ Map.getMapMatrix = function(rowCount, colCount){
         mapMatrix[i] = [];
         for (var j = 0; j < colCount; j++) {
             if ($($tiles[tilesIndex]).hasClass('block')) {
-                mapMatrix[i][j] = 0;
-            } else mapMatrix[i][j] = 1;
+                mapMatrix[i][j] = 1;
+            } else mapMatrix[i][j] = 0;
 
             tilesIndex++;
         }

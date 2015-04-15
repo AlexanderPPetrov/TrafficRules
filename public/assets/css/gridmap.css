@@ -204,3 +204,17 @@ canvas{
     border: 5px solid rgba(150,200,200, 0.2);
     border-radius: 50%;
 }
+
+#bot {
+    margin-top: 52px;
+    margin-left: 32px;
+    background: transparent url('../img/sprites/bot.png') 0 0 no-repeat;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width:64px;
+    height:104px;
+    z-index: 2000;
+    transform:matrix(0.656, 0.656,-1,1, 0, 0);
+    cursor: pointer;
+}

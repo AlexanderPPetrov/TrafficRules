@@ -31,7 +31,9 @@ Backbone.widget({
         'ENABLE_DESELECT': 'enableDeselect',
         'DISABLE_DESELECT': 'disableDeselect',
         'SAVE_MAP': 'saveMap',
-        'LOAD_MAP': 'loadMap'
+        'LOAD_MAP': 'loadMap',
+        'GET_MATRIX_DATA': 'sendMatrixData'
+
 
     },
 
@@ -129,9 +131,9 @@ Backbone.widget({
             for (var j = 0; j < mapMatrix[i].length; j++) {
 
                 if (mapMatrix[i][j] == 0) {
-                    $container.find('.r').last().append('<div class="block"></div>')
-                } else {
                     $container.find('.r').last().append('<div class="road"></div>')
+                } else {
+                    $container.find('.r').last().append('<div class="block"></div>')
                 }
 
             }
@@ -212,8 +214,8 @@ Backbone.widget({
             mapMatrix[i] = [];
             for (var j = 0; j < colCount; j++) {
                 if ($($tiles[tilesIndex]).hasClass('block')) {
-                    mapMatrix[i][j] = 0;
-                } else mapMatrix[i][j] = 1;
+                    mapMatrix[i][j] = 1;
+                } else mapMatrix[i][j] = 0;
 
                 tilesIndex++;
             }
@@ -232,10 +234,10 @@ Backbone.widget({
                 var $row = $(this.$el.find('.r').get(i));
                 var $col = $($row.find('.base-grid').get(j));
                 $col.attr({"posx": j, "posy": i});
-                $col.css({'left': this.boxSize * j, 'top': this.boxSize * i})
-                var currentTile = mapMatrix[i][j]
-                if (currentTile == 1) {
-                    var roadTile = [];
+                $col.css({'left': this.boxSize * j, 'top': this.boxSize * i});
+                var currentTile = mapMatrix[i][j];
+                if (currentTile == 0) {
+
                     // Defined by each of the nearest tiles to Current
                     //
                     //      [1]                R L T B / E W N S
@@ -243,22 +245,25 @@ Backbone.widget({
                     //      [0]
                     //
                     //-------------------------------------
-                    mapMatrix[i][j + 1] ? roadTile.push(mapMatrix[i][j + 1]) : roadTile.push(0);
-                    mapMatrix[i][j - 1] ? roadTile.push(mapMatrix[i][j - 1]) : roadTile.push(0);
-                    if (mapMatrix[i - 1]) {
-                        mapMatrix[i - 1][j] ? roadTile.push(mapMatrix[i - 1][j]) : roadTile.push(0);
+                    var roadTile = [];
+                    mapMatrix[i][j + 1] !== undefined ? roadTile.push(mapMatrix[i][j + 1]) : roadTile.push(1);
+                    mapMatrix[i][j - 1] !== undefined ? roadTile.push(mapMatrix[i][j - 1]) : roadTile.push(1);
+                    if (mapMatrix[i - 1] !== undefined ) {
+                        mapMatrix[i - 1][j] !== undefined ? roadTile.push(mapMatrix[i - 1][j]) : roadTile.push(1);
                     }
-                    if (mapMatrix[i + 1]) {
-                        mapMatrix[i + 1][j] ? roadTile.push(mapMatrix[i + 1][j]) : roadTile.push(0);
+                    if (mapMatrix[i + 1] !== undefined ) {
+                        mapMatrix[i + 1][j] !== undefined ? roadTile.push(mapMatrix[i + 1][j]) : roadTile.push(1);
                     }
                     roadTiles.push(roadTile);
+
                 }
             }
+
         }
 
         // If first or last row -> Entrance | and Exit | road tiles
-        roadTiles[0] = [1, 1, 0, 0];
-        roadTiles[roadTiles.length - 1] = [1, 1, 0, 0];
+        roadTiles[0] = [0, 0, 1, 1];
+        roadTiles[roadTiles.length - 1] = [0, 0, 1, 1];
         this.roadTiles = [];
         for (var k = 0; k < roadTiles.length; k++) {
             this.roadTiles.push(this.getRoadTileImage(roadTiles[k]));
@@ -277,50 +282,51 @@ Backbone.widget({
 
         var roadTileImage = 'road-';
         var tileArray = tileArray.toString();
+        console.log(tileArray)
         switch (tileArray) {
-            case '0,0,1,1':
+            case '1,1,0,0':
                 roadTileImage += '01';
                 break;
-            case '1,1,0,0':
+            case '0,0,1,1':
                 roadTileImage += '02';
                 break;
-            case '1,1,1,1':
+            case '0,0,0,0':
                 roadTileImage += '03';
                 break;
-            case '1,0,0,1':
+            case '0,1,1,0':
                 roadTileImage += '04';
                 break;
-            case '0,1,0,1':
+            case '1,0,1,0':
                 roadTileImage += '05';
                 break;
-            case '0,1,1,0':
+            case '1,0,0,1':
                 roadTileImage += '06';
                 break;
-            case '1,0,1,0':
+            case '0,1,0,1':
                 roadTileImage += '07';
                 break;
-            case '1,0,1,1':
+            case '0,1,0,0':
                 roadTileImage += '08';
                 break;
-            case '0,1,1,1':
+            case '1,0,0,0':
                 roadTileImage += '09';
                 break;
-            case '1,1,1,0':
+            case '0,0,0,1':
                 roadTileImage += '10';
                 break;
-            case '1,1,0,1':
+            case '0,0,1,0':
                 roadTileImage += '11';
                 break;
-            case '0,0,1,0':
+            case '1,1,0,1':
                 roadTileImage += '12';
                 break;
-            case '0,0,0,1':
+            case '1,1,1,0':
                 roadTileImage += '13';
                 break;
-            case '0,1,0,0':
+            case '1,0,1,1':
                 roadTileImage += '14';
                 break;
-            case '1,0,0,0':
+            case '0,1,1,1':
                 roadTileImage += '15';
                 break;
         }
@@ -528,25 +534,25 @@ Backbone.widget({
 
                 if (this.currPlayerPos.y == i && this.currPlayerPos.x == j) {
 
-                    if (mapMatrix[i][j + 1] && mapMatrix[i][j + 1] == 1) {
+                    if (mapMatrix[i][j + 1] !== undefined  && mapMatrix[i][j + 1] == 0) {
                         var $row = $(this.$el.find('.r').get(i));
                         var $col = $($row.find('.base-grid').get(j + 1));
                         $col.append('<div class="move-arrow text-center" direction="E"  posx="' + (j + 1) + '" posy="' + i + '"><i class="fa fa-long-arrow-right"></i></div>');
                     }
 
-                    if (mapMatrix[i][j - 1] && mapMatrix[i][j - 1] == 1) {
+                    if (mapMatrix[i][j - 1] !== undefined  && mapMatrix[i][j - 1] == 0) {
                         var $row = $(this.$el.find('.r').get(i));
                         var $col = $($row.find('.base-grid').get(j - 1));
                         $col.append('<div class="move-arrow text-center" direction="W" posx="' + (j - 1) + '" posy="' + i + '"><i class="fa fa-long-arrow-left"></i></div>');
                     }
 
-                    if (mapMatrix[i - 1] && mapMatrix[i - 1][j] && mapMatrix[i - 1][j] == 1) {
+                    if (mapMatrix[i - 1] !== undefined  && mapMatrix[i - 1][j] !== undefined  && mapMatrix[i - 1][j] == 0) {
                         var $row = $(this.$el.find('.r').get(i - 1));
                         var $col = $($row.find('.base-grid').get(j));
                         $col.append('<div class="move-arrow text-center" direction="N" posx="' + j + '" posy="' + (i - 1) + '"><i class="fa fa-long-arrow-up"></i></div>');
                     }
 
-                    if (mapMatrix[i + 1] && mapMatrix[i + 1][j] && mapMatrix[i + 1][j] == 1) {
+                    if (mapMatrix[i + 1] !== undefined  && mapMatrix[i + 1][j] !== undefined  && mapMatrix[i + 1][j] == 0) {
                         var $row = $(this.$el.find('.r').get(i + 1));
                         var $col = $($row.find('.base-grid').get(j));
                         $col.append('<div class="move-arrow text-center" direction="S" posx="' + j + '" posy="' + (i + 1) + '"><i class="fa fa-long-arrow-down"></i></div>');
@@ -567,10 +573,9 @@ Backbone.widget({
 
     },
 
-    loadMap: function () {
-        var mapName = 'savedMap.json'
+    loadMap: function (mapUrl) {
         this.ajaxRequest({
-            url: 'webservices/' + mapName,
+            url: mapUrl,
             data: {},
             type: "GET",
             success: function (response) {
@@ -606,14 +611,9 @@ Backbone.widget({
 
     getMapData: function () {
         var mapData = {};
-        var mapMatrix = this.getMapMatrix(this.columnCount * 2 + 1, this.rowCount * 2 + 1);
 
-        mapData.mapMatrix = [];
+        mapData.mapMatrix = this.mapMatrix;
         mapData.images = [];
-
-        _.each(mapMatrix, function (row) {
-            mapData.mapMatrix.push(row);
-        })
 
         this.$el.find('.house').each(function () {
             var imageData = {};
@@ -637,6 +637,14 @@ Backbone.widget({
         mapData.player.posy = this.currPlayerPos.y;
 
         return JSON.stringify(mapData);
+    },
+
+    sendMatrixData: function(){
+        var matrixData = {
+            'mapMatrix': this.mapMatrix,
+            'gridSize': this.boxSize
+        }
+        this.fire('SEND_MATRIX_DATA', matrixData)
     }
 
 }, ['map']);
