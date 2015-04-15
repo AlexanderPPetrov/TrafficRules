@@ -361,7 +361,7 @@ Backbone.widget({
             $(this).append(house);
 
             var $lastPlaced = context.$el.find('.house').last();
-            var inversedOffsetX = Math.floor(-context.boxSize) - 5;
+            var inversedOffsetX = -context.boxSize - 5;
             var offsetY = context.boxSize - 5;
             var matrix = 'matrix(1, 1, -3, 3, ' + offsetY + ',' + inversedOffsetX + ')';
             $lastPlaced.css('transform', matrix);

@@ -12,22 +12,26 @@ Backbone.widget({
         this.gridSize = mapData.gridSize;
         this.mapMatrix = mapData.mapMatrix;
         this.startBot();
-        this.placeBot(1,1)
+        this.placeBot(1,0)
+        this.findPath()
         console.log(mapData);
-        this.moveBot([[1,2],[1,3],[2,3],[3,3]])
+
     },
 
     startBot: function () {
         this.$el.find('#bot-container').append('<div id="bot"></div>');
         this.bot = this.$el.find('#bot');
+        var inversedOffsetX = -this.gridSize - 5;
+        var offsetY = 0;
+        var matrix = 'matrix(0.67, 0.67, -1, 1, ' + offsetY + ',' + inversedOffsetX + ')';
+        this.bot.css('transform', matrix);
         this.bot.sprite({fps: 9, no_of_frames: 3})
             .active();
         //this.bot.spState(2);
 
     },
     placeBot: function (posX, posY) {
-
-        this.bot.css({'top': posX * this.boxSize, 'left': posY * this.gridSize})
+        this.bot.css({'top': posX * this.gridSize, 'left': posY * this.gridSize})
     },
 
     moveBot: function(path){
@@ -40,33 +44,61 @@ Backbone.widget({
         this.fire('GET_MATRIX_DATA')
     },
 
-    flipBot: function () {
+    findPath: function () {
+        var PathFinder = new PathFinding();
+
+        var nodes = [];
+        for (var r = 0; r<this.mapMatrix.length; r++){
+            nodes[r] = [];
+            for (var c = 0; c <this.mapMatrix[r].length; c++){
+
+                if(this.mapMatrix[r][c] == 0){
+                    // add nodes
+                    nodes[r][c] = PathFinder.addNode(c, r);
+                    // add verticies between nodes
+                    if (nodes[r][c-1] !== undefined){
+                        nodes[r][c].addVertex(nodes[r][c-1]);
+                    }
+
+                    if (nodes[r-1] !== undefined && nodes[r-1][c] !== undefined){
+                        nodes[r][c].addVertex(nodes[r-1][c]);
+                    }
+
+                    // some more verticies, if we want diagonal movement
+                    //if(diagonal){
+                    //    if (nodes[r-1] !== undefined && nodes[r-1][c-1] !== undefined){
+                    //        nodes[r][c].addVertex(nodes[r-1][c-1]);
+                    //    }
+                    //    if (nodes[r-1] !== undefined && nodes[r-1][c+1] !== undefined){
+                    //        nodes[r][c].addVertex(nodes[r-1][c+1]);
+                    //    }
+                    //
+                    //}
+                }
+
+            }
+        }
+        //node[r][c]
+        console.log(nodes)
+       var route = PathFinder.AStarSolver(nodes[1][0],nodes[7][8]);
+       console.log(route);
+
+        this.moveBot(route)
 
     },
 
-    moveEast: function () {
-
-    },
-
-    moveWest: function () {
-
-    },
-
-    moveSouth: function () {
-
-    },
-
-    moveNorth: function () {
-
-    },
 
     moveToPosition: function (position) {
-        var t = position[0] * this.gridSize;
-        var l = position[1] * this.gridSize;
-        this.bot.animate({
-            top: t + 'px',
-            left: l + 'px'
-        }, 1000);
+        var t = position.y * this.gridSize;
+        var l = position.x * this.gridSize;
+
+        this.bot.animate({top: t + 'px', left: l + 'px'},{
+            easing: "linear",
+            duration:1000,
+            complete: function(){
+                //callback
+            }
+        });
     }
 
-}, ['spritely']);
+}, ['spritely', 'pathfinding']);

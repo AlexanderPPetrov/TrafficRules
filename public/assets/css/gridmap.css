@@ -215,6 +215,6 @@ canvas{
     width:64px;
     height:104px;
     z-index: 2000;
-    transform:matrix(0.656, 0.656,-1,1, 0, 0);
+    transform:matrix(0.67, 0.67,-1,1, 0, 0);
     cursor: pointer;
 }
