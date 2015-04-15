@@ -13,7 +13,7 @@ Backbone.widget({
         this.mapMatrix = mapData.mapMatrix;
         this.placeBot(1, 0)
         this.startBot();
-       this.findPath();
+        this.findPath();
         console.log(mapData);
 
     },
@@ -104,23 +104,47 @@ Backbone.widget({
 
             }
         }
-        var route = PathFinder.AStarSolver(nodes[1][0], nodes[this.mapMatrix.length-2][this.mapMatrix[0].length-1]);
-        this.moveBot(route)
+        var path = PathFinder.AStarSolver(nodes[1][0], nodes[this.mapMatrix.length-2][this.mapMatrix[0].length-1]);
+        this.path = path;
+        this.moveBot()
 
     },
 
-    moveBot: function (path) {
+    moveBot: function () {
         var context = this;
         var counter = 0;
-        for (var i = 0; i < path.length; i++) {
-            this.moveToPosition(path[i], function () {
-                counter++
-                if (counter == path.length) {
+        for (var i = 0; i < this.path.length; i++) {
+            this.moveToPosition(this.path[i], function () {
+                context.defineOrientation(context.path[counter],context.path[counter+1]);
+                if (counter == context.path.length - 1) {
                     context.bot.fadeOut(function () {
                         $(this).remove();
                     });
                 }
+                counter++;
             });
+        }
+    },
+
+    defineOrientation: function(previousPos,nextPos){
+        if(nextPos){
+            if(previousPos.x == nextPos.x && previousPos.y > nextPos.y){
+                console.log('NORTH | UP');
+                this.bot.animateSprite('play', 'walkNorth')
+            }
+            if(previousPos.x == nextPos.x && previousPos.y < nextPos.y){
+                console.log('SOUTH | DOWN');
+                this.bot.animateSprite('play', 'walkSouth')
+            }
+            if(previousPos.x > nextPos.x && previousPos.y == nextPos.y){
+                console.log('WEST | RIGHT');
+                this.bot.animateSprite('play', 'walkWest')
+            }
+            if(previousPos.x < nextPos.x && previousPos.y == nextPos.y){
+                console.log('EAST | LEFT');
+                this.bot.animateSprite('play', 'walkEast')
+            }
+
         }
     },
 
