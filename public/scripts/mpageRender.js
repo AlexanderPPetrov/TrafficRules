@@ -17,7 +17,7 @@
         'jquery': 'vendor/jquery/jquery',
         'jqueryui': 'vendor/jqueryui/jqueryui.min',
         'pathfinding': 'vendor/pathfinding/pathfinding',
-        'spritely':"vendor/spritely/spritely",
+        'animatesprite':"vendor/animatesprite/animatesprite",
         'underscore': 'vendor/lodash/lodash',
         'backbone': 'vendor/backbone-amd/backbone',
         'bootstrap': 'vendor/bootstrap/bootstrap',

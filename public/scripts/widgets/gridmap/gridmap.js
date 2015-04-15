@@ -282,7 +282,6 @@ Backbone.widget({
 
         var roadTileImage = 'road-';
         var tileArray = tileArray.toString();
-        console.log(tileArray)
         switch (tileArray) {
             case '1,1,0,0':
                 roadTileImage += '01';

@@ -1860,7 +1860,7 @@ var requirejs, require, define;
                 node.addEventListener('error', context.onScriptError, false);
             }
             node.src = url;
-            console.log('%cRequired JS library: --->>> ' + node.src , 'color: blue');
+           // console.log('%cRequired JS library: --->>> ' + node.src , 'color: blue');
             //For some cache cases in IE 6-8, the script executes before the end
             //of the appendChild execution, so to tie an anonymous define
             //call to the module name (which is stored on the node), hold on

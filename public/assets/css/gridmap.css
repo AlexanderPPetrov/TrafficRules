@@ -206,8 +206,6 @@ canvas{
 }
 
 #bot {
-    margin-top: 52px;
-    margin-left: 32px;
     background: transparent url('../img/sprites/bot.png') 0 0 no-repeat;
     position: absolute;
     top: 0px;
@@ -215,6 +213,6 @@ canvas{
     width:64px;
     height:104px;
     z-index: 2000;
-    transform:matrix(0.67, 0.67,-1,1, 0, 0);
+    transform:matrix(1, 1,-2,2, 0, 0);
     cursor: pointer;
 }
