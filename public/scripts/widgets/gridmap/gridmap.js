@@ -83,7 +83,8 @@ Backbone.widget({
             factor = this.rowCount * 2 + 1;
 
         }
-        this.boxSize = Math.floor(this.$el.find('#grid-container').width() / factor);
+        this.boxSize = Math.floor($('#get-size').width() * 2/3 / factor );
+        console.log('>>>',this.boxSize)
         this.rowWidthPx = (this.columnCount * 2 + 1) * this.boxSize;
         this.rowHeight = this.boxSize;
 
@@ -336,7 +337,7 @@ Backbone.widget({
     renderGrass: function () {
         this.$el.find('.block').each(function () {
             var randomGrass = Math.floor((Math.random() * 5) + 1);
-            var grass = '<img class="grid-image" src="assets/img/grass/' + 1 + '.jpg"/>'
+            var grass = '<img class="grid-image" src="assets/img/tiles/grass/' + 1 + '.jpg"/>'
             $(this).append(grass);
 
         })
@@ -353,22 +354,44 @@ Backbone.widget({
 
     renderHouses: function (e) {
         var context = this;
+        var counter = 0;
+        for (var i = 0; i < this.mapMatrix.length; i++) {
+            for (var j = 0; j < this.mapMatrix[i].length; j++) {
+                if (this.mapMatrix[i][j] == 1) {
+
+
+                    if(i == 0 ||  j == 0 || i == this.mapMatrix.length-1 || j == this.mapMatrix[i].length-1){
+                        var treeNumber = context.zeroFill(Math.floor((Math.random() * 4) + 1), 2);
+                        var tree = '<div class="map-object" style="width:' + context.boxSize + 'px; height:' + context.boxSize + 'px;" data-info="Family house"><img class="grid-image house" src="assets/img/tiles/nature/tree_' + treeNumber + '.png" style="width:' + context.boxSize + 'px; pointer-events:none;" /></div>'
+                        $(this.$el.find('.block').get(counter)).append(tree);
+                    }else{
+                        var houseNumber = context.zeroFill(Math.floor((Math.random() * 2) + 1), 2);
+                        var house = '<div class="map-object" style="width:' + context.boxSize + 'px; height:' + context.boxSize + 'px;" data-info="Family house"><img class="grid-image house" src="assets/img/tiles/houses/h_' + houseNumber + '.png" style="width:' + context.boxSize + 'px; pointer-events:none;" /></div>'
+                        $(this.$el.find('.block').get(counter)).append(house);
+                    }
+
+
+                    var $lastPlaced = context.$el.find('.house').last();
+                    var inversedOffsetX = -context.boxSize - 5;
+                    var offsetY = context.boxSize - 5;
+                    var matrix = 'matrix(1, 1, -3, 3, ' + offsetY + ',' + inversedOffsetX + ')';
+                    $lastPlaced.css('transform', matrix);
+
+                    counter++;
+                }
+
+            }
+        }
+
         this.$el.find('.block').each(function () {
-            var houseNumber = context.zeroFill(Math.floor((Math.random() * 3) + 1), 2);
 
-            var house = '<div class="map-object" style="width:' + context.boxSize + 'px; height:' + context.boxSize + 'px;" data-info="Family house"><img class="grid-image house" src="assets/img/houses/h_' + houseNumber + '.png" style="width:' + context.boxSize + 'px; pointer-events:none;" /></div>'
-            $(this).append(house);
-
-            var $lastPlaced = context.$el.find('.house').last();
-            var inversedOffsetX = -context.boxSize - 5;
-            var offsetY = context.boxSize - 5;
-            var matrix = 'matrix(1, 1, -3, 3, ' + offsetY + ',' + inversedOffsetX + ')';
-            $lastPlaced.css('transform', matrix);
         })
     },
 
-    loadBuildings: function (images) {
+    loadSavedTiles: function (images) {
         var context = this;
+
+
         this.$el.find('.block').each(function (index, block) {
             var currentImage = images[index];
             var house = '<div class="map-object" style="width:' + context.boxSize + 'px; height:' + context.boxSize + 'px;" data-info="' + currentImage.info + '"><img class="grid-image house" src="' + currentImage.src + '" style="width:' + context.boxSize + 'px; pointer-events:none;" /></div>'
@@ -597,7 +620,7 @@ Backbone.widget({
 
                 this.mapTiles(this.mapMatrix);
                 this.renderGrass();
-                this.loadBuildings(response.images);
+                this.loadSavedTiles(response.images);
                 this.renderRoadTiles();
                 this.setIndexes();
                 this.initFogOfWar();

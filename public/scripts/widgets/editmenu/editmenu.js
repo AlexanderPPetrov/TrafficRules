@@ -4,7 +4,6 @@ Backbone.widget({
 
     events: {
         // Map control
-        'change #select-tile':'changeImagePreview',
         'change #edit-info-text':'setInfoText',
         'click #rotate-image':'rotateImage',
         'click #remove-image':'removeImage',
@@ -38,10 +37,7 @@ Backbone.widget({
         this.$el.find('#edit-info-text').val(infoText);
     },
 
-    changeImagePreview: function(){
-        this.$el.find('.image-preview').attr('src',this.$el.find('#select-tile').val())
-        this.fire('REPLACE_IMAGE', this.$el.find('#select-tile').val())
-    },
+
 
     setInfoText: function(e){
         this.fire('SET_INFO_TEXT', $(e.currentTarget).val());
