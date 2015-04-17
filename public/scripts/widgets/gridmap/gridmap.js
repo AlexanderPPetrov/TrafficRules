@@ -363,19 +363,19 @@ Backbone.widget({
 
                     if(i == 0 ||  j == 0 || i == this.mapMatrix.length-1 || j == this.mapMatrix[i].length-1){
                         var treeNumber = context.zeroFill(Math.floor((Math.random() * 4) + 1), 2);
-                        var tree = '<div class="map-object" style="width:' + context.boxSize + 'px; height:' + context.boxSize + 'px;" data-info="Family house"><img class="grid-image house" src="assets/img/tiles/nature/tree_' + treeNumber + '.png" style="width:' + context.boxSize + 'px; pointer-events:none;" /></div>'
+                        var tree = '<div class="map-object" style="width:' + context.boxSize + 'px; height:' + context.boxSize + 'px;" data-info="Tree"><img class="grid-image house" src="assets/img/tiles/nature/tree_' + treeNumber + '.png" style="width:' + context.boxSize + 'px; pointer-events:none;" /></div>'
                         $(this.$el.find('.block').get(counter)).append(tree);
                     }else{
                         var houseNumber = context.zeroFill(Math.floor((Math.random() * 2) + 1), 2);
-                        var house = '<div class="map-object" style="width:' + context.boxSize + 'px; height:' + context.boxSize + 'px;" data-info="Tree"><img class="grid-image house" src="assets/img/tiles/houses/h_' + houseNumber + '.png" style="width:' + context.boxSize + 'px; pointer-events:none;" /></div>'
+                        var house = '<div class="map-object" style="width:' + context.boxSize + 'px; height:' + context.boxSize + 'px;" data-info="Family house"><img class="grid-image house" src="assets/img/tiles/houses/h_' + houseNumber + '.png" style="width:' + context.boxSize + 'px; pointer-events:none;" /></div>'
                         $(this.$el.find('.block').get(counter)).append(house);
                     }
 
 
                     var $lastPlaced = context.$el.find('.house').last();
-                    var inversedOffsetX = -context.boxSize - 5;
+                    var invertedOffsetX = -context.boxSize - 5;
                     var offsetY = context.boxSize - 5;
-                    var matrix = 'matrix(1, 1, -3, 3, ' + offsetY + ',' + inversedOffsetX + ')';
+                    var matrix = 'matrix(1, 1, -3, 3, ' + offsetY + ',' + invertedOffsetX + ')';
                     $lastPlaced.css('transform', matrix);
 
                     counter++;
@@ -397,11 +397,11 @@ Backbone.widget({
             var house = '<div class="map-object" style="width:' + context.boxSize + 'px; height:' + context.boxSize + 'px;" data-info="' + image.info + '"><img class="grid-image house" src="' + image.src + '" style="width:' + context.boxSize + 'px; pointer-events:none;" /></div>'
             context.$el.find('.base-grid[posx="'+image.x+'"][posy="'+ image.y +'"]').append(house);
             var $lastPlaced = context.$el.find('.house').last();
-            var inversedOffsetX = Math.floor(-context.boxSize) - 5;
+            var invertedOffsetX = Math.floor(-context.boxSize) - 5;
             var offsetY = context.boxSize - 5;
-            var matrix = 'matrix(1, 1, -3, 3, ' + offsetY + ',' + inversedOffsetX + ')';
+            var matrix = 'matrix(1, 1, -3, 3, ' + offsetY + ',' + invertedOffsetX + ')';
             if (image.rotation) {
-                matrix = 'matrix(-1, -1, -3, 3, ' + offsetY + ',' + inversedOffsetX + ')';
+                matrix = 'matrix(-1, -1, -3, 3, ' + offsetY + ',' + invertedOffsetX + ')';
             }
             $lastPlaced.css('transform', matrix);
         })

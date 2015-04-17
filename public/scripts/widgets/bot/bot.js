@@ -11,9 +11,7 @@ Backbone.widget({
     setBotData: function (mapData) {
         this.gridSize = mapData.gridSize;
         this.mapMatrix = mapData.mapMatrix;
-        this.placeBot(1, 0)
-        this.startBot();
-        this.findPath();
+
         console.log(mapData);
 
     },
@@ -25,10 +23,10 @@ Backbone.widget({
             loop: true,
             autoplay: false,
             animations: {
-                walkEast: [0, 1, 2],
-                walkNorth: [3, 4, 5],
-                walkWest: [6, 7, 8],
-                walkSouth: [9, 10, 11]
+                E: [0, 1, 2],
+                N: [3, 4, 5],
+                W: [6, 7, 8],
+                S: [9, 10, 11]
             },
             complete: function(){
                 alert('Sprite animation complete!');
@@ -36,7 +34,7 @@ Backbone.widget({
         })
 
 
-        this.bot.animateSprite('play', 'walkEast')
+        this.bot.animateSprite('play', 'E')
     },
     placeBot: function (posX, posY) {
         this.removeBot();
@@ -44,9 +42,9 @@ Backbone.widget({
         this.bot = this.$el.find('#bot');
         var k = ((this.gridSize / 100) * this.bot.width()) / 100;
 
-        var inversedOffsetX = Math.ceil(-this.gridSize*0.24 - 2);
+        var invertedOffsetX = Math.ceil(-this.gridSize*0.24 - 2);
         var offsetY = Math.ceil(0.6*this.gridSize);
-        var matrix = 'matrix(1, 1, -2, 2, ' + offsetY + ',' + inversedOffsetX + ')';
+        var matrix = 'matrix(1, 1, -2, 2, ' + offsetY + ',' + invertedOffsetX + ')';
         this.bot.css('transform', matrix);
         this.bot.css({'top': posX * this.gridSize, 'left': posY * this.gridSize});
 
@@ -57,14 +55,17 @@ Backbone.widget({
         var backgroundWidth = (12 * this.bot.width()) + 'px';
         var backgroundHeight = this.bot.height() + 'px';
         this.bot.css({ backgroundSize : backgroundWidth+' '+backgroundHeight });
-        console.log('background-size', this.bot.css('background-size'))
-        console.log('width', this.bot.width())
+        console.log('background-size', this.bot.css('background-size'));
+        console.log('width', this.bot.width());
         console.log('height', this.bot.height())
     },
 
 
     addBot: function () {
-        this.fire('GET_MATRIX_DATA')
+        this.fire('GET_MATRIX_DATA');
+        this.placeBot(1, 0);
+        this.startBot();
+        this.findPath();
     },
 
     removeBot: function () {
@@ -130,19 +131,19 @@ Backbone.widget({
         if(nextPos){
             if(previousPos.x == nextPos.x && previousPos.y > nextPos.y){
                 console.log('NORTH | UP');
-                this.bot.animateSprite('play', 'walkNorth')
+                this.bot.animateSprite('play', 'N')
             }
             if(previousPos.x == nextPos.x && previousPos.y < nextPos.y){
                 console.log('SOUTH | DOWN');
-                this.bot.animateSprite('play', 'walkSouth')
+                this.bot.animateSprite('play', 'S')
             }
             if(previousPos.x > nextPos.x && previousPos.y == nextPos.y){
                 console.log('WEST | RIGHT');
-                this.bot.animateSprite('play', 'walkWest')
+                this.bot.animateSprite('play', 'W')
             }
             if(previousPos.x < nextPos.x && previousPos.y == nextPos.y){
                 console.log('EAST | LEFT');
-                this.bot.animateSprite('play', 'walkEast')
+                this.bot.animateSprite('play', 'E')
             }
 
         }

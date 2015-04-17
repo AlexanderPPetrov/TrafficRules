@@ -5,12 +5,13 @@ Backbone.widget({
 
     events: {
         // Map control
-        'change .toggle-fog input':'toggleFog',
-        'change .toggle-coordinates input':'toggleCoordinates',
+        'change .toggle-fog input': 'toggleFog',
+        'change .toggle-coordinates input': 'toggleCoordinates',
         'click #new-level': 'newLevel',
         'click #load-map': 'loadMap',
         'click #save-map': 'saveMap',
         'click #add-bot': 'addBot',
+        'click #add-dummy-bots': 'addDummyBots',
         //Player controls
         'click #move-to-next': 'moveToNext'
     },
@@ -38,18 +39,18 @@ Backbone.widget({
 
     },
 
-    toggleFog: function(e){
-        if($(e.currentTarget).is(':checked')){
+    toggleFog: function (e) {
+        if ($(e.currentTarget).is(':checked')) {
             $('.fog').show();
-        }else{
+        } else {
             $('.fog').hide();
         }
     },
 
-    toggleCoordinates: function(e){
-        if($(e.currentTarget).is(':checked')){
+    toggleCoordinates: function (e) {
+        if ($(e.currentTarget).is(':checked')) {
             this.fire('SHOW_COORDINATES');
-        }else{
+        } else {
             this.fire('HIDE_COORDINATES')
         }
     },
@@ -58,30 +59,35 @@ Backbone.widget({
         $('.toggle-fog input').prop('checked', false);
         var rows = this.$el.find('#new-level-rows').val();
         var cols = this.$el.find('#new-level-cols').val();
-        this.fire('NEW_LEVEL',{rows: rows, cols: cols});
+        this.fire('NEW_LEVEL', {rows: rows, cols: cols});
     },
 
-    saveMap: function(){
+    saveMap: function () {
         var mapName = this.$el.find('#map-name').val();
-        if(mapName != ''){
+        if (mapName != '') {
             this.fire('SAVE_MAP', mapName);
             this.$el.find('#map-name').val('');
         }
     },
 
-    loadMap: function(){
+    loadMap: function () {
         var mapToLoad = this.$el.find('#select-map').val();
         this.fire('LOAD_MAP', mapToLoad);
     },
 
-    addBot: function(){
+    addBot: function () {
         this.fire('ADD_BOT')
     },
 
-    moveToNext: function(){
+    addDummyBots: function () {
+
+        this.fire('ADD_DUMMY_BOTS');
+
+    },
+
+    moveToNext: function () {
         this.fire('MOVE_TO_NEXT');
     }
 
 
-
-}, ['map','jqueryui']);
+}, ['map', 'jqueryui']);
