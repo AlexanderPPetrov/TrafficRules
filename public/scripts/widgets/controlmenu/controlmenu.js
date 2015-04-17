@@ -1,6 +1,7 @@
 Backbone.widget({
 
     model: {},
+    template: false,
 
     events: {
         // Map control
@@ -15,10 +16,25 @@ Backbone.widget({
     },
 
     loaded: function () {
-        $(".base-container").draggable();
+        this.ajaxRequest({
+            url: 'webservices/savedMaps.json',
+            type: "GET",
+            success: function (response) {
+                this.model = response;
+                this.render();
+            }
+        })
     },
 
     render: function () {
+
+        this.renderTemplate({
+            template: 'controlmenu',
+            data: this.model,
+            renderCallback: function () {
+                this.$el.find(".base-container").draggable();
+            }
+        })
 
     },
 

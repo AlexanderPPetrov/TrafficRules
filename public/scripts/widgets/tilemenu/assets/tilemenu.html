@@ -14,20 +14,21 @@
     </h3>
 
     <div class="col-lg-12" style="position:relative;">
-        <div class="row tiles-container">
-            <div class="col-lg-12">
-                <div class="tiles-control tiles-left pull-left text-center">
-                    <i class="fa fa-chevron-left"></i>
-                </div>
+        <div class="row">
+            <div class="tiles-control tiles-left text-center">
+                <i class="fa fa-chevron-left"></i>
+            </div>
+            <div class="tiles-control tiles-right text-center">
+                <i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="tiles-container">
                 <div iterate="tiles" class="hide-by-type" data-type="{{ type }}">
                     <div iterate="images" class="thumb-container">
                         <div class="thumb-label">{{ label }}</div>
                         <img class="image-preview" data-label="{{ label }}" src="{{ src }}">
                     </div>
                 </div>
-                <div class="tiles-control tile-right pull-right text-center">
-                    <i class="fa fa-chevron-right"></i>
-                </div>
+
             </div>
         </div>
     </div>

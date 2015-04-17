@@ -31,7 +31,6 @@ Backbone.widget({
             data: this.model,
             renderCallback: function () {
                 this.$el.find(".base-container").draggable();
-                console.log('asd')
             }
         })
     },

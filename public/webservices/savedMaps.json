@@ -1,0 +1,16 @@
+{
+  "savedMaps": [
+    {
+      "path": "webservices/maps/map_01.json",
+      "name": "Карта 01"
+    },
+    {
+      "path": "webservices/maps/map_02.json",
+      "name": "Карта 02"
+    },
+    {
+      "path": "webservices/maps/map_03.json",
+      "name": "Карта 03"
+    }
+  ]
+}

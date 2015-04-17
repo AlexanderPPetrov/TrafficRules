@@ -17,6 +17,7 @@ Backbone.widget({
         'click .map-object': 'displayInfoText',
         'click .move-arrow': 'movePlayer',
         'click .road ': 'deselectTile',
+        'contextmenu .block': 'deselectTile',
         'mouseenter .base-grid': 'showSelection',
         'click .block': 'selectTile',
         'mouseleave .base-grid': 'hideSelection'
@@ -366,7 +367,7 @@ Backbone.widget({
                         $(this.$el.find('.block').get(counter)).append(tree);
                     }else{
                         var houseNumber = context.zeroFill(Math.floor((Math.random() * 2) + 1), 2);
-                        var house = '<div class="map-object" style="width:' + context.boxSize + 'px; height:' + context.boxSize + 'px;" data-info="Family house"><img class="grid-image house" src="assets/img/tiles/houses/h_' + houseNumber + '.png" style="width:' + context.boxSize + 'px; pointer-events:none;" /></div>'
+                        var house = '<div class="map-object" style="width:' + context.boxSize + 'px; height:' + context.boxSize + 'px;" data-info="Tree"><img class="grid-image house" src="assets/img/tiles/houses/h_' + houseNumber + '.png" style="width:' + context.boxSize + 'px; pointer-events:none;" /></div>'
                         $(this.$el.find('.block').get(counter)).append(house);
                     }
 
@@ -391,22 +392,21 @@ Backbone.widget({
     loadSavedTiles: function (images) {
         var context = this;
 
+        _.each(images, function(image){
 
-        this.$el.find('.block').each(function (index, block) {
-            var currentImage = images[index];
-            var house = '<div class="map-object" style="width:' + context.boxSize + 'px; height:' + context.boxSize + 'px;" data-info="' + currentImage.info + '"><img class="grid-image house" src="' + currentImage.src + '" style="width:' + context.boxSize + 'px; pointer-events:none;" /></div>'
-            $(block).append(house);
-
+            var house = '<div class="map-object" style="width:' + context.boxSize + 'px; height:' + context.boxSize + 'px;" data-info="' + image.info + '"><img class="grid-image house" src="' + image.src + '" style="width:' + context.boxSize + 'px; pointer-events:none;" /></div>'
+            context.$el.find('.base-grid[posx="'+image.x+'"][posy="'+ image.y +'"]').append(house);
             var $lastPlaced = context.$el.find('.house').last();
             var inversedOffsetX = Math.floor(-context.boxSize) - 5;
             var offsetY = context.boxSize - 5;
             var matrix = 'matrix(1, 1, -3, 3, ' + offsetY + ',' + inversedOffsetX + ')';
-            if (currentImage.rotation) {
+            if (image.rotation) {
                 matrix = 'matrix(-1, -1, -3, 3, ' + offsetY + ',' + inversedOffsetX + ')';
-
             }
             $lastPlaced.css('transform', matrix);
         })
+
+
     },
 
     selectTile: function (e) {
@@ -426,10 +426,11 @@ Backbone.widget({
 
     },
 
-    deselectTile: function () {
+    deselectTile: function (e) {
         this.selected = null;
         this.$el.find('.base-grid-selected').remove();
         this.$el.find('.selected-map-object').removeClass('selected-map-object');
+        return false;
     },
 
     rotateImage: function () {
@@ -649,6 +650,8 @@ Backbone.widget({
                 imageData.rotation = -1;
             }
             imageData.info = $(this).parent().attr('data-info');
+            imageData.x = $(this).closest('.base-grid').attr('posx');
+            imageData.y = $(this).closest('.base-grid').attr('posy');
             mapData.images.push(imageData);
 
         })

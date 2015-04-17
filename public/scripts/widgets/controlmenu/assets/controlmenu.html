@@ -61,7 +61,7 @@
         </div>
         <div class="col-lg-8 col-md-8 col-sm-8">
             <select id="select-map" class="control-menu-select" style="width:100%; margin-top:4px;">
-                <option value="webservices/savedMap.json">Map_01</option>
+                <option iterate="savedMaps" value="{{ path }}">{{ name }}</option>
             </select>
         </div>
     </div>

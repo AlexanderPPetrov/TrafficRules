@@ -450,6 +450,8 @@ h1, .h1 {
 }
 .tile-menu {
     bottom:0;
+    height: 174px;
+    overflow:hidden;
     margin-bottom:0 !important;
 }
 
@@ -488,9 +490,18 @@ h1, .h1 {
     padding:0px;
 }
 .tiles-container {
+    padding-left: 42px;
+    padding-right: 42px;
     margin-top: 2px;
 }
+.tiles-right {
+    right: 15px;
+}
+.tiles-left {
+    left: 15px;
+}
 .tiles-control {
+    position:absolute;
     height: 118px;
     width: 25px;
     margin-top: 2px;

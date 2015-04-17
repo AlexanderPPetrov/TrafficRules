@@ -18,7 +18,7 @@ Backbone.widget({
     },
 
     loaded: function () {
-        $(".base-container").draggable();
+        this.$el.find(".base-container").draggable();
 
     },
 
