@@ -2,7 +2,8 @@ Backbone.widget({
 
     model: {},
     events: {},
-    loopStarted: false,
+    timer:0,
+    tabFocused: false,
 
     listen: {
         'SEND_MATRIX_DATA': 'setMatrixData',
@@ -14,9 +15,12 @@ Backbone.widget({
     loaded: function(){
         this.model.bots = [];
         this.model.available = [];
-        window.addEventListener('focus', function() {
-            clearInterval(this.loopInterval);
-        },false);
+        $(window).bind('blur', function() {
+            this.tabFocused = false;
+        });
+        $(window).bind('focus', function() {
+            this.tabFocused = true;
+        });
     },
 
     setMatrixData: function (mapData) {
@@ -53,6 +57,9 @@ Backbone.widget({
         _.each(bots, function(bot, index) {
             if(!bot.rendered){
                 bot.id = 'Robo_' + this.zeroFill(index,3);
+                if(bot.id == 'Robo_007'){
+                    bot.className = 'dummy-bot-007';
+                }
                 this.$el.find('#dummy-bot-container').append('<div id="'+ bot.id +'" class="bot '+ bot.className +'"><div class="bot-position"><span class="bot-name">'+bot.id+'</span><br>x:<span class="bot-x">'+ bot.x +'</span><span style="margin-left:2px;">y:</span><span class="bot-y">'+ bot.y +'</span></div></div>');
                 var $currentBot = this.$el.find('#' + bot.id);
 
