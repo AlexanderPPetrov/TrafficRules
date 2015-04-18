@@ -219,6 +219,7 @@ canvas{
 
 #dummy-bot-container {
     pointer-events: none;
+    display:none;
 }
 .bot {
     position: absolute;

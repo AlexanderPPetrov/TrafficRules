@@ -33,7 +33,10 @@ Backbone.widget({
                 S: [9, 10, 11]
             }
         })
-       $currentBot.animateSprite('play', bot.direction)
+        bot.direction = 'E';
+        var initialDirection = this.getAvailableDirections(bot);
+        var $currentBot = this.$el.find('#' + bot.id);
+        $currentBot.animateSprite('play', initialDirection[0].direction);
     },
 
     removeDummyBots: function(){
@@ -71,7 +74,7 @@ Backbone.widget({
             }
 
         }, this);
-
+        this.$el.find('#dummy-bot-container').show();
         var context = this;
         clearInterval(this.loopInterval);
         this.loopInterval = setInterval(function () {
@@ -106,13 +109,13 @@ Backbone.widget({
 
             var bot ={};
             bot.className = 'dummy-bot';
-            bot.direction = 'E';
             //TODO fix sometimes undefined - needs debug
             if(this.model.available[randomNumber].x){
                 bot.x = this.model.available[randomNumber].x;
                 bot.y = this.model.available[randomNumber].y;
                 bots.push(bot);
             }
+
         }
         console.log(bots);
 
@@ -123,6 +126,8 @@ Backbone.widget({
         this.placeBots(this.model.bots)
 
     },
+
+
 
     moveToPosition: function (bot, position) {
         var t = position.y * this.model.gridSize;
