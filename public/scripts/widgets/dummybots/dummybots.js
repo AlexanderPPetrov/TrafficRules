@@ -156,6 +156,9 @@ Backbone.widget({
         bot.x = position.x;
         bot.y = position.y;
         bot.direction = position.direction;
+        var $currentBot = this.$el.find('#' + bot.id);
+        $currentBot.css('zIndex', 1000 +bot.y - bot.x);
+
     },
 
     getAvailableDirections: function(bot){
