@@ -258,3 +258,6 @@ canvas{
 .dummy-bot {
     background: transparent url('../img/sprites/bot_02.png') 0 0 no-repeat;
 }
+.dummy-bot-007 {
+    background: transparent url('../img/sprites/bot_03.png') 0 0 no-repeat;
+}
