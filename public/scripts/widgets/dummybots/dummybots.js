@@ -157,7 +157,7 @@ Backbone.widget({
         bot.y = position.y;
         bot.direction = position.direction;
         var $currentBot = this.$el.find('#' + bot.id);
-        $currentBot.css('zIndex', 1000 +bot.y - bot.x);
+        $currentBot.css('zIndex', 1000 +bot.y*bot.x);
 
     },
 

@@ -60,6 +60,7 @@ Backbone.widget({
         var rows = this.$el.find('#new-level-rows').val();
         var cols = this.$el.find('#new-level-cols').val();
         this.fire('NEW_LEVEL', {rows: rows, cols: cols});
+        this.fire('REMOVE_DUMMY_BOTS');
     },
 
     saveMap: function () {
@@ -73,6 +74,7 @@ Backbone.widget({
     loadMap: function () {
         var mapToLoad = this.$el.find('#select-map').val();
         this.fire('LOAD_MAP', mapToLoad);
+        this.fire('REMOVE_DUMMY_BOTS');
     },
 
     addBot: function () {
