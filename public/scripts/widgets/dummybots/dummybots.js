@@ -33,14 +33,14 @@ Backbone.widget({
                 S: [9, 10, 11]
             }
         })
-        bot.direction = 'E';
-        var initialDirection = this.getAvailableDirections(bot);
-        var $currentBot = this.$el.find('#' + bot.id);
-        $currentBot.animateSprite('play', initialDirection[0].direction);
+
+        $currentBot.animateSprite('play', bot.direction);
+
     },
 
     removeDummyBots: function(){
         this.model.bots = [];
+        this.model.available = [];
         this.$el.find('#dummy-bot-container').html('');
     },
 
@@ -48,8 +48,8 @@ Backbone.widget({
 
         _.each(bots, function(bot, index) {
             if(!bot.rendered){
-                bot.id = 'bot_' + this.zeroFill(index,3);
-                this.$el.find('#dummy-bot-container').append('<div id="'+ bot.id +'" class="bot '+ bot.className +'"><div class="bot-position">x:<span class="bot-x">12</span><span style="margin-left:2px;">y:</span><span class="bot-y">12</span></div></div>');
+                bot.id = 'Robo_' + this.zeroFill(index,3);
+                this.$el.find('#dummy-bot-container').append('<div id="'+ bot.id +'" class="bot '+ bot.className +'"><div class="bot-position"><span class="bot-name">'+bot.id+'</span><br>x:<span class="bot-x">'+ bot.x +'</span><span style="margin-left:2px;">y:</span><span class="bot-y">'+ bot.y +'</span></div></div>');
                 var $currentBot = this.$el.find('#' + bot.id);
 
                 var k = ((this.model.gridSize / 100) * $currentBot.width()) / 100;
@@ -59,9 +59,6 @@ Backbone.widget({
                 var matrix = 'matrix(1, 1, -2, 2, ' + offsetY + ',' + invertedOffsetX + ')';
                 $currentBot.css('transform', matrix);
                 $currentBot.css({'top': bot.y * this.model.gridSize, 'left': bot.x * this.model.gridSize});
-                $currentBot.find('.bot-x').html(bot.x);
-                $currentBot.find('.bot-y').html(bot.y);
-
                 var newWidth = Math.round(k * $currentBot.width());
                 var newHeight = Math.round(k * $currentBot.height());
                 $currentBot.css({'width': newWidth + 'px', 'height': newHeight + 'px'});
@@ -100,6 +97,7 @@ Backbone.widget({
     addDummyBots: function () {
         this.fire('GET_MATRIX_DATA');
         this.removeDummyBots();
+
         this.model.available = this.getAvailablePositions();
 
         var bots = [];
@@ -109,15 +107,16 @@ Backbone.widget({
 
             var bot ={};
             bot.className = 'dummy-bot';
-            //TODO fix sometimes undefined - needs debug
-            if(this.model.available[randomNumber].x){
-                bot.x = this.model.available[randomNumber].x;
-                bot.y = this.model.available[randomNumber].y;
-                bots.push(bot);
-            }
+
+            bot.x = this.model.available[randomNumber].x;
+            bot.y = this.model.available[randomNumber].y;
+            bot.direction = 'E';
+            var initialPosition= this.getNewPosition(bot, this.getAvailableDirections(bot));
+            bot.direction = initialPosition.direction;
+            bots.push(bot);
+
 
         }
-        console.log(bots);
 
         _.each(bots, function(bot){
             this.model.bots.push(bot);

@@ -218,7 +218,7 @@ canvas{
 }
 
 #dummy-bot-container {
-    pointer-events: none;
+    /*pointer-events: none;*/
     display:none;
 }
 .bot {
@@ -235,17 +235,21 @@ canvas{
     background: rgba(6, 86, 95, 0.8);
     border: 1px solid rgba(0, 34, 39, 0.4);
     font-size: 5px;
-    color: #37FF00;
+    color: #6BEFCC;
     padding: 1px 4px;
-    border-radius: 5px;
+    border-radius: 3px;
     letter-spacing: 1px;
     display: inline;
     position: absolute;
     min-width: 36px;
+    top: -6px;
+}
+.bot-name {
+    color: #fff;
 }
 .bot-x {
     margin-left:1px;
-    color: #fff;
+    color: #37FF00;
 }
 .bot-y {
     margin-left:1px;
