@@ -10,9 +10,13 @@ Backbone.widget({
         'REMOVE_DUMMY_BOTS': 'removeDummyBots'
     },
 
+
     loaded: function(){
         this.model.bots = [];
         this.model.available = [];
+        window.addEventListener('focus', function() {
+            clearInterval(this.loopInterval);
+        },false);
     },
 
     setMatrixData: function (mapData) {
