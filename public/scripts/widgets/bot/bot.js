@@ -27,9 +27,6 @@ Backbone.widget({
                 N: [3, 4, 5],
                 W: [6, 7, 8],
                 S: [9, 10, 11]
-            },
-            complete: function(){
-                alert('Sprite animation complete!');
             }
         })
 

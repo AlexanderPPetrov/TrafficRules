@@ -217,6 +217,9 @@ canvas{
     cursor: pointer;
 }
 
+#dummy-bot-container {
+    pointer-events: none;
+}
 .bot {
     position: absolute;
     top: 0px;
@@ -226,6 +229,26 @@ canvas{
     z-index: 2000;
     transform:matrix(1, 1,-2,2, 0, 0);
     cursor: pointer;
+}
+.bot-position {
+    background: rgba(6, 86, 95, 0.8);
+    border: 1px solid rgba(0, 34, 39, 0.4);
+    font-size: 5px;
+    color: #37FF00;
+    padding: 1px 4px;
+    border-radius: 5px;
+    letter-spacing: 1px;
+    display: inline;
+    position: absolute;
+    min-width: 36px;
+}
+.bot-x {
+    margin-left:1px;
+    color: #fff;
+}
+.bot-y {
+    margin-left:1px;
+    color: #fff600;
 }
 .dummy-bot {
     background: transparent url('../img/sprites/bot_02.png') 0 0 no-repeat;

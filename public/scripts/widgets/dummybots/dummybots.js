@@ -6,7 +6,8 @@ Backbone.widget({
 
     listen: {
         'SEND_MATRIX_DATA': 'setMatrixData',
-        'ADD_DUMMY_BOTS': 'addDummyBots'
+        'ADD_DUMMY_BOTS': 'addDummyBots',
+        'REMOVE_DUMMY_BOTS': 'removeDummyBots'
     },
 
     loaded: function(){
@@ -15,15 +16,8 @@ Backbone.widget({
     },
 
     setMatrixData: function (mapData) {
-
         this.model.gridSize = mapData.gridSize;
         this.model.mapMatrix = mapData.mapMatrix;
-
-
-        //this.startBot();
-        //this.findPath();
-        console.log(mapData);
-
     },
 
     startBot: function (bot) {
@@ -37,21 +31,22 @@ Backbone.widget({
                 N: [3, 4, 5],
                 W: [6, 7, 8],
                 S: [9, 10, 11]
-            },
-            complete: function(){
-                alert('Sprite animation complete!');
             }
         })
-
-
-        $currentBot.animateSprite('play', bot.direction)
+       $currentBot.animateSprite('play', bot.direction)
     },
+
+    removeDummyBots: function(){
+        this.model.bots = [];
+        this.$el.find('#dummy-bot-container').html('');
+    },
+
     placeBots: function (bots) {
 
         _.each(bots, function(bot, index) {
             if(!bot.rendered){
                 bot.id = 'bot_' + this.zeroFill(index,3);
-                this.$el.find('#dummy-bot-container').append('<div id="'+ bot.id +'" class="bot '+ bot.className +'"></div>');
+                this.$el.find('#dummy-bot-container').append('<div id="'+ bot.id +'" class="bot '+ bot.className +'"><div class="bot-position">x:<span class="bot-x">12</span><span style="margin-left:2px;">y:</span><span class="bot-y">12</span></div></div>');
                 var $currentBot = this.$el.find('#' + bot.id);
 
                 var k = ((this.model.gridSize / 100) * $currentBot.width()) / 100;
@@ -61,6 +56,8 @@ Backbone.widget({
                 var matrix = 'matrix(1, 1, -2, 2, ' + offsetY + ',' + invertedOffsetX + ')';
                 $currentBot.css('transform', matrix);
                 $currentBot.css({'top': bot.y * this.model.gridSize, 'left': bot.x * this.model.gridSize});
+                $currentBot.find('.bot-x').html(bot.x);
+                $currentBot.find('.bot-y').html(bot.y);
 
                 var newWidth = Math.round(k * $currentBot.width());
                 var newHeight = Math.round(k * $currentBot.height());
@@ -76,8 +73,9 @@ Backbone.widget({
         }, this);
 
         var context = this;
+        clearInterval(this.loopInterval);
         this.loopInterval = setInterval(function () {
-            context.animateBots();
+           context.animateBots();
         }, 1000);
     },
 
@@ -98,17 +96,18 @@ Backbone.widget({
 
     addDummyBots: function () {
         this.fire('GET_MATRIX_DATA');
+        this.removeDummyBots();
         this.model.available = this.getAvailablePositions();
 
         var bots = [];
-        for (var i = 0; i < 5; i++) {
+        var botsCount = Math.floor(this.model.available.length*0.5);
+        for (var i = 0; i < botsCount; i++) {
             var randomNumber = Math.floor((Math.random() * this.model.available.length - 1) + 1);
 
             var bot ={};
             bot.className = 'dummy-bot';
             bot.direction = 'E';
             //TODO fix sometimes undefined - needs debug
-            //Directions are crappy after clicking couple of times add dummy robos
             if(this.model.available[randomNumber].x){
                 bot.x = this.model.available[randomNumber].x;
                 bot.y = this.model.available[randomNumber].y;
@@ -125,34 +124,27 @@ Backbone.widget({
 
     },
 
-    removeBot: function () {
-        if (this.bot) {
-            this.bot.remove()
-        }
-    },
-
-
-
-
-
-
     moveToPosition: function (bot, position) {
         var t = position.y * this.model.gridSize;
         var l = position.x * this.model.gridSize;
         var $currentBot = this.$el.find('#' + bot.id);
+
         var context = this;
-        context.updateBotPosition(bot, position);
-        $currentBot.animateSprite('play', bot.direction)
+        context.setNewPosition(bot, position);
         $currentBot.animate({top: t + 'px', left: l + 'px'}, {
             easing: "linear",
             duration: 1000,
             complete: function () {
+                var $currentBot = context.$el.find('#' + bot.id);
+                $currentBot.find('.bot-x').html(bot.x);
+                $currentBot.find('.bot-y').html(bot.y);
+                $currentBot.animateSprite('play', bot.direction);
             }
         });
 
     },
 
-    updateBotPosition: function(bot, position){
+    setNewPosition: function(bot, position){
         bot.x = position.x;
         bot.y = position.y;
         bot.direction = position.direction;
@@ -210,12 +202,6 @@ Backbone.widget({
         }
         
         return newPosition;
-
-    },
-
-    positionBot: function(bot){
-
-
     },
 
     animateBots: function() {
