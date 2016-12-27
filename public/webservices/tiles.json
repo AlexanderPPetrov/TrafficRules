@@ -34,6 +34,14 @@
         {
           "src": "assets/img/tiles/commerce/hotel_01.png",
           "label": "Hotel 01"
+        },
+        {
+          "src": "assets/img/tiles/buildings/rum_trakia.png",
+          "label": "РУМ Тракия"
+        },
+        {
+          "src": "assets/img/tiles/buildings/school.png",
+          "label": "СОУ 'Св. Софроний Врачански'"
         }
       ]
     },

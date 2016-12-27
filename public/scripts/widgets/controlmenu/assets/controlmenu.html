@@ -15,10 +15,11 @@
                 <input type="checkbox"> Fog of war
             </label>
         </div>
-        <div class="col-lg-4 col-md-4 col-sm-4">
+        <div class="col-sm-4">
             <button class="btn btn-primary" id="new-level">Generate</button>
+            <button class="btn btn-primary" id="new-blank">Blank</button>
         </div>
-        <div class="col-lg-4 col-md-4 col-sm-4 text-left" style="padding: 3px 10px;">
+        <div class="col-sm-4 text-left" style="padding: 3px 10px;">
             <label>Rows:</label>
             <select id="new-level-rows" class="control-menu-select">
                 <option value="2">5</option>
@@ -32,7 +33,7 @@
                 <option value="10">21</option>
             </select>
         </div>
-        <div class="col-lg-4 col-md-4 col-sm-4 text-right" style="padding: 3px 15px;">
+        <div class="col-sm-4 text-right" style="padding: 3px 15px;">
             <label>Cols:</label>
             <select id="new-level-cols" class="control-menu-select">
                 <option value="2">5</option>
@@ -51,12 +52,12 @@
         <div class="col-lg-8 col-md-8 col-sm-8">
             <input id="map-name" type="text" placeholder="Name"/>
         </div>
-        <div class="col-lg-4 col-md-4 col-sm-4">
+        <div class="col-sm-4">
             <button class="btn btn-primary" id="save-map" style="width:100%;">Save</button>
         </div>
     </div>
     <div class="row control-menu-row">
-        <div class="col-lg-4 col-md-4 col-sm-4">
+        <div class="col-sm-4">
             <button class="btn btn-primary" id="load-map">Load Map</button>
         </div>
         <div class="col-lg-8 col-md-8 col-sm-8">
@@ -67,16 +68,19 @@
     </div>
     <div class="row control-menu-row">
         <p>Add AI</p>
-        <div class="col-lg-4 col-md-4 col-sm-4">
+        <div class="col-sm-4">
             <button class="btn btn-primary" id="add-bot">A* Robo</button>
         </div>
-        <div class="col-lg-4 col-md-4 col-sm-4">
+        <div class="col-sm-4">
             <button class="btn btn-primary" id="add-dummy-bots">Dummy Robos</button>
+        </div>
+        <div class="col-sm-4">
+            <img src="assets/img/assistant.png" id="assistant">Робо</img>
         </div>
     </div>
     <div class="row control-menu-row">
         <p>Quests</p>
-        <div class="col-lg-4 col-md-4 col-sm-4">
+        <div class="col-sm-4">
             <button class="btn btn-primary" id="generate-quest">Generate Quests</button>
         </div>
     </div>

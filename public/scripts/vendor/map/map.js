@@ -239,8 +239,20 @@ Map.getMapMatrix = function(rowCount, colCount){
     }
 
     return mapMatrix;
-}
+};
 
+Map.getBlankMatrix = function(rowCount, colCount){
+    var mapMatrix = [];
+    for (var i = 0; i < rowCount; i++) {
+        mapMatrix[i] = [];
+        for (var j = 0; j < colCount; j++) {
+            mapMatrix[i][j] = 1;
+
+        }
+    }
+    return mapMatrix;
+
+};
 
 showLevel = function(z) {
   var element;
@@ -252,3 +264,4 @@ hideLevel = function(z) {
   element = document.getElementById("level_" + z);
   return element.style.display = "none";
 };
+

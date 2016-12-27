@@ -44,6 +44,7 @@ Backbone.widget({
         this.$el.find('.thumb-container-selected').removeClass('thumb-container-selected');
         this.selected.addClass('thumb-container-selected');
         this.fire('REPLACE_IMAGE', this.selected.find('img').attr('src'))
+
     },
 
 

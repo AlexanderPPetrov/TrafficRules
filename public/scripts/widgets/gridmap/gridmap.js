@@ -25,6 +25,7 @@ Backbone.widget({
 
     listen: {
         'NEW_LEVEL': 'newMap',
+        'NEW_BLANK_LEVEL': 'newBlankMap',
         'ROTATE_IMAGE': 'rotateImage',
         'REPLACE_IMAGE': 'replaceImage',
         'SET_INFO_TEXT': 'setInfoText',
@@ -45,14 +46,14 @@ Backbone.widget({
         this.render();
     },
 
-    render: function () {
+    render: function (blank) {
 
         this.renderTemplate({
             template: 'gridmap',
             data: this.model,
             renderCallback: function () {
                 this.setGridSize();
-                this.initializeMap();
+                this.initializeMap(blank);
             }
         })
     },
@@ -61,6 +62,12 @@ Backbone.widget({
         this.rowCount = parseInt(data.rows);
         this.columnCount = parseInt(data.cols);
         this.render();
+    },
+
+    newBlankMap: function(data){
+        this.rowCount = parseInt(data.rows);
+        this.columnCount = parseInt(data.cols);
+        this.render(true);
     },
 
     enableDeselect: function () {
@@ -102,8 +109,17 @@ Backbone.widget({
         this.fire('CALCULATE_COORDINATES', coordinatesData);
     },
 
-    initializeMap: function () {
-        this.mapMatrix = Map.getMapMatrix(this.rowCount * 2 + 1, this.columnCount * 2 + 1);
+    initializeMap: function (blank) {
+
+
+
+        if(blank){
+            this.mapMatrix = Map.getBlankMatrix(this.rowCount * 2 + 1, this.columnCount * 2 + 1);
+        }else{
+            this.mapMatrix = Map.getMapMatrix(this.rowCount * 2 + 1, this.columnCount * 2 + 1);
+        }
+
+
         this.definePath(this.mapMatrix);
 
         $('#grid-container').find('.r').css({'width': this.rowWidthPx, 'height': this.rowHeight});
@@ -112,12 +128,16 @@ Backbone.widget({
             'height': this.boxSize
         });
 
+        console.log(this.boxSize)
         $('#grid-container').find('.road, .block').addClass('base-grid');
 
         this.mapTiles(this.mapMatrix);
         this.renderGrass();
-        this.renderHouses();
-        this.renderRoadTiles();
+        if(!blank){
+            this.renderHouses();
+            this.renderRoadTiles();
+        }
+
         this.setIndexes();
         this.initFogOfWar();
         this.placePlayer({x: 0, y: 1}, 'assets/img/models/car_01_E.png');
