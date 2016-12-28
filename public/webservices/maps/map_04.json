@@ -2638,7 +2638,9 @@
   ],
   "specialPoints": [
     {
-      "info": "До заведение 'Мистрал' има светофар с пешеходна пътека",
+      "label": "Заведение 'Мистрал'",
+      "info": " До заведение 'Мистрал' има светофар с пешеходна пътека",
+      "signs":["assets/img/signs/trafficlight.png","assets/img/signs/zebra.png"],
       "x": 12,
       "y": 11
     }

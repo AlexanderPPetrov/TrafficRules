@@ -2,11 +2,12 @@ Backbone.widget({
 
     model: {},
     events: {},
+    counter:0,
 
     listen: {
         'SEND_MATRIX_DATA': 'setBotData',
         'ADD_BOT': 'addBot',
-        'START_ASSISTANT':'startAssistant'
+        'START_ASSISTANT': 'startAssistant'
     },
 
     setBotData: function (mapData) {
@@ -20,6 +21,7 @@ Backbone.widget({
 
     startBot: function () {
 
+        this.counter = 0;
         this.bot.animateSprite({
             fps: 12,
             loop: true,
@@ -35,13 +37,13 @@ Backbone.widget({
     },
     placeBot: function (x, y) {
         this.removeBot();
-        this.$el.find('#bot-container').append('<div id="bot"></div>');
+        this.$el.find('#bot-container').append('<div id="bot"><div class="bot-position"><span class="point-name"></span><div class="signs"></div></div></div>');
         this.bot = this.$el.find('#bot');
         var k = ((this.gridSize / 100) * this.bot.width()) / 100;
 
-        var invertedOffsetX = Math.ceil(-this.gridSize*0.24 - 2);
-        var offsetY = Math.ceil(0.6*this.gridSize);
-        var matrix = 'matrix(1, 1, -2, 2, ' + offsetY + ',' + invertedOffsetX + ')';
+        var invertedOffsetX = Math.ceil(-this.gridSize * 0.24 - 2);
+        var offsetY = Math.ceil(0.6 * this.gridSize);
+        var matrix = 'matrix(2, 2, -3, 3, ' + offsetY + ',' + invertedOffsetX + ')';
         this.bot.css('transform', matrix);
         this.bot.css({'top': x * this.gridSize, 'left': y * this.gridSize});
 
@@ -51,7 +53,7 @@ Backbone.widget({
         this.bot.css({'width': newWidth + 'px', 'height': newHeight + 'px'});
         var backgroundWidth = (12 * this.bot.width()) + 'px';
         var backgroundHeight = this.bot.height() + 'px';
-        this.bot.css({ backgroundSize : backgroundWidth+' '+backgroundHeight });
+        this.bot.css({backgroundSize: backgroundWidth + ' ' + backgroundHeight});
         // console.log('background-size', this.bot.css('background-size'));
         // console.log('width', this.bot.width());
         // console.log('height', this.bot.height())
@@ -66,13 +68,13 @@ Backbone.widget({
 
     },
 
-    startAssistant: function(data){
+    startAssistant: function (data) {
         this.model.data = data;
         this.fire('GET_MATRIX_DATA');
         this.placeBot(this.model.data.y, this.model.data.x);
         this.startBot();
         this.findPath();
-        this.defineOrientation(this.path[0],this.path[1])
+        this.defineOrientation(this.path[0], this.path[1])
     },
 
     removeBot: function () {
@@ -106,12 +108,12 @@ Backbone.widget({
                         diagonal = false;
                     }
 
-                    if(diagonal){
-                        if (nodes[r-1] !== undefined && nodes[r-1][c-1] !== undefined){
-                            nodes[r][c].addVertex(nodes[r-1][c-1]);
+                    if (diagonal) {
+                        if (nodes[r - 1] !== undefined && nodes[r - 1][c - 1] !== undefined) {
+                            nodes[r][c].addVertex(nodes[r - 1][c - 1]);
                         }
-                        if (nodes[r-1] !== undefined && nodes[r-1][c+1] !== undefined){
-                            nodes[r][c].addVertex(nodes[r-1][c+1]);
+                        if (nodes[r - 1] !== undefined && nodes[r - 1][c + 1] !== undefined) {
+                            nodes[r][c].addVertex(nodes[r - 1][c + 1]);
                         }
 
                     }
@@ -123,7 +125,7 @@ Backbone.widget({
 
         var paths = [];
         var steps = [];
-        _.each(this.mapObjects.endPoints, function(endPoint){
+        _.each(this.mapObjects.endPoints, function (endPoint) {
             var path = PathFinder.AStarSolver(nodes[this.model.data.y][this.model.data.x], nodes[endPoint.y][endPoint.x]);
             paths.push(path);
             steps.push(path.length);
@@ -131,42 +133,57 @@ Backbone.widget({
         var shortestWay = Math.min.apply(null, steps)
 
         this.path = paths[steps.indexOf(shortestWay)];
-        console.log(this.path )
+        console.log(this.path)
         this.moveBot()
 
     },
 
     moveBot: function () {
         var context = this;
-        var counter = 0;
-        for (var i = 0; i < this.path.length; i++) {
-            this.moveToPosition(this.path[i], function () {
-                context.defineOrientation(context.path[counter],context.path[counter+1]);
-                if (counter == context.path.length - 1) {
-                    context.bot.fadeOut(function () {
-                        $(this).remove();
-                    });
-                }
-                counter++;
-            });
+        var specialPoint = this.checkSpecialPoints(this.path[this.counter]);
+
+        if(specialPoint){
+            this.bot.animateSprite('stop');
+            this.fire('POINTS_INFO', specialPoint.info);
+            console.log('fire')
+            this.bot.find('.point-name').html(specialPoint.label);
+
+            _.each(specialPoint.signs, function(sign){
+                this.bot.find('.signs').append('<img class="sign-thumb" src="'+ sign + '"/>')
+            }, this);
+
+            return;
         }
+        this.moveToPosition(this.path[this.counter], function () {
+
+            context.defineOrientation(context.path[context.counter], context.path[context.counter + 1]);
+            if (context.counter == context.path.length - 1) {
+                context.bot.fadeOut(function () {
+                    $(this).remove();
+                });
+            }else{
+                context.counter++;
+                context.moveBot();
+            }
+
+        });
     },
 
-    defineOrientation: function(previousPos,nextPos){
-        if(nextPos){
-            if(previousPos.x == nextPos.x && previousPos.y > nextPos.y){
+    defineOrientation: function (previousPos, nextPos) {
+        if (nextPos) {
+            if (previousPos.x == nextPos.x && previousPos.y > nextPos.y) {
                 // console.log('NORTH | UP');
                 this.bot.animateSprite('play', 'N')
             }
-            if(previousPos.x == nextPos.x && previousPos.y < nextPos.y){
+            if (previousPos.x == nextPos.x && previousPos.y < nextPos.y) {
                 // console.log('SOUTH | DOWN');
                 this.bot.animateSprite('play', 'S')
             }
-            if(previousPos.x > nextPos.x && previousPos.y == nextPos.y){
+            if (previousPos.x > nextPos.x && previousPos.y == nextPos.y) {
                 // console.log('WEST | RIGHT');
                 this.bot.animateSprite('play', 'W')
             }
-            if(previousPos.x < nextPos.x && previousPos.y == nextPos.y){
+            if (previousPos.x < nextPos.x && previousPos.y == nextPos.y) {
                 // console.log('EAST | LEFT');
                 this.bot.animateSprite('play', 'E')
             }
@@ -177,7 +194,6 @@ Backbone.widget({
     moveToPosition: function (position, callback) {
         var t = position.y * this.gridSize;
         var l = position.x * this.gridSize;
-
         this.bot.animate({top: t + 'px', left: l + 'px'}, {
             easing: "linear",
             duration: 1000,
@@ -185,6 +201,11 @@ Backbone.widget({
                 callback()
             }
         });
+    },
+
+    checkSpecialPoints: function (position) {
+        var specialPoint = _.findWhere(this.mapObjects.specialPoints, {x: position.x, y: position.y});
+        return specialPoint;
     }
 
 }, ['animatesprite', 'pathfinding']);

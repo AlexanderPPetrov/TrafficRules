@@ -46,52 +46,7 @@ Backbone.widget({
             data: this.model,
             renderCallback: function () {
                 this.$el.find(".base-container").draggable();
-                this.$el.find("#assistant").draggable({
-                    revert: "invalid",
-                    start: function () {
-                        console.log('start')
-                        console.log(context.startPoints)
 
-                        _.each(context.startPoints, function(startPoint){
-                            $('.road[x='+ startPoint.x +'][y=' + startPoint.y +']').append("<div class='unlocked'></div>")
-                        })
-
-
-                        $(".unlocked").droppable({
-                            accept: "#assistant",
-                            classes: {
-                                "ui-droppable-hover": "ui-state-hover",
-                                "ui-droppable-active": "ui-state-default"
-                            },
-                            over: function( event, ui ) {
-                                console.log('over')
-                                $(this).closest('.road').find('.map-object').append('<img class="place-on-map grid-image" src="assets/img/tiles/map/place_bot.png"/>')
-                            },
-                            out: function( event, ui ) {
-                                console.log('out')
-                                $(this).closest('.road').find('.map-object').find('.place-on-map').remove()
-                            },
-                            drop: function (event, ui) {
-                                var x = parseInt($(this).closest('.road').attr('x'));
-                                var y = parseInt($(this).closest('.road').attr('y'));
-                                context.fire('START_ASSISTANT', {x: x, y: y});
-                                $('#assistant').attr('style', 'position:relative');
-
-                                $(this).closest('.road').find('.map-object').find('.place-on-map').remove()
-
-                            }
-                        });
-
-
-                    },
-                    drag: function () {
-                        // console.log('drag')
-                    },
-                    stop: function () {
-                        console.log('stop')
-                        $('.unlocked').remove();
-                    }
-                });
             }
 
         })

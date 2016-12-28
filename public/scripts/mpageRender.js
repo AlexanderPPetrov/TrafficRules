@@ -36,6 +36,7 @@
         'when-pipeline': 'vendor/when/pipeline' ,
         'when-function': 'vendor/when/function' ,
         'typeahead': 'vendor/typeahead/typeahead' ,
+        'typewriter': 'vendor/typewriter/typewriter' ,
         'datepicker': 'vendor/datepicker/js/bootstrap-datepicker',
         'fileupload': 'vendor/fileupload/fileupload',
         'bootstrapswitch': 'vendor/bootstrapswitch/bootstrapswitch',

@@ -890,6 +890,10 @@ canvas{
     cursor: pointer;
 }
 .bot-position {
+    -ms-transform: scale(0.5, 0.5); /* IE 9 */
+    -webkit-transform: scale(0.5 0.5); /* Safari */
+    transform: scale(0.5, 0.5);
+
     background: rgba(6, 86, 95, 0.8);
     border: 1px solid rgba(0, 34, 39, 0.4);
     font-size: 5px;
@@ -901,8 +905,9 @@ canvas{
     position: absolute;
     min-width: 36px;
     top: -6px;
+    display:none;
 }
-.bot-name {
+.point-name {
     color: #fff;
 }
 .bot-x {
@@ -931,10 +936,22 @@ canvas{
     box-shadow: inset 0px 2px 13px rgb(178, 226, 32);
     border-radius: 2px;
 }
-.ui-state-default {
 
+.sign-thumb {
+    border-radius:3px;
+    background:black;
+    border:2px solid #fff;
+    margin-left:5px;
+    width:10px;
 }
 
-.ui-state-highlight {
+/* Google Fonts */
+@import url(http://fonts.googleapis.com/css?family=Anonymous+Pro);
 
+
+.info-text-container {
+    font-family:'Anonymous Pro', monospace;
+}
+.info-start-point {
+    display:none;
 }

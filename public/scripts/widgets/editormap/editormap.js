@@ -59,7 +59,12 @@ Backbone.widget({
             data: this.model,
             renderCallback: function () {
                 this.setGridSize();
-                this.initializeMap(blank);
+                console.log(Backbone.currentLayout)
+                if(Backbone.currentLayout == 'game'){
+                    this.loadMap('webservices/maps/map_04.json');
+                }else{
+                    this.initializeMap(blank);
+                }
             }
         })
     },
@@ -653,8 +658,7 @@ Backbone.widget({
     setInfoText: function (infoText) {
         if (this.selected == null) {
             return
-        }
-        ;
+        };
         this.selected.find('.house').parent().attr('data-info', infoText);
     },
 
@@ -807,6 +811,7 @@ Backbone.widget({
     },
 
     loadMap: function (mapUrl) {
+
         this.ajaxRequest({
             url: mapUrl,
             data: {},
@@ -841,10 +846,14 @@ Backbone.widget({
                 var playerY = parseInt(response.player.y);
                 this.mapObjects.endPoints = response.endPoints;
                 this.mapObjects.startPoints = response.startPoints;
+                this.mapObjects.specialPoints = response.specialPoints;
                 this.setPoints();
 
                 // this.placePlayer({x: playerX, y: playerY}, response.player.image);
-                this.sendMatrixData();
+                // this.sendMatrixData();
+                console.log('send matrix data')
+                $('.grid-map-transform').animate({opacity: 1});
+
             }
         });
     },
