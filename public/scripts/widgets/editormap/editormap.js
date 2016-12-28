@@ -11,6 +11,7 @@ Backbone.widget({
         y: 0
     },
     selected: null,
+    mapObjects:{},
     mapData:{},
 
 
@@ -558,10 +559,9 @@ Backbone.widget({
                 var house = '<div class="map-object" style="width:' + context.boxSize + 'px; height:' + context.boxSize + 'px;" data-info=""><img class="grid-image house" src="assets/img/tiles/houses/blank.png" style="width:' + context.boxSize + 'px; pointer-events:none;" /></div>'
                 $(this.$el.find('.base-grid').get(counter)).append(house);
                 // console.log('counter', counter)
-                var $lastPlaced = context.$el.find('.house').last();
-                var invertedOffsetX = -context.boxSize - 5;
-                var offsetY = context.boxSize - 5;
-                var matrix = 'matrix(1, 1, -3, 3, ' + offsetY + ',' + invertedOffsetX + ')';
+                var $lastPlaced = context.$el.find('.map-object').last();
+                var invertedOffsetX = -context.boxSize;
+                var matrix = 'matrix(1, 1, -3, 3, ' + context.boxSize + ',' + invertedOffsetX + ')';
                 $lastPlaced.css('transform', matrix);
                 counter++;
 
@@ -832,7 +832,12 @@ Backbone.widget({
                 this.initFogOfWar();
                 var playerX = parseInt(response.player.posx);
                 var playerY = parseInt(response.player.posy);
+                this.mapObjects.endPoints = response.endPoints;
+                this.mapObjects.startPoints = response.startPoints;
+                this.setPoints();
+
                 // this.placePlayer({x: playerX, y: playerY}, response.player.image);
+                this.sendMatrixData();
             }
         });
     },
@@ -872,9 +877,21 @@ Backbone.widget({
     sendMatrixData: function () {
         var matrixData = {
             'mapMatrix': this.mapMatrix,
-            'gridSize': this.boxSize
+            'gridSize': this.boxSize,
+            'mapObjects': this.mapObjects
         }
         this.fire('SEND_MATRIX_DATA', matrixData)
+    },
+
+    setPoints: function(){
+        _.each(this.mapObjects.startPoints, function(startPoint){
+            $('.road[posx='+ startPoint.posx +'][posy=' + startPoint.posy +']').find('.map-object').append("<img class='grid-image start-point' src='assets/img/tiles/map/"+startPoint.img+"'/>")
+        })
+
+        _.each(this.mapObjects.endPoints, function(endPoint){
+            console.log('end point')
+            $('.road[posx='+ endPoint.posx +'][posy=' + endPoint.posy +']').find('.map-object').append("<img class='grid-image end-point' src='assets/img/tiles/map/end_point.png'/>")
+        })
     }
 
 }, ['map']);

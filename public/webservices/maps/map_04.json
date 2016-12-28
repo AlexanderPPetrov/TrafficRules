@@ -2572,6 +2572,54 @@
     "posx": 0,
     "posy": 0
   },
+  "startPoints":[
+    {
+      "posx": 3,
+      "posy": 0,
+      "img":"arrow_04.png"
+    },
+    {
+      "posx": 13,
+      "posy": 0,
+      "img":"arrow_04.png"
+    },
+    {
+      "posx": 18,
+      "posy": 2,
+      "img":"arrow_03.png"
+    },
+    {
+      "posx": 18,
+      "posy": 4,
+      "img":"arrow_03.png"
+    },
+    {
+      "posx": 18,
+      "posy": 10,
+      "img":"arrow_04.png"
+    },
+    {
+      "posx": 17,
+      "posy": 18,
+      "img":"arrow_02.png"
+    },
+    {
+      "posx": 10,
+      "posy": 18,
+      "img":"arrow_02.png"
+    },
+    {
+      "posx": 0,
+      "posy": 11,
+      "img":"arrow_01.png"
+    },
+    {
+      "posx": 0,
+      "posy": 6,
+      "img":"arrow_01.png"
+    }
+  ],
+
   "endPoints": [
     {
       "posx": 13,

@@ -623,20 +623,23 @@ h2 {
 }
 
 .grid-image {
-    position:absolute;
-    width:100%;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
 }
 .base-grid {
     position:absolute;
 }
 
-.edit-mode .base-grid:hover{
-    background:greenyellow;
-}
+/*.edit-mode .base-grid:hover{*/
+    /*background:greenyellow;*/
+/*}*/
 
-.edit-mode .base-grid:hover .grid-image{
-    opacity:0.5;
-}
+/*.edit-mode .base-grid:hover .grid-image{*/
+    /*opacity:0.5;*/
+/*}*/
 
 
 /*.house{*/
@@ -825,17 +828,18 @@ canvas{
     position:absolute;
     padding:5px;
     z-index:999;
+    pointer-events: none;
 }
 
-.map-object:hover {
-    padding:0;
-    background: rgba(239, 255, 0, 0.2) !important;
-    -webkit-box-shadow: inset 0px 0px 5px 0px rgb(5, 20, 20);
-    -moz-box-shadow: inset 0px 0px 5px 0px rgb(5, 20, 20);
-    box-shadow: inset 0px 0px 5px 0px rgb(5, 20, 20);
-    border: 5px solid rgba(150,200,200, 0.2);
-    border-radius: 50%;
-}
+/*.map-object:hover {*/
+    /*padding:0;*/
+    /*background: rgba(239, 255, 0, 0.2) !important;*/
+    /*-webkit-box-shadow: inset 0px 0px 5px 0px rgb(5, 20, 20);*/
+    /*-moz-box-shadow: inset 0px 0px 5px 0px rgb(5, 20, 20);*/
+    /*box-shadow: inset 0px 0px 5px 0px rgb(5, 20, 20);*/
+    /*border: 5px solid rgba(150,200,200, 0.2);*/
+    /*border-radius: 50%;*/
+/*}*/
 
 #bot {
     background: transparent url('../img/sprites/bot.png') 0 0 no-repeat;
@@ -895,16 +899,15 @@ canvas{
 }
 
 .unlocked {
-    box-shadow: inset 0px 0px 4px rgb(230, 255, 20);
-    background: rgba(4, 37, 10, 0.8);
     position: absolute;
     width: 100%;
     height: 100%;
-    border-radius: 50%;
 }
 
-.ui-state-hover {
-    background: rgba(24, 240, 64, 0.8);
+.hover-drop{
+    background: rgb(54, 114, 7);
+    box-shadow: inset 0px 2px 13px rgb(178, 226, 32);
+    border-radius: 2px;
 }
 .ui-state-default {
 

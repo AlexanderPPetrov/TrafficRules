@@ -12,6 +12,7 @@ Backbone.widget({
     setBotData: function (mapData) {
         this.gridSize = mapData.gridSize;
         this.mapMatrix = mapData.mapMatrix;
+        this.mapObjects = mapData.mapObjects;
 
         console.log(mapData);
 
@@ -31,8 +32,6 @@ Backbone.widget({
             }
         })
 
-
-        this.bot.animateSprite('play', 'E')
     },
     placeBot: function (posX, posY) {
         this.removeBot();
@@ -53,9 +52,9 @@ Backbone.widget({
         var backgroundWidth = (12 * this.bot.width()) + 'px';
         var backgroundHeight = this.bot.height() + 'px';
         this.bot.css({ backgroundSize : backgroundWidth+' '+backgroundHeight });
-        console.log('background-size', this.bot.css('background-size'));
-        console.log('width', this.bot.width());
-        console.log('height', this.bot.height())
+        // console.log('background-size', this.bot.css('background-size'));
+        // console.log('width', this.bot.width());
+        // console.log('height', this.bot.height())
     },
 
 
@@ -64,12 +63,16 @@ Backbone.widget({
         this.placeBot(1, 0);
         this.startBot();
         this.findPath();
+
     },
 
     startAssistant: function(data){
         this.model.data = data;
         this.fire('GET_MATRIX_DATA');
         this.placeBot(this.model.data.posy, this.model.data.posx);
+        this.startBot();
+        this.findPath();
+        this.defineOrientation(this.path[0],this.path[1])
     },
 
     removeBot: function () {
@@ -89,28 +92,46 @@ Backbone.widget({
                     // add nodes
                     nodes[r][c] = PathFinder.addNode(c, r);
                     // add verticies between nodes
+                    // some more verticies, if we want diagonal movement
+
+                    var diagonal = true;
+
+
                     if (nodes[r][c - 1] !== undefined) {
                         nodes[r][c].addVertex(nodes[r][c - 1]);
+                        diagonal = false;
                     }
                     if (nodes[r - 1] !== undefined && nodes[r - 1][c] !== undefined) {
                         nodes[r][c].addVertex(nodes[r - 1][c]);
+                        diagonal = false;
                     }
-                    // some more verticies, if we want diagonal movement
-                    // if(diagonal){
-                       if (nodes[r-1] !== undefined && nodes[r-1][c-1] !== undefined){
-                           nodes[r][c].addVertex(nodes[r-1][c-1]);
-                       }
-                       if (nodes[r-1] !== undefined && nodes[r-1][c+1] !== undefined){
-                           nodes[r][c].addVertex(nodes[r-1][c+1]);
-                       }
 
-                    // }
+                    if(diagonal){
+                        if (nodes[r-1] !== undefined && nodes[r-1][c-1] !== undefined){
+                            nodes[r][c].addVertex(nodes[r-1][c-1]);
+                        }
+                        if (nodes[r-1] !== undefined && nodes[r-1][c+1] !== undefined){
+                            nodes[r][c].addVertex(nodes[r-1][c+1]);
+                        }
+
+                    }
+
                 }
 
             }
         }
-        var path = PathFinder.AStarSolver(nodes[1][0], nodes[this.mapMatrix.length-2][this.mapMatrix[0].length-1]);
-        this.path = path;
+
+        var paths = [];
+        var steps = [];
+        _.each(this.mapObjects.endPoints, function(endPoint){
+            var path = PathFinder.AStarSolver(nodes[this.model.data.posy][this.model.data.posx], nodes[endPoint.posy][endPoint.posx]);
+            paths.push(path);
+            steps.push(path.length);
+        }, this)
+        var shortestWay = Math.min.apply(null, steps)
+
+        this.path = paths[steps.indexOf(shortestWay)];
+        console.log(this.path )
         this.moveBot()
 
     },
@@ -134,19 +155,19 @@ Backbone.widget({
     defineOrientation: function(previousPos,nextPos){
         if(nextPos){
             if(previousPos.x == nextPos.x && previousPos.y > nextPos.y){
-                console.log('NORTH | UP');
+                // console.log('NORTH | UP');
                 this.bot.animateSprite('play', 'N')
             }
             if(previousPos.x == nextPos.x && previousPos.y < nextPos.y){
-                console.log('SOUTH | DOWN');
+                // console.log('SOUTH | DOWN');
                 this.bot.animateSprite('play', 'S')
             }
             if(previousPos.x > nextPos.x && previousPos.y == nextPos.y){
-                console.log('WEST | RIGHT');
+                // console.log('WEST | RIGHT');
                 this.bot.animateSprite('play', 'W')
             }
             if(previousPos.x < nextPos.x && previousPos.y == nextPos.y){
-                console.log('EAST | LEFT');
+                // console.log('EAST | LEFT');
                 this.bot.animateSprite('play', 'E')
             }
 

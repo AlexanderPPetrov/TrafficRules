@@ -17,6 +17,11 @@ Backbone.widget({
         'click #move-to-next': 'moveToNext'
     },
 
+    listen: {
+        'SEND_MATRIX_DATA': 'setMapData'
+
+    },
+
     loaded: function () {
         this.ajaxRequest({
             url: 'webservices/savedMaps.json',
@@ -26,6 +31,11 @@ Backbone.widget({
                 this.render();
             }
         })
+    },
+
+    setMapData: function(data){
+        this.startPoints = data.mapObjects.startPoints;
+        console.log(data)
     },
 
     render: function () {
@@ -40,10 +50,12 @@ Backbone.widget({
                     revert: "invalid",
                     start: function () {
                         console.log('start')
+                        console.log(context.startPoints)
 
-                        $('.road').each(function () {
-                            $(this).append("<div class='unlocked'></div>")
+                        _.each(context.startPoints, function(startPoint){
+                            $('.road[posx='+ startPoint.posx +'][posy=' + startPoint.posy +']').append("<div class='unlocked'></div>")
                         })
+
 
                         $(".unlocked").droppable({
                             accept: "#assistant",
@@ -51,11 +63,22 @@ Backbone.widget({
                                 "ui-droppable-hover": "ui-state-hover",
                                 "ui-droppable-active": "ui-state-default"
                             },
+                            over: function( event, ui ) {
+                                console.log('over')
+                                $(this).closest('.road').find('.map-object').append('<img class="place-on-map grid-image" src="assets/img/tiles/map/place_bot.png"/>')
+                            },
+                            out: function( event, ui ) {
+                                console.log('out')
+                                $(this).closest('.road').find('.map-object').find('.place-on-map').remove()
+                            },
                             drop: function (event, ui) {
                                 var posx = parseInt($(this).closest('.road').attr('posx'));
                                 var posy = parseInt($(this).closest('.road').attr('posy'));
                                 context.fire('START_ASSISTANT', {posx: posx, posy: posy});
                                 $('#assistant').attr('style', 'position:relative');
+
+                                $(this).closest('.road').find('.map-object').find('.place-on-map').remove()
+
                             }
                         });
 
