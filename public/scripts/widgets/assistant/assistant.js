@@ -33,7 +33,7 @@ Backbone.widget({
         })
 
     },
-    placeBot: function (posX, posY) {
+    placeBot: function (x, y) {
         this.removeBot();
         this.$el.find('#bot-container').append('<div id="bot"></div>');
         this.bot = this.$el.find('#bot');
@@ -43,7 +43,7 @@ Backbone.widget({
         var offsetY = Math.ceil(0.6*this.gridSize);
         var matrix = 'matrix(1, 1, -2, 2, ' + offsetY + ',' + invertedOffsetX + ')';
         this.bot.css('transform', matrix);
-        this.bot.css({'top': posX * this.gridSize, 'left': posY * this.gridSize});
+        this.bot.css({'top': x * this.gridSize, 'left': y * this.gridSize});
 
 
         var newWidth = Math.round(k * this.bot.width());
@@ -69,7 +69,7 @@ Backbone.widget({
     startAssistant: function(data){
         this.model.data = data;
         this.fire('GET_MATRIX_DATA');
-        this.placeBot(this.model.data.posy, this.model.data.posx);
+        this.placeBot(this.model.data.y, this.model.data.x);
         this.startBot();
         this.findPath();
         this.defineOrientation(this.path[0],this.path[1])
@@ -124,7 +124,7 @@ Backbone.widget({
         var paths = [];
         var steps = [];
         _.each(this.mapObjects.endPoints, function(endPoint){
-            var path = PathFinder.AStarSolver(nodes[this.model.data.posy][this.model.data.posx], nodes[endPoint.posy][endPoint.posx]);
+            var path = PathFinder.AStarSolver(nodes[this.model.data.y][this.model.data.x], nodes[endPoint.y][endPoint.x]);
             paths.push(path);
             steps.push(path.length);
         }, this)

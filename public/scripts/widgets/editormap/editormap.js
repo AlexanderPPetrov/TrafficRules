@@ -508,7 +508,7 @@ Backbone.widget({
         var context = this;
         this.$el.find('.base-grid').each(function (index, tileData) {
 
-            var tile = '<img class="grid-image ground" src="assets/img/tiles/school/' + context.tiles[index] + '.jpg"/>'
+            var tile = '<img class="grid-image" src="assets/img/tiles/school/' + context.tiles[index] + '.jpg"/><img class="grid-image ground" src="assets/img/tiles/houses/blank.png">'
             $(this).append(tile);
         })
 
@@ -799,7 +799,10 @@ Backbone.widget({
         var dataParams = {};
         dataParams.mapName = mapName;
         dataParams.mapData = this.getMapData();
-        console.log(dataParams.mapData);
+        dataParams.mapData.endPoints = this.mapObjects.endPoints;
+        dataParams.mapData.startPoints = this.mapObjects.startPoints;
+
+        console.log(JSON.stringify(dataParams.mapData));
 
     },
 
@@ -850,7 +853,9 @@ Backbone.widget({
         var mapData = {};
 
         mapData.mapMatrix = this.mapMatrix;
-        mapData.images = [];
+        mapData.buildings = [];
+        mapData.endPoints = [];
+        mapData.startPoints = [];
 
         this.$el.find('.house').each(function () {
             var imageData = {};
@@ -864,14 +869,12 @@ Backbone.widget({
                 if (a == '-1') {
                     imageData.rotation = -1;
                 }
-            }else{
-                imageData.rotation = 1;
             }
 
             imageData.info = $(this).parent().attr('data-info');
             imageData.x = $(this).closest('.base-grid').attr('x');
             imageData.y = $(this).closest('.base-grid').attr('y');
-            mapData.images.push(imageData);
+            mapData.buildings.push(imageData);
 
         })
 
@@ -880,7 +883,21 @@ Backbone.widget({
         mapData.player.x = this.currPlayerPos.x;
         mapData.player.y = this.currPlayerPos.y;
 
-        return JSON.stringify(mapData);
+        mapData.grounds = [];
+        this.$el.find('.ground').each(function () {
+            var current = $(this);
+            if(current.attr('src').indexOf('blank') == -1){
+                var ground = {
+                    src: current.attr('src'),
+                    x: current.closest('.base-grid').attr('x'),
+                    y: current.closest('.base-grid').attr('y')
+                }
+                mapData.grounds.push(ground)
+            }
+
+        })
+
+        return mapData;
     },
 
     sendMatrixData: function () {

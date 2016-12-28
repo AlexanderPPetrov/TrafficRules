@@ -53,7 +53,7 @@ Backbone.widget({
                         console.log(context.startPoints)
 
                         _.each(context.startPoints, function(startPoint){
-                            $('.road[posx='+ startPoint.posx +'][posy=' + startPoint.posy +']').append("<div class='unlocked'></div>")
+                            $('.road[x='+ startPoint.x +'][y=' + startPoint.y +']').append("<div class='unlocked'></div>")
                         })
 
 
@@ -72,9 +72,9 @@ Backbone.widget({
                                 $(this).closest('.road').find('.map-object').find('.place-on-map').remove()
                             },
                             drop: function (event, ui) {
-                                var posx = parseInt($(this).closest('.road').attr('posx'));
-                                var posy = parseInt($(this).closest('.road').attr('posy'));
-                                context.fire('START_ASSISTANT', {posx: posx, posy: posy});
+                                var x = parseInt($(this).closest('.road').attr('x'));
+                                var y = parseInt($(this).closest('.road').attr('y'));
+                                context.fire('START_ASSISTANT', {x: x, y: y});
                                 $('#assistant').attr('style', 'position:relative');
 
                                 $(this).closest('.road').find('.map-object').find('.place-on-map').remove()

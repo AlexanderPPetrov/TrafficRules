@@ -30,13 +30,12 @@ Backbone.widget({
             template: 'groundmenu',
             data: this.model,
             renderCallback: function () {
-                this.$el.find(".base-container").draggable();
             }
         })
     },
     blockSelected: function(blockData){
         this.$el.find('.thumb-container-selected').removeClass('thumb-container-selected');
-        this.$el.find('.image-preview[src="' + blockData.ground + '"]').parent().addClass('thumb-container-selected');
+        this.$el.find('.ground-preview[src="' + blockData.ground + '"]').parent().addClass('thumb-container-selected');
     },
 
     selectTile: function(e){

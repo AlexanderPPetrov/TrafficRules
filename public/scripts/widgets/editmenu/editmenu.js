@@ -30,7 +30,7 @@ Backbone.widget({
         this.$el.find('.selected-x').html(blockData.x);
         this.$el.find('.selected-y').html(blockData.y);
         this.$el.find('#select-tile').val(blockData.image);
-        this.$el.find('.image-preview').attr('src', blockData.image)
+        this.$el.find('.building').attr('src', blockData.image)
 
     },
     displayInfoText: function(infoText){

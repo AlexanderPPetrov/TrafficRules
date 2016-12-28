@@ -1,34 +1,9 @@
-<div class="ground-menu base-container">
-    <h3 style="padding: 8px; padding-left: 15px;">
-        <div class="row " style="margin-bottom: 5px;">
-            <div class="col-lg-12">
-                <input id="tile-search" class="pull-left" type="text" placeholder="Search" style="width:203px;"/>
-
-                <div iterate="tiles" class="toggle-search-type pull-left">
-                    <label>
-                        <input type="checkbox" data-type="{{ type }}" checked> {{ label }}
-                    </label>
-                </div>
-            </div>
-        </div>
-    </h3>
-
+<div class="ground-menu">
     <div class="col-lg-12" style="position:relative;">
-        <div class="row">
-            <div class="tiles-control tiles-left text-center">
-                <i class="fa fa-chevron-left"></i>
-            </div>
-            <div class="tiles-control tiles-right text-center">
-                <i class="fa fa-chevron-right"></i>
-            </div>
-            <div class="tiles-container">
-                <div iterate="tiles" class="hide-by-type" data-type="{{ type }}">
-                    <div iterate="images" class="thumb-container">
-                        <div class="thumb-label">{{ label }}</div>
-                        <img class="image-preview" data-label="{{ label }}" src="{{ src }}">
-                    </div>
-                </div>
-
+        <div iterate="tiles" class="hide-by-type" data-type="{{ type }}">
+            <div iterate="images" class="thumb-container">
+                <div class="ground-label">{{ label }}</div>
+                <img class="ground-preview" data-label="{{ label }}" src="{{ src }}">
             </div>
         </div>
     </div>

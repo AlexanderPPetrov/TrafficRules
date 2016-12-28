@@ -521,18 +521,23 @@ h2 {
 }
 
 .ground-menu {
-    bottom:174px;
-    height: 174px;
     overflow:hidden;
-    margin-bottom:0 !important;
 }
 
 .image-preview {
-    width: 86px;
+     width: 86px;
+     border: 1px solid rgba(0,0,0,0.2);
+     background: rgba(0,0,0,0.4);
+     padding: 5px;
+ }
+
+.ground-preview {
+    width: 48px;
     border: 1px solid rgba(0,0,0,0.2);
     background: rgba(0,0,0,0.4);
     padding: 5px;
 }
+
 .thumb-container {
     float:left;
     cursor: pointer;
@@ -547,6 +552,16 @@ h2 {
     color: #7E7E7E;
     position: absolute;
     width: 86px;
+}
+.ground-label{
+    padding: 3px;
+    font-size: 10px;
+    background: rgba(0,0,0,0.5);
+    border-bottom: 1px solid rgba(0,0,0,0.5);
+    color: #fff;
+    position: absolute;
+    text-align: center;
+    width: 49px;
 }
 
 .thumb-container:hover {

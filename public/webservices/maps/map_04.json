@@ -400,14 +400,6 @@
       1
     ]
   ],
-  "grounds":[
-    {
-      "src": "assets/img/tiles/ground/ground_01.jpg",
-      "x": "9",
-      "y": "8"
-    }
-  ],
-
   "buildings": [
     {
       "src": "assets/img/tiles/houses/blank.png",
@@ -2576,58 +2568,6 @@
       "y": "18"
     }
   ],
-  "player": {
-    "x": 0,
-    "y": 0
-  },
-  "startPoints":[
-    {
-      "x": 3,
-      "y": 0,
-      "img":"arrow_04.png"
-    },
-    {
-      "x": 13,
-      "y": 0,
-      "img":"arrow_04.png"
-    },
-    {
-      "x": 18,
-      "y": 2,
-      "img":"arrow_03.png"
-    },
-    {
-      "x": 18,
-      "y": 4,
-      "img":"arrow_03.png"
-    },
-    {
-      "x": 18,
-      "y": 10,
-      "img":"arrow_04.png"
-    },
-    {
-      "x": 17,
-      "y": 18,
-      "img":"arrow_02.png"
-    },
-    {
-      "x": 10,
-      "y": 18,
-      "img":"arrow_02.png"
-    },
-    {
-      "x": 0,
-      "y": 11,
-      "img":"arrow_01.png"
-    },
-    {
-      "x": 0,
-      "y": 6,
-      "img":"arrow_01.png"
-    }
-  ],
-
   "endPoints": [
     {
       "x": 13,
@@ -2636,6 +2576,71 @@
     {
       "x": 9,
       "y": 10
+    }
+  ],
+  "startPoints": [
+    {
+      "x": 3,
+      "y": 0,
+      "img": "arrow_04.png"
+    },
+    {
+      "x": 13,
+      "y": 0,
+      "img": "arrow_04.png"
+    },
+    {
+      "x": 18,
+      "y": 2,
+      "img": "arrow_03.png"
+    },
+    {
+      "x": 18,
+      "y": 4,
+      "img": "arrow_03.png"
+    },
+    {
+      "x": 18,
+      "y": 10,
+      "img": "arrow_04.png"
+    },
+    {
+      "x": 17,
+      "y": 18,
+      "img": "arrow_02.png"
+    },
+    {
+      "x": 10,
+      "y": 18,
+      "img": "arrow_02.png"
+    },
+    {
+      "x": 0,
+      "y": 11,
+      "img": "arrow_01.png"
+    },
+    {
+      "x": 0,
+      "y": 6,
+      "img": "arrow_01.png"
+    }
+  ],
+  "player": {
+    "x": 0,
+    "y": 0
+  },
+  "grounds": [
+    {
+      "src": "assets/img/tiles/ground/ground_01.jpg",
+      "x": "9",
+      "y": "8"
+    }
+  ],
+  "specialPoints": [
+    {
+      "info": "До заведение 'Мистрал' има светофар с пешеходна пътека",
+      "x": 12,
+      "y": 11
     }
   ]
 }
