@@ -42,7 +42,12 @@
         {
           "src": "assets/img/tiles/buildings/school.png",
           "label": "СОУ 'Св. Софроний Врачански'"
+        },
+        {
+          "src": "assets/img/tiles/buildings/mistral.png",
+          "label": "Мистрал"
         }
+
       ]
     },
     {
@@ -64,6 +69,16 @@
         {
           "src": "assets/img/tiles/commerce/store_01.png",
           "label": "Store 01"
+        }
+      ]
+    },
+    {
+      "type": "ground",
+      "label": "Ground tiles",
+      "images": [
+        {
+          "src": "assets/img/tiles/ground/ground_01.jpg",
+          "label": "Ground 01"
         }
       ]
     },

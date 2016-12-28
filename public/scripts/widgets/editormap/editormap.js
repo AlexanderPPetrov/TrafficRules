@@ -33,6 +33,7 @@ Backbone.widget({
         'NEW_BLANK_LEVEL': 'newBlankMap',
         'ROTATE_IMAGE': 'rotateImage',
         'REPLACE_IMAGE': 'replaceImage',
+        'REPLACE_GROUND': 'replaceGround',
         'SET_INFO_TEXT': 'setInfoText',
         'REMOVE_IMAGE': 'removeImage',
         'ENABLE_DESELECT': 'enableDeselect',
@@ -188,7 +189,7 @@ Backbone.widget({
 
     },
 
-    revealFog: function (posX, posY) {
+    revealFog: function (x, y) {
         var fogWidth = (this.columnCount * 2 + 3) * this.boxSize,
             fogHeight = (this.rowCount * 2 + 3) * this.boxSize,
             canvas = $('canvas'),
@@ -199,8 +200,8 @@ Backbone.widget({
             density = .4,
             hideFill = 'rgba( 0, 0, 0, .3 )'
 
-        var pX = posX,
-            pY = posY;
+        var pX = x,
+            pY = y;
 
         // reveal wherever we move
         var radGrd = ctx.createRadialGradient(pX, pY, r1, pX, pY, r2);
@@ -258,10 +259,10 @@ Backbone.widget({
         for (var i = 0; i < mapMatrix.length; i++) {
             for (var j = 0; j < mapMatrix[i].length; j++) {
 
-                //Set attributes posx and posy to .base-grid
+                //Set attributes x and y to .base-grid
                 var $row = $(this.$el.find('.r').get(i));
                 var $col = $($row.find('.base-grid').get(j));
-                $col.attr({"posx": j, "posy": i});
+                $col.attr({"x": j, "y": i});
                 $col.css({'left': this.boxSize * j, 'top': this.boxSize * i});
                 var currentTile = mapMatrix[i][j];
                 // if (currentTile == 0) {
@@ -507,7 +508,7 @@ Backbone.widget({
         var context = this;
         this.$el.find('.base-grid').each(function (index, tileData) {
 
-            var tile = '<img class="grid-image" src="assets/img/tiles/school/' + context.tiles[index] + '.jpg"/>'
+            var tile = '<img class="grid-image ground" src="assets/img/tiles/school/' + context.tiles[index] + '.jpg"/>'
             $(this).append(tile);
         })
 
@@ -569,25 +570,17 @@ Backbone.widget({
         }
     },
 
-    loadSavedTiles: function (images) {
+    loadSavedTiles: function (images, grounds) {
         var context = this;
 
         _.each(images, function ( image,index) {
-
-
             $(context.$el.find('.base-grid').get(index)).find('.map-object').find('.grid-image').attr("src",image.src);
-            //var house = '<div class="map-object" style="width:' + context.boxSize + 'px; height:' + context.boxSize + 'px;" data-info="' + image.info + '"><img class="grid-image house" src="' + image.src + '" style="width:' + context.boxSize + 'px; pointer-events:none;" /></div>'
-            // context.$el.find('.base-grid[posx="' + image.x + '"][posy="' + image.y + '"]').append(house);
-            // var $lastPlaced = context.$el.find('.house').last();
-            // var invertedOffsetX = Math.floor(-context.boxSize) - 5;
-            // var offsetY = context.boxSize - 5;
-            // var matrix = 'matrix(1, 1, -3, 3, ' + offsetY + ',' + invertedOffsetX + ')';
-            // if (image.rotation) {
-            //     matrix = 'matrix(-1, -1, -3, 3, ' + offsetY + ',' + invertedOffsetX + ')';
-            // }
-            // $lastPlaced.css('transform', matrix);
         })
 
+        _.each(grounds, function ( ground) {
+            console.log('====>',ground)
+            $('.base-grid[x='+ ground.x +'][y=' + ground.y +']').find('.ground').attr("src",ground.src);
+        })
 
     },
 
@@ -601,9 +594,10 @@ Backbone.widget({
         this.$el.find('.base-grid-selected').last().css({'width': this.boxSize, 'height': this.boxSize})
 
         var blockData = {};
-        blockData.x = this.selected.attr('posx');
-        blockData.y = this.selected.attr('posy');
+        blockData.x = this.selected.attr('x');
+        blockData.y = this.selected.attr('y');
         blockData.image = this.selected.find('.house').attr('src');
+        blockData.ground = this.selected.find('.ground').attr('src');
         this.fire('BLOCK_SELECTED', blockData);
 
     },
@@ -642,10 +636,19 @@ Backbone.widget({
         if (this.selected == null) {
             return
         }
-        ;
-        console.log(this.selected)
+
+        console.log(this.selected);
         this.selected.find('.house').attr('src', imageSrc);
     },
+
+    replaceGround: function(imageSrc){
+        if (this.selected == null) {
+            return
+        }
+        console.log(this.selected);
+        this.selected.find('.ground').attr('src', imageSrc);
+    },
+
 
     setInfoText: function (infoText) {
         if (this.selected == null) {
@@ -700,18 +703,18 @@ Backbone.widget({
         console.log('make road')
         var $parent = $(e.currentTarget).closest('.base-grid');
         $parent.addClass('road').removeClass('block');
-        var posx = parseInt($parent.attr('posx'));
-        var posy = parseInt($parent.attr('posy'));
-        this.mapMatrix[posy][posx] = 0;
+        var x = parseInt($parent.attr('x'));
+        var y = parseInt($parent.attr('y'));
+        this.mapMatrix[y][x] = 0;
     },
 
     makeBlock: function (e) {
         console.log('make block')
         var $parent = $(e.currentTarget).closest('.base-grid');
         $parent.addClass('block').removeClass('road');
-        var posx = parseInt($parent.attr('posx'));
-        var posy = parseInt($parent.attr('posy'));
-        this.mapMatrix[posy][posx] = 1;
+        var x = parseInt($parent.attr('x'));
+        var y = parseInt($parent.attr('y'));
+        this.mapMatrix[y][x] = 1;
     },
 
     displayInfoText: function (e) {
@@ -722,8 +725,8 @@ Backbone.widget({
     movePlayer: function (e) {
         var $moveArrow = $(e.currentTarget);
         var newPosition = {
-            x: $moveArrow.attr('posx'),
-            y: $moveArrow.attr('posy')
+            x: $moveArrow.attr('x'),
+            y: $moveArrow.attr('y')
         }
         this.$el.find('.move-arrow').remove();
         this.placePlayer(newPosition, 'assets/img/models/car_01_' + $moveArrow.attr('direction') + '.png')
@@ -731,10 +734,10 @@ Backbone.widget({
     },
 
     placePlayer: function (position, model) {
-        var fogPosX = (position.x * this.boxSize) + this.boxSize,
-            fogPosY = (position.y * this.boxSize) + this.boxSize
+        var fogx = (position.x * this.boxSize) + this.boxSize,
+            fogy = (position.y * this.boxSize) + this.boxSize
 
-        this.revealFog(fogPosX, fogPosY);
+        this.revealFog(fogx, fogy);
         this.$el.find('.player').fadeOut(function () {
             $(this).remove();
         });
@@ -764,25 +767,25 @@ Backbone.widget({
                     if (mapMatrix[i][j + 1] !== undefined && mapMatrix[i][j + 1] == 0) {
                         var $row = $(this.$el.find('.r').get(i));
                         var $col = $($row.find('.base-grid').get(j + 1));
-                        $col.append('<div class="move-arrow text-center" direction="E"  posx="' + (j + 1) + '" posy="' + i + '"><i class="fa fa-long-arrow-right"></i></div>');
+                        $col.append('<div class="move-arrow text-center" direction="E"  x="' + (j + 1) + '" y="' + i + '"><i class="fa fa-long-arrow-right"></i></div>');
                     }
 
                     if (mapMatrix[i][j - 1] !== undefined && mapMatrix[i][j - 1] == 0) {
                         var $row = $(this.$el.find('.r').get(i));
                         var $col = $($row.find('.base-grid').get(j - 1));
-                        $col.append('<div class="move-arrow text-center" direction="W" posx="' + (j - 1) + '" posy="' + i + '"><i class="fa fa-long-arrow-left"></i></div>');
+                        $col.append('<div class="move-arrow text-center" direction="W" x="' + (j - 1) + '" y="' + i + '"><i class="fa fa-long-arrow-left"></i></div>');
                     }
 
                     if (mapMatrix[i - 1] !== undefined && mapMatrix[i - 1][j] !== undefined && mapMatrix[i - 1][j] == 0) {
                         var $row = $(this.$el.find('.r').get(i - 1));
                         var $col = $($row.find('.base-grid').get(j));
-                        $col.append('<div class="move-arrow text-center" direction="N" posx="' + j + '" posy="' + (i - 1) + '"><i class="fa fa-long-arrow-up"></i></div>');
+                        $col.append('<div class="move-arrow text-center" direction="N" x="' + j + '" y="' + (i - 1) + '"><i class="fa fa-long-arrow-up"></i></div>');
                     }
 
                     if (mapMatrix[i + 1] !== undefined && mapMatrix[i + 1][j] !== undefined && mapMatrix[i + 1][j] == 0) {
                         var $row = $(this.$el.find('.r').get(i + 1));
                         var $col = $($row.find('.base-grid').get(j));
-                        $col.append('<div class="move-arrow text-center" direction="S" posx="' + j + '" posy="' + (i + 1) + '"><i class="fa fa-long-arrow-down"></i></div>');
+                        $col.append('<div class="move-arrow text-center" direction="S" x="' + j + '" y="' + (i + 1) + '"><i class="fa fa-long-arrow-down"></i></div>');
                     }
 
                 }
@@ -821,17 +824,18 @@ Backbone.widget({
                 });
 
                 $('#grid-container').find('.road, .block').addClass('base-grid');
-                this.mapData.images = response.images;
+                this.mapData.buildings = response.buildings;
+                this.mapData.grounds = response.grounds;
                 this.mapData.player = response.player;
                 this.mapTiles(this.mapMatrix);
                 this.renderBlankImages();
-                this.loadSavedTiles(this.mapData.images);
-
                 this.renderTiles();
+                this.loadSavedTiles(this.mapData.buildings, this.mapData.grounds);
+
                 this.setIndexes();
                 this.initFogOfWar();
-                var playerX = parseInt(response.player.posx);
-                var playerY = parseInt(response.player.posy);
+                var playerX = parseInt(response.player.x);
+                var playerY = parseInt(response.player.y);
                 this.mapObjects.endPoints = response.endPoints;
                 this.mapObjects.startPoints = response.startPoints;
                 this.setPoints();
@@ -852,24 +856,29 @@ Backbone.widget({
             var imageData = {};
             imageData.src = $(this).attr('src');
             var currentMatrix = $(this).css('transform');
-            var values = currentMatrix.split('(')[1];
-            values = values.split(')')[0];
-            values = values.split(',');
-            var a = values[0];
-            if (a == '-1') {
-                imageData.rotation = -1;
+            if(currentMatrix != 'none'){
+                var values = currentMatrix.split('(')[1];
+                values = values.split(')')[0];
+                values = values.split(',');
+                var a = values[0];
+                if (a == '-1') {
+                    imageData.rotation = -1;
+                }
+            }else{
+                imageData.rotation = 1;
             }
+
             imageData.info = $(this).parent().attr('data-info');
-            imageData.x = $(this).closest('.base-grid').attr('posx');
-            imageData.y = $(this).closest('.base-grid').attr('posy');
+            imageData.x = $(this).closest('.base-grid').attr('x');
+            imageData.y = $(this).closest('.base-grid').attr('y');
             mapData.images.push(imageData);
 
         })
 
         mapData.player = {};
         mapData.player.image = this.$el.find('.player').find('img').attr('src');
-        mapData.player.posx = this.currPlayerPos.x;
-        mapData.player.posy = this.currPlayerPos.y;
+        mapData.player.x = this.currPlayerPos.x;
+        mapData.player.y = this.currPlayerPos.y;
 
         return JSON.stringify(mapData);
     },
@@ -885,12 +894,12 @@ Backbone.widget({
 
     setPoints: function(){
         _.each(this.mapObjects.startPoints, function(startPoint){
-            $('.road[posx='+ startPoint.posx +'][posy=' + startPoint.posy +']').find('.map-object').append("<img class='grid-image start-point' src='assets/img/tiles/map/"+startPoint.img+"'/>")
+            $('.road[x='+ startPoint.x +'][y=' + startPoint.y +']').find('.map-object').append("<img class='grid-image start-point' src='assets/img/tiles/map/"+startPoint.img+"'/>")
+            console.log($('.road[x='+ startPoint.x +'][y=' + startPoint.y +']'))
         })
 
         _.each(this.mapObjects.endPoints, function(endPoint){
-            console.log('end point')
-            $('.road[posx='+ endPoint.posx +'][posy=' + endPoint.posy +']').find('.map-object').append("<img class='grid-image end-point' src='assets/img/tiles/map/end_point.png'/>")
+            $('.road[x='+ endPoint.x +'][y=' + endPoint.y +']').find('.map-object').append("<img class='grid-image end-point' src='assets/img/tiles/map/end_point.png'/>")
         })
     }
 

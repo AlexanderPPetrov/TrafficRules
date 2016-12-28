@@ -400,7 +400,15 @@
       1
     ]
   ],
-  "images": [
+  "grounds":[
+    {
+      "src": "assets/img/tiles/ground/ground_01.jpg",
+      "x": "9",
+      "y": "8"
+    }
+  ],
+
+  "buildings": [
     {
       "src": "assets/img/tiles/houses/blank.png",
       "info": "",
@@ -1614,7 +1622,7 @@
       "y": "10"
     },
     {
-      "src": "assets/img/tiles/houses/blank.png",
+      "src": "assets/img/tiles/buildings/mistral.png",
       "info": "",
       "x": "12",
       "y": "10"
@@ -2569,65 +2577,65 @@
     }
   ],
   "player": {
-    "posx": 0,
-    "posy": 0
+    "x": 0,
+    "y": 0
   },
   "startPoints":[
     {
-      "posx": 3,
-      "posy": 0,
+      "x": 3,
+      "y": 0,
       "img":"arrow_04.png"
     },
     {
-      "posx": 13,
-      "posy": 0,
+      "x": 13,
+      "y": 0,
       "img":"arrow_04.png"
     },
     {
-      "posx": 18,
-      "posy": 2,
+      "x": 18,
+      "y": 2,
       "img":"arrow_03.png"
     },
     {
-      "posx": 18,
-      "posy": 4,
+      "x": 18,
+      "y": 4,
       "img":"arrow_03.png"
     },
     {
-      "posx": 18,
-      "posy": 10,
+      "x": 18,
+      "y": 10,
       "img":"arrow_04.png"
     },
     {
-      "posx": 17,
-      "posy": 18,
+      "x": 17,
+      "y": 18,
       "img":"arrow_02.png"
     },
     {
-      "posx": 10,
-      "posy": 18,
+      "x": 10,
+      "y": 18,
       "img":"arrow_02.png"
     },
     {
-      "posx": 0,
-      "posy": 11,
+      "x": 0,
+      "y": 11,
       "img":"arrow_01.png"
     },
     {
-      "posx": 0,
-      "posy": 6,
+      "x": 0,
+      "y": 6,
       "img":"arrow_01.png"
     }
   ],
 
   "endPoints": [
     {
-      "posx": 13,
-      "posy": 6
+      "x": 13,
+      "y": 6
     },
     {
-      "posx": 9,
-      "posy": 10
+      "x": 9,
+      "y": 10
     }
   ]
 }

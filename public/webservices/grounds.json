@@ -1,0 +1,15 @@
+{
+  "tilesInfo": "Something",
+  "tiles": [
+    {
+      "type": "ground",
+      "label": "Ground tiles",
+      "images": [
+        {
+          "src": "assets/img/tiles/ground/ground_01.jpg",
+          "label": "Ground 01"
+        }
+      ]
+    }
+  ]
+}

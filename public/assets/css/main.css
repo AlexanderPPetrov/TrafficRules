@@ -520,6 +520,13 @@ h2 {
     margin-bottom:0 !important;
 }
 
+.ground-menu {
+    bottom:174px;
+    height: 174px;
+    overflow:hidden;
+    margin-bottom:0 !important;
+}
+
 .image-preview {
     width: 86px;
     border: 1px solid rgba(0,0,0,0.2);
