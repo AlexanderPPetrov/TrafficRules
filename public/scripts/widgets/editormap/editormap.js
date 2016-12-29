@@ -20,10 +20,10 @@ Backbone.widget({
         'click .move-arrow': 'movePlayer',
         'click .road ': 'deselectTile',
         // 'contextmenu .block': 'deselectTile',
-        'mouseenter .base-grid': 'showSelection',
+        // 'mouseenter .base-grid': 'showSelection',
 
         'click .base-grid': 'selectTile',
-        'mouseleave .base-grid': 'hideSelection',
+        // 'mouseleave .base-grid': 'hideSelection',
         'click .make-road': 'makeRoad',
         'click .make-block': 'makeBlock'
     },
@@ -658,7 +658,8 @@ Backbone.widget({
     setInfoText: function (infoText) {
         if (this.selected == null) {
             return
-        };
+        }
+        ;
         this.selected.find('.house').parent().attr('data-info', infoText);
     },
 
@@ -850,7 +851,7 @@ Backbone.widget({
                 this.setPoints();
 
                 // this.placePlayer({x: playerX, y: playerY}, response.player.image);
-                // this.sendMatrixData();
+                this.sendMatrixData();
                 console.log('send matrix data')
                 $('.grid-map-transform').animate({opacity: 1});
 
@@ -925,7 +926,7 @@ Backbone.widget({
         })
 
         _.each(this.mapObjects.endPoints, function(endPoint){
-            $('.road[x='+ endPoint.x +'][y=' + endPoint.y +']').find('.map-object').append("<img class='grid-image end-point' src='assets/img/tiles/map/end_point.png'/>")
+            $('.road[x='+ endPoint.x +'][y=' + endPoint.y +']').find('.map-object').append("<img class='grid-image end-point hvr-bob hvr-bob-active' src='assets/img/tiles/map/end_point.png'/>")
         })
     }
 

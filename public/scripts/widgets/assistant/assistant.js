@@ -7,7 +7,8 @@ Backbone.widget({
     listen: {
         'SEND_MATRIX_DATA': 'setBotData',
         'ADD_BOT': 'addBot',
-        'START_ASSISTANT': 'startAssistant'
+        'START_ASSISTANT': 'startAssistant',
+        'PLACE_ASSISTANT': 'placeAssistant'
     },
 
     setBotData: function (mapData) {
@@ -60,21 +61,20 @@ Backbone.widget({
     },
 
 
-    addBot: function () {
-        this.fire('GET_MATRIX_DATA');
-        this.placeBot(1, 0);
-        this.startBot();
-        this.findPath();
-
-    },
-
-    startAssistant: function (data) {
+    placeAssistant: function (data) {
         this.model.data = data;
         this.fire('GET_MATRIX_DATA');
         this.placeBot(this.model.data.y, this.model.data.x);
         this.startBot();
         this.findPath();
-        this.defineOrientation(this.path[0], this.path[1])
+        var orientation = this.defineOrientation(this.path[0], this.path[1]);
+        orientation = orientation.slice(0,1);
+        this.bot.animateSprite('play', orientation)
+    },
+
+    startAssistant: function (data) {
+        this.moveBot();
+        this.highlightRoad();
     },
 
     removeBot: function () {
@@ -134,7 +134,7 @@ Backbone.widget({
 
         this.path = paths[steps.indexOf(shortestWay)];
         console.log(this.path)
-        this.moveBot()
+
 
     },
 
@@ -145,7 +145,7 @@ Backbone.widget({
         if(specialPoint){
             this.bot.animateSprite('stop');
             this.fire('POINTS_INFO', specialPoint.info);
-            console.log('fire')
+
             this.bot.find('.point-name').html(specialPoint.label);
 
             _.each(specialPoint.signs, function(sign){
@@ -156,7 +156,10 @@ Backbone.widget({
         }
         this.moveToPosition(this.path[this.counter], function () {
 
-            context.defineOrientation(context.path[context.counter], context.path[context.counter + 1]);
+            var orientation = context.defineOrientation(context.path[context.counter], context.path[context.counter + 1]);
+            orientation = orientation.slice(0,1);
+            context.bot.animateSprite('play', orientation)
+
             if (context.counter == context.path.length - 1) {
                 context.bot.fadeOut(function () {
                     $(this).remove();
@@ -170,25 +173,42 @@ Backbone.widget({
     },
 
     defineOrientation: function (previousPos, nextPos) {
+        var orientation = 'E';
         if (nextPos) {
             if (previousPos.x == nextPos.x && previousPos.y > nextPos.y) {
                 // console.log('NORTH | UP');
-                this.bot.animateSprite('play', 'N')
+                orientation = 'N';
             }
             if (previousPos.x == nextPos.x && previousPos.y < nextPos.y) {
                 // console.log('SOUTH | DOWN');
-                this.bot.animateSprite('play', 'S')
+                orientation = 'S';
             }
             if (previousPos.x > nextPos.x && previousPos.y == nextPos.y) {
                 // console.log('WEST | RIGHT');
-                this.bot.animateSprite('play', 'W')
+                orientation = 'W';
             }
             if (previousPos.x < nextPos.x && previousPos.y == nextPos.y) {
                 // console.log('EAST | LEFT');
-                this.bot.animateSprite('play', 'E')
+                orientation = 'E';
             }
 
+            if(previousPos.x > nextPos.x && previousPos.y > nextPos.y){
+                orientation = 'NE';
+            }
+
+            if(previousPos.x < nextPos.x && previousPos.y > nextPos.y){
+                orientation = 'WN';
+            }
+
+            if(previousPos.x < nextPos.x && previousPos.y < nextPos.y){
+                orientation = 'SW';
+            }
+
+            if(previousPos.x > nextPos.x && previousPos.y < nextPos.y){
+                orientation = 'ES';
+            }
         }
+        return orientation;
     },
 
     moveToPosition: function (position, callback) {
@@ -206,6 +226,49 @@ Backbone.widget({
     checkSpecialPoints: function (position) {
         var specialPoint = _.findWhere(this.mapObjects.specialPoints, {x: position.x, y: position.y});
         return specialPoint;
+    },
+
+    highlightRoad: function(){
+
+        _.each(this.path, function (step, index) {
+            var $road = $('.road[x='+ step.x +'][y=' + step.y +']');
+            console.log(step)
+
+            var orientation = this.defineOrientation(step, this.path[index+1]);
+
+            var toAppend = '';
+            if(orientation == 'E' || orientation == 'ES'){
+                toAppend = '<div class="move-arrow text-center"><i class="fa fa-arrow-circle-right"></i></div>';
+            }
+            if (orientation == 'W' || orientation == 'WN') {
+                toAppend = '<div class="move-arrow text-center"><i class="fa fa-arrow-circle-left"></i></div>';
+            }
+            if (orientation == 'N' || orientation == 'NE') {
+                toAppend = '<div class="move-arrow text-center"><i class="fa fa-arrow-circle-up"></i></div>';
+            }
+            if (orientation == 'S' || orientation == 'SW') {
+                toAppend = '<div class="move-arrow text-center"><i class="fa fa-arrow-circle-down"></i></div>';
+            }
+            if(index == this.path.length-1){
+                toAppend = '<div class="move-arrow text-center"><i class="fa fa-plus-circle"></i></div>';
+            }
+
+            $road.append(toAppend)
+            if(orientation == 'ES' || orientation == 'WN' || orientation == 'NE' || orientation == 'SW') {
+                $road.find('.move-arrow').find('i').css('transform','rotate(-45deg)')
+            }
+        }, this)
+
+
+
+        $('.move-arrow').css({'border': Math.floor(this.gridSize * 0.125) + 'px dashed rgba(161, 255, 0, 0.7)'})
+
+        $('.move-arrow').find('i').css({
+            'font-size': Math.ceil(this.gridSize * 3.5) + '%',
+            'padding-top': Math.ceil(this.gridSize * 0.13) + 'px',
+        })
+
+
     }
 
 }, ['animatesprite', 'pathfinding']);

@@ -2643,6 +2643,13 @@
       "signs":["assets/img/signs/trafficlight.png","assets/img/signs/zebra.png"],
       "x": 12,
       "y": 11
+    },
+    {
+      "label": "РУМ 'Тракия'",
+      "info": " Това тук е РУМ Тракия",
+      "signs":["assets/img/signs/trafficlight.png","assets/img/signs/zebra.png"],
+      "x": 9,
+      "y": 12
     }
   ]
 }
