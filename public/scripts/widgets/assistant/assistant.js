@@ -3,6 +3,7 @@ Backbone.widget({
     model: {},
     events: {},
     counter:0,
+    tour:false,
 
     listen: {
         'SEND_MATRIX_DATA': 'setBotData',
@@ -42,8 +43,8 @@ Backbone.widget({
         this.bot = this.$el.find('#bot');
         var k = ((this.gridSize / 100) * this.bot.width()) / 100;
 
-        var invertedOffsetX = Math.ceil(-this.gridSize * 0.24 - 2);
-        var offsetY = Math.ceil(0.6 * this.gridSize);
+        var invertedOffsetX = Math.ceil(-this.gridSize * 0.5 + 2);
+        var offsetY = Math.ceil(this.gridSize - 4);
         var matrix = 'matrix(2, 2, -3, 3, ' + offsetY + ',' + invertedOffsetX + ')';
         this.bot.css('transform', matrix);
         this.bot.css({'top': x * this.gridSize, 'left': y * this.gridSize});
@@ -66,13 +67,18 @@ Backbone.widget({
         this.fire('GET_MATRIX_DATA');
         this.placeBot(this.model.data.y, this.model.data.x);
         this.startBot();
-        this.findPath();
+        this.findPath(this.mapObjects.endPoints);
         var orientation = this.defineOrientation(this.path[0], this.path[1]);
         orientation = orientation.slice(0,1);
         this.bot.animateSprite('play', orientation)
     },
 
     startAssistant: function (data) {
+        if(data.tour){
+            this.tour = data.tour;
+            this.tourPoints = _.cloneDeep(this.mapObjects.specialPoints);
+            this.findPath(this.tourPoints)
+        }
         this.moveBot();
         this.highlightRoad();
     },
@@ -83,7 +89,8 @@ Backbone.widget({
         }
     },
 
-    findPath: function () {
+    findPath: function (goals) {
+        console.log(goals)
         var PathFinder = new PathFinding();
 
         var nodes = [];
@@ -125,8 +132,8 @@ Backbone.widget({
 
         var paths = [];
         var steps = [];
-        _.each(this.mapObjects.endPoints, function (endPoint) {
-            var path = PathFinder.AStarSolver(nodes[this.model.data.y][this.model.data.x], nodes[endPoint.y][endPoint.x]);
+        _.each(goals, function (goal) {
+            var path = PathFinder.AStarSolver(nodes[this.model.data.y][this.model.data.x], nodes[goal.y][goal.x]);
             paths.push(path);
             steps.push(path.length);
         }, this)
@@ -142,34 +149,62 @@ Backbone.widget({
         var context = this;
         var specialPoint = this.checkSpecialPoints(this.path[this.counter]);
 
-        if(specialPoint){
-            this.bot.animateSprite('stop');
-            this.fire('POINTS_INFO', specialPoint.info);
+        if(specialPoint && !this.tour){
 
-            this.bot.find('.point-name').html(specialPoint.label);
-
-            _.each(specialPoint.signs, function(sign){
-                this.bot.find('.signs').append('<img class="sign-thumb" src="'+ sign + '"/>')
-            }, this);
-
+            this.displaySpecialPoint(specialPoint);
             return;
         }
-        this.moveToPosition(this.path[this.counter], function () {
+        this.moveToPosition(this.path[this.counter-1], this.path[this.counter], this.path[this.counter+1], function () {
 
             var orientation = context.defineOrientation(context.path[context.counter], context.path[context.counter + 1]);
             orientation = orientation.slice(0,1);
             context.bot.animateSprite('play', orientation)
 
-            if (context.counter == context.path.length - 1) {
-                context.bot.fadeOut(function () {
-                    $(this).remove();
-                });
+            if (context.counter == context.path.length - 1 ) {
+                if(!context.tour){
+                    context.bot.fadeOut(function () {
+                        $(this).remove();
+                    });
+                }else{
+                    console.log('display special point')
+                    context.displaySpecialPoint(specialPoint);
+                    if(context.tourPoints.length != 1){
+                        context.moveToNextSpecialPoint(specialPoint)
+                    }else{
+                        console.log('end')
+                        context.fire('START_MAP_QUESTIONS', {'mapObjects':context.mapObjects})
+                    }
+                }
+
+
             }else{
                 context.counter++;
                 context.moveBot();
             }
 
         });
+    },
+
+    moveToNextSpecialPoint: function(specialPoint){
+        this.tourPoints = _.without(this.tourPoints, specialPoint);
+        this.model.data.y = specialPoint.y;
+        this.model.data.x = specialPoint.x;
+        this.findPath(this.tourPoints);
+        this.counter = 0;
+        this.moveBot();
+        this.highlightRoad();
+
+    },
+
+    displaySpecialPoint: function(specialPoint){
+        this.bot.animateSprite('stop');
+        this.fire('POINTS_INFO', specialPoint.info);
+
+        this.bot.find('.point-name').html(specialPoint.label);
+
+        _.each(specialPoint.signs, function(sign){
+            this.bot.find('.signs').append('<img class="sign-thumb" src="'+ sign + '"/>')
+        }, this);
     },
 
     defineOrientation: function (previousPos, nextPos) {
@@ -211,12 +246,23 @@ Backbone.widget({
         return orientation;
     },
 
-    moveToPosition: function (position, callback) {
+    moveToPosition: function (prevposition, position, nextposition, callback) {
+        var duration = 100;
+        var orientation = this.defineOrientation(position, nextposition);
+        if(orientation == 'ES' || orientation == 'WN' || orientation == 'NE' || orientation == 'SW') {
+            duration = 136;
+        }
+        if(prevposition){
+            var $road = $('.road[x='+ prevposition.x +'][y=' + prevposition.y +']').find('.move-arrow').fadeOut(function(){
+                $(this).remove()
+            });
+        }
+
         var t = position.y * this.gridSize;
         var l = position.x * this.gridSize;
         this.bot.animate({top: t + 'px', left: l + 'px'}, {
             easing: "linear",
-            duration: 1000,
+            duration: duration,
             complete: function () {
                 callback()
             }
@@ -224,7 +270,7 @@ Backbone.widget({
     },
 
     checkSpecialPoints: function (position) {
-        var specialPoint = _.findWhere(this.mapObjects.specialPoints, {x: position.x, y: position.y});
+        var specialPoint = _.findWhere(this.tourPoints, {x: position.x, y: position.y});
         return specialPoint;
     },
 
@@ -261,11 +307,11 @@ Backbone.widget({
 
 
 
-        $('.move-arrow').css({'border': Math.floor(this.gridSize * 0.125) + 'px dashed rgba(161, 255, 0, 0.7)'})
+        // $('.move-arrow').css({'border': Math.floor(this.gridSize * 0.08) + 'px dashed rgba(161, 255, 0, 0.7)'})
 
         $('.move-arrow').find('i').css({
             'font-size': Math.ceil(this.gridSize * 3.5) + '%',
-            'padding-top': Math.ceil(this.gridSize * 0.13) + 'px',
+            'padding-top': Math.ceil(this.gridSize * 0.24) + 'px',
         })
 
 

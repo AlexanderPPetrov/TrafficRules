@@ -2648,8 +2648,15 @@
       "label": "РУМ 'Тракия'",
       "info": " Това тук е РУМ Тракия",
       "signs":["assets/img/signs/trafficlight.png","assets/img/signs/zebra.png"],
-      "x": 9,
+      "x": 10,
       "y": 12
+    },
+    {
+      "label": "Кино 'фейс'",
+      "info": " Това тук е Кино 'фейс'",
+      "signs":["assets/img/signs/trafficlight.png","assets/img/signs/zebra.png"],
+      "x": 10,
+      "y": 11
     }
   ]
 }
