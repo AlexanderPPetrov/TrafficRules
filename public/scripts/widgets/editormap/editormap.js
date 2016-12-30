@@ -40,7 +40,8 @@ Backbone.widget({
         'DISABLE_DESELECT': 'disableDeselect',
         'SAVE_MAP': 'saveMap',
         'LOAD_MAP': 'loadMap',
-        'GET_MATRIX_DATA': 'sendMatrixData'
+        'GET_MATRIX_DATA': 'sendMatrixData',
+        'HIGHLIGHT_OBJECT': 'highlightObject'
 
 
     },
@@ -102,11 +103,11 @@ Backbone.widget({
             factor = this.rowCount * 2 + 1;
 
         }
-        this.boxSize = Math.floor($('#get-size').width() * 2 / 3 / factor);
+        this.boxSize = $('#get-size').width() * 2 / 3 / factor;
         console.log('>>>', this.boxSize)
         this.rowWidthPx = (this.columnCount * 2 + 1) * this.boxSize;
         this.rowHeight = this.boxSize;
-
+        $(".grid-map-transform").css('width',this.rowWidthPx+'px')
         var marginTop = (this.columnCount - this.rowCount) * this.boxSize;
         $('.grid-map-transform').css('marginTop', marginTop);
         this.getCoordinates();
@@ -119,6 +120,7 @@ Backbone.widget({
         coordinatesData.cols = this.columnCount * 2 + 1;
         coordinatesData.rows = this.rowCount * 2 + 1;
         this.fire('CALCULATE_COORDINATES', coordinatesData);
+        console.log(this.boxSize)
     },
 
     initializeMap: function (blank) {
@@ -193,6 +195,20 @@ Backbone.widget({
 
 
     },
+
+    highlightObject: function(object){
+        this.initFogOfWar();
+        $('.fog').show();
+        // $('.base-grid[x='+ object.originx +'][y=' + object.originy +']').append("<div class='unlocked'></div>")
+
+        var fogx = (object.originx * this.boxSize) + this.boxSize*1.5,
+            fogy = (object.originy * this.boxSize) + this.boxSize*1.5
+
+        this.revealFog(fogx, fogy);
+            console.log('reveal: ',object.originx, object.originy)
+    },
+
+
 
     revealFog: function (x, y) {
         var fogWidth = (this.columnCount * 2 + 3) * this.boxSize,

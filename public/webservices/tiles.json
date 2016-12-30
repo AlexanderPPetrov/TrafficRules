@@ -46,6 +46,14 @@
         {
           "src": "assets/img/tiles/buildings/mistral.png",
           "label": "Мистрал"
+        },
+        {
+          "src": "assets/img/tiles/buildings/block_01.png",
+          "label": "Block 01"
+        },
+        {
+          "src": "assets/img/tiles/buildings/block_02.png",
+          "label": "Block 02"
         }
 
       ]

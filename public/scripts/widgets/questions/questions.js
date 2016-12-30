@@ -32,6 +32,8 @@ Backbone.widget({
             data: this.model,
             renderCallback: function () {
                 this.prepareQuestion()
+                this.$el.find(".base-container").draggable();
+
             }
         })
     },
@@ -39,15 +41,12 @@ Backbone.widget({
     prepareQuestion: function () {
 
         this.answersIndexes = [];
-        var randomIndex = this.getRandomNumber(0, this.mapQuestions.length - 1);
         this.answersIndexes.push(this.counter);
+
         this.getThreeAnswers();
 
-        var question = this.mapQuestions[randomIndex];
-        console.log(question, this.answersIndexes);
         this.possibleAnswers = [];
         _.each(this.answersIndexes, function (answerIndex, index) {
-            console.log()
             var answer = {
                 id: 'answer-' + index,
                 label: this.mapQuestions[answerIndex].label,
@@ -61,6 +60,13 @@ Backbone.widget({
         this.shuffle(this.possibleAnswers);
         this.possibleAnswers.push({id: 'answer-3', label: 'Не съм сигурен'});
         this.renderQuestion(this.possibleAnswers);
+
+
+    },
+
+    highlightBuilding: function(specialPoint){
+
+        this.fire('HIGHLIGHT_OBJECT', specialPoint)
     },
 
 
@@ -75,14 +81,24 @@ Backbone.widget({
     },
     renderQuestion: function (answers) {
 
+        this.$el.find('.possible-answers').empty();
         this.renderTemplate({
 
             template: 'answer',
             data: {answers: answers},
-            el: '.questions',
+            el: '.possible-answers',
             append:true,
             renderCallback: function () {
-                this.$el.find('.questions').find('input').first().prop('checked', true);
+                var context = this;
+                this.$el.find('.possible-answers').find('input').first().prop('checked', true);
+                context.highlightBuilding(context.mapQuestions[context.counter]);
+                context.counter++;
+                this.$el.find('.questions').animate({
+                    opacity: 1,
+                }, 500, function() {
+
+                });
+
             }
         })
 
@@ -110,13 +126,24 @@ Backbone.widget({
 
     confirmAnswer: function(){
 
-        var selectedId = this.$el.find('.questions').find('input:checked').attr('id');
+        if(this.counter == this.mapQuestions.length){
+            $('.fog').hide();
+            return;
+        }
+        var selectedId = this.$el.find('.possible-answers').find('input:checked').attr('id');
         var selectedAnswer = _.findWhere(this.possibleAnswers, {id:selectedId});
         var right = false;
         if(selectedAnswer.right){
             right = true;
         }
         console.log('question is: ',_.findWhere(this.possibleAnswers, {right:true}),' given answer is ',selectedAnswer,' which is', right)
+        var context = this;
+        $('.questions').animate({
+            opacity: 0,
+        }, 500, function() {
+            context.prepareQuestion()
+        });
+
     }
 
 }, ['map', 'typewriter', 'jqueryui']);

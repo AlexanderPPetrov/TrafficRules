@@ -29,6 +29,8 @@ Backbone.widget({
             template: 'infomenu',
             data: this.model,
             renderCallback: function () {
+                this.$el.find(".base-container").draggable();
+
                 this.fire('GET_MATRIX_DATA')
                 var context = this;
                 this.displayInfoText(' Здравей, Гоше. Аз съм твой приятел и ще ти давам полезна информация. Постави ме на една от началните позиции, отбелязани с:', function(){

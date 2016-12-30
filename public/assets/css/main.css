@@ -418,7 +418,7 @@ h2 {
 
 
 .base-container {
-
+    z-index: 9999;
     width:100%;
     padding-bottom:15px;
     min-height:100px;
@@ -616,6 +616,7 @@ h2 {
     -webkit-transform: rotate(-45deg) skew(15deg, 15deg);
     -ms-transform: rotate(-45deg) skew(15deg, 15deg);
     transform: rotate(-45deg) skew(15deg, 15deg);
+    background:#70ae0d;
 }
 
 .coordinates{
@@ -681,6 +682,7 @@ canvas{
     pointer-events: none;
 }
 .fog {
+    opacity:0.7;
     display:none;
 }
 
@@ -1106,13 +1108,17 @@ canvas{
 .questions {
     padding: 20px 0;
     overflow:hidden;
+    border: 1px solid rgba(107, 107, 107, 0.4);
+    border-radius: 5px;
+    margin: 15px;
+    opacity: 0;
 }
 
 .questions input[type="radio"] {
     display:none;
 }
 .questions input[type="radio"] + label {
-    color: rgb(251, 234, 181);
+    color: rgb(222, 222, 222);
     text-shadow: -1px 1px 3px rgba(0,0,0,0.5);
     font-family:Arial, sans-serif;
     font-size:14px;
