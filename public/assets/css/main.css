@@ -79,6 +79,7 @@ h2 {
     background-color: #0E7920;
     border-color: #089143;
     border-radius:2px;
+    text-shadow: 1px 1px 1px #012500;
 }
 
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open .dropdown-toggle.btn-primary {
@@ -417,12 +418,11 @@ h2 {
 
 
 .base-container {
-    position: fixed;
-    z-index: 999999;
+
     width:100%;
     padding-bottom:15px;
     min-height:100px;
-    background: rgba(60, 60, 60, 0.4);
+    background: rgba(60, 60, 60, 1);
     border: 1px solid rgba(0,0,0,0.1);
     color:#d8d8d8;
     margin-bottom: 15px;
@@ -499,6 +499,8 @@ h2 {
 
 .control-menu {
     width:350px;
+    position: fixed;
+    z-index: 999999;
 }
 .control-menu-select {
     padding: 3px;
@@ -1095,4 +1097,60 @@ canvas{
     animation-fill-mode: forwards;
     -webkit-animation-direction: normal, alternate;
     animation-direction: normal, alternate;
+}
+
+/*
+    Questions & Answers
+*/
+
+.questions {
+    padding: 20px 0;
+    overflow:hidden;
+}
+
+.questions input[type="radio"] {
+    display:none;
+}
+.questions input[type="radio"] + label {
+    color: rgb(251, 234, 181);
+    text-shadow: -1px 1px 3px rgba(0,0,0,0.5);
+    font-family:Arial, sans-serif;
+    font-size:14px;
+    cursor: pointer;
+    padding-left: 40px;
+}
+
+.questions input[type="radio"] + label span {
+    display:inline-block;
+    width:26px;
+    height:26px;
+    margin:0 15px 0 0;
+    vertical-align:middle;
+    cursor:pointer;
+    -moz-border-radius:  50%;
+    border-radius:  50%;
+}
+
+.questions input[type="radio"] + label span {
+    background-color: #3a3a3a;
+    border: 2px solid #292929;
+}
+
+.questions input[type="radio"]:checked + label span{
+    background-color: #1fff00;
+}
+
+.questions input[type="radio"] + label span,
+.questions input[type="radio"]:checked + label span {
+    position: absolute;
+    left: 15px;
+    top: -3px;
+    -webkit-transition:background-color 0.4s linear;
+    -o-transition:background-color 0.4s linear;
+    -moz-transition:background-color 0.4s linear;
+    transition:background-color 0.4s linear;
+}
+
+.questions .given-answer {
+    margin-top:15px;
 }
