@@ -5,36 +5,13 @@
       "type": "houses",
       "label": "Houses",
       "images": [
-        {
-          "src": "assets/img/tiles/houses/h_01.png",
-          "label": "House 01"
-        },
-        {
-          "src": "assets/img/tiles/houses/h_02.png",
-          "label": "House 02"
-        }
+
       ]
     },
     {
       "type": "buildings",
       "label": "Public buildings",
       "images": [
-        {
-          "src": "assets/img/tiles/buildings/police_01.png",
-          "label": "Police 01"
-        },
-        {
-          "src": "assets/img/tiles/buildings/hospital_01.png",
-          "label": "Hospital 01"
-        },
-        {
-          "src": "assets/img/tiles/buildings/library_01.png",
-          "label": "Library 01"
-        },
-        {
-          "src": "assets/img/tiles/commerce/hotel_01.png",
-          "label": "Hotel 01"
-        },
         {
           "src": "assets/img/tiles/buildings/rum_trakia.png",
           "label": "РУМ Тракия"
@@ -54,6 +31,10 @@
         {
           "src": "assets/img/tiles/buildings/block_02.png",
           "label": "Block 02"
+        },
+        {
+          "src": "assets/img/tiles/buildings/monument.png",
+          "label": "Monument"
         }
 
       ]
@@ -80,16 +61,7 @@
         }
       ]
     },
-    {
-      "type": "ground",
-      "label": "Ground tiles",
-      "images": [
-        {
-          "src": "assets/img/tiles/ground/ground_01.jpg",
-          "label": "Ground 01"
-        }
-      ]
-    },
+
     {
       "type": "nature",
       "label": "Nature",
@@ -109,6 +81,10 @@
         {
           "src": "assets/img/tiles/nature/tree_04.png",
           "label": "Tree 04"
+        },
+        {
+          "src": "assets/img/tiles/nature/tree_05.png",
+          "label": "Tree 05"
         }
 
       ]

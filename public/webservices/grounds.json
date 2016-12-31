@@ -8,6 +8,18 @@
         {
           "src": "assets/img/tiles/ground/ground_01.jpg",
           "label": "Ground 01"
+        },
+        {
+          "src": "assets/img/tiles/ground/ground_02.jpg",
+          "label": "Ground 02"
+        },
+        {
+          "src": "assets/img/tiles/ground/path_01.png",
+          "label": "Path 01"
+        },
+        {
+          "src": "assets/img/tiles/ground/angle_01.png",
+          "label": "Angle 01"
         }
       ]
     }
