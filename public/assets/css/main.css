@@ -1,5 +1,5 @@
 body {
-    background: #323232;
+    background: #111;
 }
 
 
@@ -422,7 +422,7 @@ h2 {
     width:100%;
     padding-bottom:15px;
     min-height:100px;
-    background: rgba(60, 60, 60, 1);
+    background: rgba(50, 50, 50, 1);
     border: 1px solid rgba(0,0,0,0.1);
     color:#d8d8d8;
     margin-bottom: 15px;
@@ -434,7 +434,7 @@ h2 {
 }
 
 .base-container p {
-    padding-left: 15px;
+    padding: 15px;
     color: rgb(251, 234, 181);
     text-shadow: -1px 1px 3px rgba(0,0,0,0.5);
 }
@@ -442,9 +442,9 @@ h2 {
     width: 100%;
     height: 46px;
     display: block;
-    background: rgba(0,0,0,0.1);
+    background: rgba(0,0,0,0.15);
     padding: 15px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
     margin: 0;
     font-size: 14px;
 }
@@ -514,6 +514,11 @@ h2 {
 
 .edit-menu {
     right:0;
+}
+
+.player-menu {
+    left:0;
+    height:300px;
 }
 .tile-menu {
     bottom:0;
@@ -1159,4 +1164,42 @@ canvas{
 
 .questions .given-answer {
     margin-top:15px;
+}
+
+/*
+    Welcome screen
+*/
+
+
+.overlay {
+    position:fixed;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    background:rgba(0,0,0,0.5);
+}
+
+.start-menu {
+    margin-top: 100px;
+
+}
+
+.start-menu p {
+    min-height: 130px;
+    padding:30px 15px;
+}
+.start-menu .welcome-text-container{
+    height:175px;
+}
+
+.start-menu .btn{
+    display:none;
+}
+.disabled-content {
+    pointer-events: none;
+}
+
+.start-assistant-container {
+    display:none;
 }

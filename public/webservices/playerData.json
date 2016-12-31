@@ -1,0 +1,26 @@
+{
+  "status": "ok",
+  "data": {
+    "playerData": {
+      "playerName":"Георги",
+      "mapVisited":true,
+      "mapResult": 5,
+      "gamesPlayed": [
+        {
+          "startingPoint": {
+            "id": 0,
+            "x": 3,
+            "y": 0,
+            "result": 3
+          },
+          "startingPoint": {
+            "id": 1,
+            "x": 13,
+            "y": 0,
+            "result": 5
+          }
+        }
+      ]
+    }
+  }
+}

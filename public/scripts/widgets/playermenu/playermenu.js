@@ -5,17 +5,16 @@ Backbone.widget({
     x:0,
     y:0,
     events: {
-        "click #confirm-start": "enableDrag",
-        "click #start-tour": "startTour",
-        "click #start-school": "startSchool"
+        // "click #confirm-start": "enableDrag",
+        // "click #start-tour": "startTour",
+        // "click #start-school": "startSchool"
+        "click #start-assistant": "startAssistant"
 
 
     },
 
     listen: {
-        'POINTS_INFO': 'displayInfoText',
-        'SEND_MATRIX_DATA': 'setMapData',
-        'INIT_ASSISTANT':'render'
+        'START_GAME': 'render'
     },
 
     loaded: function () {
@@ -23,20 +22,20 @@ Backbone.widget({
     },
 
 
-    render: function(){
+    render: function(data){
+        this.model = data.playerData;
+        console.log(this.model)
         this.renderTemplate({
 
-            template: 'infomenu',
+            template: 'playermenu',
             data: this.model,
             renderCallback: function () {
                 this.$el.find(".base-container").draggable();
-
-                this.fire('GET_MATRIX_DATA')
-                var context = this;
-                this.displayInfoText(' Здравей, Гоше. Аз съм твой приятел и ще ти давам полезна информация. Постави ме на една от началните позиции, отбелязани с:', function(){
-                    console.log('end')
-                    context.$el.find('.info-start-point').fadeIn()
-                })
+                if(this.model.mapResult == 0){
+                    this.playMap();
+                }else{
+                    this.showResult();
+                }
             }
         })
     },
@@ -82,7 +81,7 @@ Backbone.widget({
                         context.y = parseInt($(this).closest('.road').attr('y'));
 
                         context.fire('PLACE_ASSISTANT', {x: context.x, y: context.y});
-                        context.displayInfoText(' Ще направя обиколка на района около училището, за да те запозная с картата и забележителностите. Когато си готов ми кажи да започна. ', function(){
+                        context.displayInfoText(' Дали да не направим обиколка на забележителностите в района или да отидем към училище', function(){
                             context.$el.find('.info-chose').fadeIn();
                         });;
 
@@ -112,15 +111,7 @@ Backbone.widget({
 
     },
 
-    startTour: function(){
-        this.fire('START_ASSISTANT', {tour: true});
-        this.$el.find('.info-chose').hide();
-    },
 
-    startSchool: function(){
-        this.fire('START_ASSISTANT', {tour: false});
-        this.$el.find('.info-chose').hide();
-    },
 
     displayInfoText: function(infoText, callback){
         this.$el.find('.info-text').text('');
@@ -129,6 +120,22 @@ Backbone.widget({
                 callback()
             }
         }});
+    },
+
+    startAssistant: function (){
+        this.$el.find('.start-assistant-container').fadeOut('fast');
+        this.$el.find('.info-text').empty();
+        this.fire('INIT_ASSISTANT')
+    },
+
+    playMap: function(){
+        var context = this;
+        this.displayInfoText(" Ще разгледаме района около СОУ 'Свети Софроний Врачански' с помощта на Робо. За целта натисни бутона 'Стартирай Робо'", function(){
+            context.$el.find('.start-assistant-container').fadeIn('fast');
+        })
+    },
+    showResult: function(){
+
     }
 
 

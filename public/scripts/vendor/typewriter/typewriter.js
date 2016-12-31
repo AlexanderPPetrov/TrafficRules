@@ -16,9 +16,10 @@
 
       self.options = $.extend( {}, $.fn.typewriter.options, options );
       $currentElement = $(element);
-      elementStr = $currentElement.text().replace(/\s+/g, ' ');
+        console.log(self,options, $currentElement.text())
+
+        elementStr = $currentElement.text().replace(/\s+/g, ' ');
       dataSpeed  = $currentElement.data("speed") || self.options.speed;
-      console.log(dataSpeed)
       $currentElement.empty();
       var showText = setInterval(
 				function(){
@@ -46,6 +47,7 @@
   $.fn.typewriter = function(options) {
     return this.each(function () {
     	var writer =  new typewriter();
+    	console.log(this)
       writer.init(this, options);
       $.data( this, 'typewriter', writer);
     });
