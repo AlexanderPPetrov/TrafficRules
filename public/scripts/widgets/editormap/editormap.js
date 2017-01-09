@@ -599,7 +599,7 @@ Backbone.widget({
         })
 
         _.each(grounds, function ( ground) {
-            console.log('====>',ground)
+            //console.log('====>',ground)
             $('.base-grid[x='+ ground.x +'][y=' + ground.y +']').find('.ground').attr("src",ground.src);
         })
 
@@ -744,13 +744,13 @@ Backbone.widget({
     },
 
     movePlayer: function (e) {
-        var $moveArrow = $(e.currentTarget);
-        var newPosition = {
-            x: $moveArrow.attr('x'),
-            y: $moveArrow.attr('y')
-        }
-        this.$el.find('.move-arrow').remove();
-        this.placePlayer(newPosition, 'assets/img/models/car_01_' + $moveArrow.attr('direction') + '.png')
+        //var $moveArrow = $(e.currentTarget);
+        //var newPosition = {
+        //    x: $moveArrow.attr('x'),
+        //    y: $moveArrow.attr('y')
+        //}
+        //this.$el.find('.move-arrow').remove();
+        //this.placePlayer(newPosition, 'assets/img/models/car_01_' + $moveArrow.attr('direction') + '.png')
 
     },
 
@@ -938,7 +938,7 @@ Backbone.widget({
     setPoints: function(){
         _.each(this.mapObjects.startPoints, function(startPoint){
             $('.road[x='+ startPoint.x +'][y=' + startPoint.y +']').find('.map-object').append("<img class='grid-image start-point' src='assets/img/tiles/map/"+startPoint.img+"'/>")
-            console.log($('.road[x='+ startPoint.x +'][y=' + startPoint.y +']'))
+            //console.log($('.road[x='+ startPoint.x +'][y=' + startPoint.y +']'))
         })
 
         _.each(this.mapObjects.endPoints, function(endPoint){

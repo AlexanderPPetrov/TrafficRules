@@ -124,7 +124,7 @@ Backbone.widget({
 
     displayInfoText: function(infoText, callback){
         this.$el.find('.info-text').text('');
-        this.$el.find('.info-text').text(infoText).typewriter({'speed':1, 'end': function(){
+        this.$el.find('.info-text').text(infoText).typewriter({'speed':10, 'end': function(){
             if(callback){
                 callback()
             }

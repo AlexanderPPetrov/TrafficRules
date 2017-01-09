@@ -12,7 +12,7 @@ Backbone.widget({
     loaded: function () {
 
         this.ajaxRequest({
-            url: 'webservices/playerData1.json',
+            url: 'webservices/playerData.json',
             data: {},
             type: "GET",
             success: function (response) {
@@ -37,7 +37,7 @@ Backbone.widget({
                 console.log('start')
                 var context = this;
                 this.$el.find('.welcome-text').text(this.model.welcomeMessage).typewriter({
-                    'speed': 2, 'end': function () {
+                    'speed': 10, 'end': function () {
                         context.$el.find('.overlay').removeClass('disabled-content');
                         context.$el.find('.btn').fadeIn('fast')
                     }

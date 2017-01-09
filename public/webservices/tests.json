@@ -1,0 +1,97 @@
+[ {
+  "id" : 1,
+  "description" : "Тест за движение по пътищата",
+  "testSections" : [ {
+    "id" : 1,
+    "description" : "Първа секция",
+    "questions" : [ {
+      "id" : 1,
+      "description" : "Веригата на велосипеда:",
+      "questionCategoryDescription" : "Кръстовище",
+      "answers" : [ {
+        "id" : 1,
+        "description" : "трябва да се обтяга периодично"
+      }, {
+        "id" : 2,
+        "description" : "трябва да се отпуска периодично"
+      }, {
+        "id" : 3,
+        "description" : "нито се обтяга, нито се отпуска"
+      } ]
+    }, {
+      "id" : 2,
+      "description" : "Веригата на велосипеда:",
+      "questionCategoryDescription" : "Кръстовище",
+      "answers" : [ {
+        "id" : 4,
+        "description" : "се смазва периодично"
+      }, {
+        "id" : 5,
+        "description" : "не се смазва"
+      } ]
+    } ]
+  }, {
+    "id" : 2,
+    "description" : "Втора секция",
+    "questions" : [ {
+      "id" : 3,
+      "description" : "Когато буташ велосипед, тогава според ЗДвП, ти си:",
+      "questionCategoryDescription" : "Кръстовище",
+      "answers" : [ {
+        "id" : 6,
+        "description" : "велосипедист"
+      }, {
+        "id" : 7,
+        "description" : "пешеходец"
+      } ]
+    }, {
+      "id" : 4,
+      "description" : "Когато няма тротоар или банкет, или те не могат да бъдат използвани, тогава къде ще буташ велосипеда си?",
+      "questionCategoryDescription" : "Кръстовище",
+      "answers" : [ {
+        "id" : 8,
+        "description" : "По платното за движение, най-близо до дясната му граница"
+      }, {
+        "id" : 9,
+        "description" : "По платното за движение най-близо до лявата му граница"
+      } ]
+    } ]
+  }, {
+    "id" : 3,
+    "description" : "Трета секция",
+    "questions" : [ {
+      "id" : 5,
+      "description" : "Може ли една ненапомпена гума да влияе на равновесието и на безопасното управление на велосипеда?",
+      "questionCategoryDescription" : "Велосипед",
+      "answers" : [ {
+        "id" : 11,
+        "description" : "Да"
+      }, {
+        "id" : 12,
+        "description" : "Не"
+      } ]
+    }, {
+      "id" : 6,
+      "description" : "Може ли нерегулирани добре седалка и кормило да влияят на равновесието и на безопасното управление на велосипеда?",
+      "questionCategoryDescription" : "Велосипед",
+      "answers" : [ {
+        "id" : 11,
+        "description" : "Да"
+      }, {
+        "id" : 12,
+        "description" : "Не"
+      } ]
+    }, {
+      "id" : 7,
+      "description" : "Може ли голям товар на багажника да влияе на равновесието и на безопасното управление на велосипеда?",
+      "questionCategoryDescription" : "Велосипед",
+      "answers" : [ {
+        "id" : 11,
+        "description" : "Да"
+      }, {
+        "id" : 12,
+        "description" : "Не"
+      } ]
+    } ]
+  } ]
+} ]

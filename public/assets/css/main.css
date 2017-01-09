@@ -885,6 +885,22 @@ canvas{
     cursor: pointer;
 }
 
+.player-container {
+    display:none;
+}
+
+#player {
+    background: transparent url('../img/sprites/bot_03.png') 0 0 no-repeat;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width:64px;
+    height:104px;
+    z-index: 2000;
+    transform:matrix(1, 1,-2,2, 0, 0);
+    cursor: pointer;
+}
+
 #dummy-bot-container {
     pointer-events: none;
     display:none;

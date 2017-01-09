@@ -1,0 +1,27 @@
+[ {
+  "id" : 1,
+  "firstName" : "Andrey",
+  "lastName" : "Petrov",
+  "imageUrl" : "http://lh3.googleusercontent.com/-bjgJUDNlFhM/AAAAAAAAAAI/AAAAAAAAAAA/AKB_U8vGzayOkjkrL9TY_lHaJMz0HRBvjQ/s64-c-mo/photo.jpg",
+  "role" : "Admin"
+}, {
+  "id" : 2,
+  "firstName" : "Aleksandar",
+  "lastName" : "Petrov",
+  "role" : "Admin"
+}, {
+  "id" : 3,
+  "firstName" : "Учителко",
+  "lastName" : "Учителков",
+  "role" : "Teacher"
+}, {
+  "id" : 4,
+  "firstName" : "Йордан",
+  "lastName" : "Илиев",
+  "role" : "Student"
+}, {
+  "id" : 5,
+  "firstName" : "Теодор",
+  "lastName" : "Стаматов",
+  "role" : "Student"
+} ]

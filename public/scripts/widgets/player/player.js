@@ -2,17 +2,23 @@ Backbone.widget({
 
     model: {},
     events: {},
-    counter:0,
-    tour:false,
+    counter: 0,
+    tour: false,
 
     listen: {
-        'SEND_MATRIX_DATA': 'setPlayerData',
-        'ADD_BOT': 'addPlayer',
+        'SEND_MATRIX_DATA': 'setBotData',
+        'ADD_BOT': 'addBot',
         'START_ASSISTANT': 'startAssistant',
-        'PLACE_ASSISTANT': 'placePlayer'
+        'PLACE_PLAYER': 'placePlayer'
     },
 
-    setPlayerData: function (mapData) {
+    loaded: function () {
+
+        console.log('player loaded')
+
+    },
+
+    setBotData: function (mapData) {
         this.gridSize = mapData.gridSize;
         this.mapMatrix = mapData.mapMatrix;
         this.mapObjects = mapData.mapObjects;
@@ -37,10 +43,10 @@ Backbone.widget({
         })
 
     },
-    placePlayer: function (x, y) {
+    placeBot: function (x, y) {
         this.removeBot();
-        this.$el.find('#bot-container').append('<div id="bot"><div class="bot-position"><span class="point-name"></span><div class="signs"></div></div></div>');
-        this.bot = this.$el.find('#bot');
+        this.$el.find('#player-container').append('<div id="player"><div class="bot-position"><span class="point-name"></span><div class="signs"></div></div></div>');
+        this.bot = this.$el.find('#player');
         var k = ((this.gridSize / 100) * this.bot.width()) / 100;
 
         var invertedOffsetX = Math.ceil(-this.gridSize * 0.5 + 2);
@@ -63,18 +69,24 @@ Backbone.widget({
 
 
     placePlayer: function (data) {
+        console.log('asd')
+
         this.model.data = data;
         this.fire('GET_MATRIX_DATA');
-        this.placePlayer(this.model.data.y, this.model.data.x);
+        this.placeBot(this.model.data.y, this.model.data.x);
         this.startBot();
         this.findPath(this.mapObjects.endPoints);
         var orientation = this.defineOrientation(this.path[0], this.path[1]);
-        orientation = orientation.slice(0,1);
+        orientation = orientation.slice(0, 1);
         this.bot.animateSprite('play', orientation)
+        this.highlightRoad();
+        this.hideEndPoints();
+        //this.disableOtherPaths()
+        console.log(this.path)
     },
 
     startAssistant: function (data) {
-        if(data.tour){
+        if (data.tour) {
             this.tour = data.tour;
             this.tourPoints = _.cloneDeep(this.mapObjects.specialPoints);
             this.findPath(this.tourPoints)
@@ -149,35 +161,35 @@ Backbone.widget({
         var context = this;
         var specialPoint = this.checkSpecialPoints(this.path[this.counter]);
 
-        if(specialPoint && !this.tour){
+        if (specialPoint && !this.tour) {
 
             this.displaySpecialPoint(specialPoint);
             return;
         }
-        this.moveToPosition(this.path[this.counter-1], this.path[this.counter], this.path[this.counter+1], function () {
+        this.moveToPosition(this.path[this.counter - 1], this.path[this.counter], this.path[this.counter + 1], function () {
 
             var orientation = context.defineOrientation(context.path[context.counter], context.path[context.counter + 1]);
-            orientation = orientation.slice(0,1);
+            orientation = orientation.slice(0, 1);
             context.bot.animateSprite('play', orientation)
 
-            if (context.counter == context.path.length - 1 ) {
-                if(!context.tour){
+            if (context.counter == context.path.length - 1) {
+                if (!context.tour) {
                     context.bot.fadeOut(function () {
                         $(this).remove();
                     });
-                }else{
+                } else {
                     console.log('display special point')
                     context.displaySpecialPoint(specialPoint);
-                    if(context.tourPoints.length != 1){
+                    if (context.tourPoints.length != 1) {
                         context.moveToNextSpecialPoint(specialPoint)
-                    }else{
+                    } else {
                         console.log('end')
-                        context.fire('START_MAP_QUESTIONS', {'mapObjects':context.mapObjects})
+                        context.fire('START_MAP_QUESTIONS', {'mapObjects': context.mapObjects})
                     }
                 }
 
 
-            }else{
+            } else {
                 context.counter++;
                 context.moveBot();
             }
@@ -185,7 +197,7 @@ Backbone.widget({
         });
     },
 
-    moveToNextSpecialPoint: function(specialPoint){
+    moveToNextSpecialPoint: function (specialPoint) {
         this.tourPoints = _.without(this.tourPoints, specialPoint);
         this.model.data.y = specialPoint.y;
         this.model.data.x = specialPoint.x;
@@ -196,14 +208,14 @@ Backbone.widget({
 
     },
 
-    displaySpecialPoint: function(specialPoint){
+    displaySpecialPoint: function (specialPoint) {
         this.bot.animateSprite('stop');
         this.fire('POINTS_INFO', specialPoint.info);
 
         this.bot.find('.point-name').html(specialPoint.label);
 
-        _.each(specialPoint.signs, function(sign){
-            this.bot.find('.signs').append('<img class="sign-thumb" src="'+ sign + '"/>')
+        _.each(specialPoint.signs, function (sign) {
+            this.bot.find('.signs').append('<img class="sign-thumb" src="' + sign + '"/>')
         }, this);
     },
 
@@ -227,19 +239,19 @@ Backbone.widget({
                 orientation = 'E';
             }
 
-            if(previousPos.x > nextPos.x && previousPos.y > nextPos.y){
+            if (previousPos.x > nextPos.x && previousPos.y > nextPos.y) {
                 orientation = 'NE';
             }
 
-            if(previousPos.x < nextPos.x && previousPos.y > nextPos.y){
+            if (previousPos.x < nextPos.x && previousPos.y > nextPos.y) {
                 orientation = 'WN';
             }
 
-            if(previousPos.x < nextPos.x && previousPos.y < nextPos.y){
+            if (previousPos.x < nextPos.x && previousPos.y < nextPos.y) {
                 orientation = 'SW';
             }
 
-            if(previousPos.x > nextPos.x && previousPos.y < nextPos.y){
+            if (previousPos.x > nextPos.x && previousPos.y < nextPos.y) {
                 orientation = 'ES';
             }
         }
@@ -247,13 +259,13 @@ Backbone.widget({
     },
 
     moveToPosition: function (prevposition, position, nextposition, callback) {
-        var duration = 100;
+        var duration = 500;
         var orientation = this.defineOrientation(position, nextposition);
-        if(orientation == 'ES' || orientation == 'WN' || orientation == 'NE' || orientation == 'SW') {
-            duration = 136;
+        if (orientation == 'ES' || orientation == 'WN' || orientation == 'NE' || orientation == 'SW') {
+            duration = 5180;
         }
-        if(prevposition){
-            var $road = $('.road[x='+ prevposition.x +'][y=' + prevposition.y +']').find('.move-arrow').fadeOut(function(){
+        if (prevposition) {
+            var $road = $('.road[x=' + prevposition.x + '][y=' + prevposition.y + ']').find('.move-arrow').fadeOut(function () {
                 $(this).remove()
             });
         }
@@ -274,16 +286,16 @@ Backbone.widget({
         return specialPoint;
     },
 
-    highlightRoad: function(){
+    highlightRoad: function () {
 
         _.each(this.path, function (step, index) {
-            var $road = $('.road[x='+ step.x +'][y=' + step.y +']');
+            var $road = $('.road[x=' + step.x + '][y=' + step.y + ']');
             console.log(step)
 
-            var orientation = this.defineOrientation(step, this.path[index+1]);
+            var orientation = this.defineOrientation(step, this.path[index + 1]);
 
             var toAppend = '';
-            if(orientation == 'E' || orientation == 'ES'){
+            if (orientation == 'E' || orientation == 'ES') {
                 toAppend = '<div class="move-arrow text-center"><i class="fa fa-arrow-circle-right"></i></div>';
             }
             if (orientation == 'W' || orientation == 'WN') {
@@ -295,16 +307,15 @@ Backbone.widget({
             if (orientation == 'S' || orientation == 'SW') {
                 toAppend = '<div class="move-arrow text-center"><i class="fa fa-arrow-circle-down"></i></div>';
             }
-            if(index == this.path.length-1){
+            if (index == this.path.length - 1) {
                 toAppend = '<div class="move-arrow text-center"><i class="fa fa-plus-circle"></i></div>';
             }
 
             $road.append(toAppend)
-            if(orientation == 'ES' || orientation == 'WN' || orientation == 'NE' || orientation == 'SW') {
-                $road.find('.move-arrow').find('i').css('transform','rotate(-45deg)')
+            if (orientation == 'ES' || orientation == 'WN' || orientation == 'NE' || orientation == 'SW') {
+                $road.find('.move-arrow').find('i').css('transform', 'rotate(-45deg)')
             }
         }, this)
-
 
 
         // $('.move-arrow').css({'border': Math.floor(this.gridSize * 0.08) + 'px dashed rgba(161, 255, 0, 0.7)'})
@@ -314,6 +325,32 @@ Backbone.widget({
             'padding-top': Math.ceil(this.gridSize * 0.24) + 'px',
         })
 
+
+    },
+
+    disableOtherPaths: function () {
+        var context = this;
+        $('.road').each(function () {
+            var $road = $(this)
+            var x = parseInt($road.attr('x'));
+            var y = parseInt($road.attr('y'));
+
+            if (!_.findWhere(context.path, {x: x, y: y})) {
+                $road.css('opacity', '0.5');
+            }
+
+
+        })
+    },
+
+    hideEndPoints: function () {
+
+        _.each(this.mapObjects.endPoints, function (endPoint) {
+            if (!_.findWhere(this.path, {x: endPoint.x, y: endPoint.y})) {
+                $('.base-grid[x="' + endPoint.x + '"][y="' + endPoint.y + '"]').find('.end-point').hide();
+                console.log('end point', endPoint)
+            }
+        }, this)
 
     }
 

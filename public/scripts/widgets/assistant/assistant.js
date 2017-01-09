@@ -247,10 +247,10 @@ Backbone.widget({
     },
 
     moveToPosition: function (prevposition, position, nextposition, callback) {
-        var duration = 100;
+        var duration = 500;
         var orientation = this.defineOrientation(position, nextposition);
         if(orientation == 'ES' || orientation == 'WN' || orientation == 'NE' || orientation == 'SW') {
-            duration = 136;
+            duration = 5180;
         }
         if(prevposition){
             var $road = $('.road[x='+ prevposition.x +'][y=' + prevposition.y +']').find('.move-arrow').fadeOut(function(){
