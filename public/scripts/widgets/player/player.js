@@ -5,11 +5,14 @@ Backbone.widget({
     counter: 0,
     tour: false,
 
+
     listen: {
         'SEND_MATRIX_DATA': 'setBotData',
         'ADD_BOT': 'addBot',
         'START_ASSISTANT': 'startAssistant',
-        'PLACE_PLAYER': 'placePlayer'
+        'PLACE_PLAYER': 'placePlayer',
+        'MOVE_PLAYER': 'movePlayer',
+        'ANSWER_GIVEN': 'giveNextMove'
     },
 
     loaded: function () {
@@ -44,7 +47,7 @@ Backbone.widget({
 
     },
     placeBot: function (x, y) {
-        this.removeBot();
+        this.removePlayer();
         this.$el.find('#player-container').append('<div id="player"><div class="bot-position"><span class="point-name"></span><div class="signs"></div></div></div>');
         this.bot = this.$el.find('#player');
         var k = ((this.gridSize / 100) * this.bot.width()) / 100;
@@ -83,6 +86,7 @@ Backbone.widget({
         this.hideEndPoints();
         //this.disableOtherPaths()
         console.log(this.path)
+        this.giveNextMove()
     },
 
     startAssistant: function (data) {
@@ -91,14 +95,21 @@ Backbone.widget({
             this.tourPoints = _.cloneDeep(this.mapObjects.specialPoints);
             this.findPath(this.tourPoints)
         }
-        this.moveBot();
+        this.movePlayer();
         this.highlightRoad();
     },
 
-    removeBot: function () {
+    removePlayer: function () {
         if (this.bot) {
             this.bot.remove()
         }
+    },
+
+    giveNextMove: function(){
+        var position = this.path[this.counter+1];
+        $('.move-player').removeClass('move-player');
+        var $road = $('.road[x=' + position.x + '][y=' + position.y + ']');
+        $road.addClass('move-player')
     },
 
     findPath: function (goals) {
@@ -157,41 +168,44 @@ Backbone.widget({
 
     },
 
-    moveBot: function () {
+    movePlayer: function () {
+        console.log('click')
+        this.counter++;
         var context = this;
-        var specialPoint = this.checkSpecialPoints(this.path[this.counter]);
-
-        if (specialPoint && !this.tour) {
-
-            this.displaySpecialPoint(specialPoint);
-            return;
-        }
+        //var specialPoint = this.checkSpecialPoints(this.path[this.counter]);
+        //
+        //if (specialPoint && !this.tour) {
+        //
+        //    this.displaySpecialPoint(specialPoint);
+        //    return;
+        //}
         this.moveToPosition(this.path[this.counter - 1], this.path[this.counter], this.path[this.counter + 1], function () {
 
             var orientation = context.defineOrientation(context.path[context.counter], context.path[context.counter + 1]);
             orientation = orientation.slice(0, 1);
             context.bot.animateSprite('play', orientation)
 
-            if (context.counter == context.path.length - 1) {
-                if (!context.tour) {
-                    context.bot.fadeOut(function () {
-                        $(this).remove();
-                    });
-                } else {
-                    console.log('display special point')
-                    context.displaySpecialPoint(specialPoint);
-                    if (context.tourPoints.length != 1) {
-                        context.moveToNextSpecialPoint(specialPoint)
-                    } else {
-                        console.log('end')
-                        context.fire('START_MAP_QUESTIONS', {'mapObjects': context.mapObjects})
-                    }
-                }
+            if (context.counter < context.path.length - 1) {
+                context.fire('LOAD_QUESTIONS');
+                //if (!context.tour) {
+                //    context.bot.fadeOut(function () {
+                //        $(this).remove();
+                //    });
+                //} else {
+                //    console.log('display special point')
+                //    context.displaySpecialPoint(specialPoint);
+                //    if (context.tourPoints.length != 1) {
+                //        context.moveToNextSpecialPoint(specialPoint)
+                //    } else {
+                //        console.log('end')
+                //        context.fire('START_MAP_QUESTIONS', {'mapObjects': context.mapObjects})
+                //    }
+                //}
 
 
             } else {
-                context.counter++;
-                context.moveBot();
+                //context.counter++;
+                //context.movePlayer();
             }
 
         });
@@ -203,7 +217,7 @@ Backbone.widget({
         this.model.data.x = specialPoint.x;
         this.findPath(this.tourPoints);
         this.counter = 0;
-        this.moveBot();
+        this.movePlayer();
         this.highlightRoad();
 
     },
@@ -290,7 +304,6 @@ Backbone.widget({
 
         _.each(this.path, function (step, index) {
             var $road = $('.road[x=' + step.x + '][y=' + step.y + ']');
-            console.log(step)
 
             var orientation = this.defineOrientation(step, this.path[index + 1]);
 

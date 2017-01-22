@@ -17,7 +17,7 @@ Backbone.widget({
 
     events: {
         'click .map-object': 'displayInfoText',
-        'click .move-arrow': 'movePlayer',
+        'click .move-player': 'movePlayer',
         'click .road ': 'deselectTile',
         // 'contextmenu .block': 'deselectTile',
         // 'mouseenter .base-grid': 'showSelection',
@@ -41,7 +41,8 @@ Backbone.widget({
         'SAVE_MAP': 'saveMap',
         'LOAD_MAP': 'loadMap',
         'GET_MATRIX_DATA': 'sendMatrixData',
-        'HIGHLIGHT_OBJECT': 'highlightObject'
+        'HIGHLIGHT_OBJECT': 'highlightObject',
+        'PLACE_PLAYER': 'placePlayer'
 
 
     },
@@ -606,12 +607,22 @@ Backbone.widget({
     },
 
     selectTile: function (e) {
+        if(Backbone.currentLayout == 'game' && $(e.currentTarget).hasClass('road')) {
+            return;
+        }
         this.selected = $(e.currentTarget);
         this.$el.find('.base-grid-selected').remove();
         this.$el.find('.selected-map-object').removeClass('selected-map-object');
 
         this.selected.find('.map-object').addClass('selected-map-object');
-        this.selected.prepend('<div class="base-grid-selected"><div class="selected-inner"></div><div class="make-block"></div><div class="make-road"></div></div>');
+
+        if(Backbone.currentLayout == 'game') {
+            this.selected.prepend('<div class="base-grid-selected"></div>');
+
+        }else{
+            this.selected.prepend('<div class="base-grid-selected"><div class="selected-inner"></div><div class="make-block"></div><div class="make-road"></div></div>');
+        }
+
         this.$el.find('.base-grid-selected').last().css({'width': this.boxSize, 'height': this.boxSize})
 
         var blockData = {};
@@ -744,75 +755,20 @@ Backbone.widget({
     },
 
     movePlayer: function (e) {
-        //var $moveArrow = $(e.currentTarget);
-        //var newPosition = {
-        //    x: $moveArrow.attr('x'),
-        //    y: $moveArrow.attr('y')
-        //}
-        //this.$el.find('.move-arrow').remove();
-        //this.placePlayer(newPosition, 'assets/img/models/car_01_' + $moveArrow.attr('direction') + '.png')
-
+        this.fire('MOVE_PLAYER')
     },
 
-    placePlayer: function (position, model) {
-        var fogx = (position.x * this.boxSize) + this.boxSize,
-            fogy = (position.y * this.boxSize) + this.boxSize
 
-        this.revealFog(fogx, fogy);
-        this.$el.find('.player').fadeOut(function () {
-            $(this).remove();
-        });
+
+    placePlayer: function (position) {
+        console.log(position)
+
 
         this.currPlayerPos = position;
-        var $row = $('#grid-container').find('.r').get(this.currPlayerPos.y);
-        var $playerPosition = $($row).find('.base-grid').get(this.currPlayerPos.x);
-        this.renderTemplate({
-            template: 'player',
-            el: $($playerPosition),
-            data: {modelImage: model, width: this.boxSize, height: this.boxSize},
-            renderCallback: function () {
-                var inversedOffset = Math.floor(-this.boxSize * 0.7);
-                var matrix = 'matrix(0.66667, 0.66667, -1, 1, ' + Math.floor(this.boxSize * 0.3) + ',' + inversedOffset + ')';
-                var $playerImage = this.$el.find('.player').find('img');
-                $playerImage.css('transform', matrix);
-            }
-        })
 
-        var mapMatrix = this.getMapMatrix(this.columnCount * 2 + 1, this.rowCount * 2 + 1);
 
-        for (var i = 0; i < mapMatrix.length; i++) {
-            for (var j = 0; j < mapMatrix[i].length; j++) {
 
-                if (this.currPlayerPos.y == i && this.currPlayerPos.x == j) {
 
-                    if (mapMatrix[i][j + 1] !== undefined && mapMatrix[i][j + 1] == 0) {
-                        var $row = $(this.$el.find('.r').get(i));
-                        var $col = $($row.find('.base-grid').get(j + 1));
-                        $col.append('<div class="move-arrow text-center" direction="E"  x="' + (j + 1) + '" y="' + i + '"><i class="fa fa-long-arrow-right"></i></div>');
-                    }
-
-                    if (mapMatrix[i][j - 1] !== undefined && mapMatrix[i][j - 1] == 0) {
-                        var $row = $(this.$el.find('.r').get(i));
-                        var $col = $($row.find('.base-grid').get(j - 1));
-                        $col.append('<div class="move-arrow text-center" direction="W" x="' + (j - 1) + '" y="' + i + '"><i class="fa fa-long-arrow-left"></i></div>');
-                    }
-
-                    if (mapMatrix[i - 1] !== undefined && mapMatrix[i - 1][j] !== undefined && mapMatrix[i - 1][j] == 0) {
-                        var $row = $(this.$el.find('.r').get(i - 1));
-                        var $col = $($row.find('.base-grid').get(j));
-                        $col.append('<div class="move-arrow text-center" direction="N" x="' + j + '" y="' + (i - 1) + '"><i class="fa fa-long-arrow-up"></i></div>');
-                    }
-
-                    if (mapMatrix[i + 1] !== undefined && mapMatrix[i + 1][j] !== undefined && mapMatrix[i + 1][j] == 0) {
-                        var $row = $(this.$el.find('.r').get(i + 1));
-                        var $col = $($row.find('.base-grid').get(j));
-                        $col.append('<div class="move-arrow text-center" direction="S" x="' + j + '" y="' + (i + 1) + '"><i class="fa fa-long-arrow-down"></i></div>');
-                    }
-
-                }
-
-            }
-        }
     },
 
     saveMap: function (mapName) {

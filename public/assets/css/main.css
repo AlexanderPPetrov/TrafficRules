@@ -1,5 +1,5 @@
 body {
-    background: #111;
+    background: #05211b;
 }
 
 
@@ -11,6 +11,24 @@ h1, .h1 {
 
 h2 {
     font-size:14px;
+}
+
+h4 {
+    padding: 0 15px;
+    font-size: 14px;
+    margin: 0;
+    margin-top: -30px;
+    background: #0b2727;
+    padding-top: 27px;
+    /* line-height: 14px; */
+    height: 60px;
+    color: #fff;
+    letter-spacing: 1px;
+}
+
+h4 span {
+    color: #a0b342;
+    margin-right:5px;
 }
 
 .navbar-default {
@@ -748,6 +766,15 @@ canvas{
      border:3px solid #000;
      background:#333;
  }
+
+.move-player:hover .move-arrow{
+    border: 4px dashed #FFFF00;
+}
+
+.move-player:hover .move-arrow i{
+    color: #FFFF00;
+    top:-4px;
+}
 
 .move-arrow {
     width: 100%;
