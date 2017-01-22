@@ -38,14 +38,25 @@ Backbone.widget({
             loop: true,
             autoplay: false,
             animations: {
-                E: [0, 1, 2],
-                N: [3, 4, 5],
-                W: [6, 7, 8],
-                S: [9, 10, 11]
+                W: [0, 1, 2, 3, 4, 5, 6, 7], // right
+                N: [8, 9, 10, 11, 12, 13, 14, 15], //right
+                S: [16, 17, 18, 19, 20, 21, 22, 23], //right
+                E: [24, 25, 26, 27, 28, 29, 30, 31], //right
+                WN: [32, 33, 34, 35, 36, 37, 38, 39],
+                NE: [40, 41, 42, 43, 44, 45, 46, 47],
+                SW: [48, 49, 50, 51, 52, 53, 54, 55], // right
+                ES: [56, 57, 58, 59, 60, 61, 62, 63]
             }
-        })
-
+        });
     },
+
+    getStopFrame: function (orientation) {
+
+        var frames = {W: 0, N: 8, S: 16, E: 24, WN: 32, NE: 40, SW: 48, ES: 56}
+
+        return frames[orientation]
+    },
+
     placeBot: function (x, y) {
         this.removePlayer();
         this.$el.find('#player-container').append('<div id="player"><div class="bot-position"><span class="point-name"></span><div class="signs"></div></div></div>');
@@ -54,17 +65,18 @@ Backbone.widget({
 
         var invertedOffsetX = Math.ceil(-this.gridSize * 0.5 + 2);
         var offsetY = Math.ceil(this.gridSize - 4);
-        var matrix = 'matrix(2, 2, -3, 3, ' + offsetY + ',' + invertedOffsetX + ')';
+        offsetY = 7;
+        invertedOffsetX = -42;
+        var matrix = 'matrix(0.56, 0.56, -1, 1, ' + offsetY + ',' + invertedOffsetX + ')';
         this.bot.css('transform', matrix);
         this.bot.css({'top': x * this.gridSize, 'left': y * this.gridSize});
 
-
-        var newWidth = Math.round(k * this.bot.width());
-        var newHeight = Math.round(k * this.bot.height());
-        this.bot.css({'width': newWidth + 'px', 'height': newHeight + 'px'});
-        var backgroundWidth = (12 * this.bot.width()) + 'px';
-        var backgroundHeight = this.bot.height() + 'px';
-        this.bot.css({backgroundSize: backgroundWidth + ' ' + backgroundHeight});
+        //var newWidth = Math.round(k * this.bot.width());
+        //var newHeight = Math.round(k * this.bot.height());
+        //this.bot.css({'width': newWidth + 'px', 'height': newHeight + 'px'});
+        //var backgroundWidth = (12 * this.bot.width()) + 'px';
+        //var backgroundHeight = this.bot.height() + 'px';
+        //this.bot.css({backgroundSize: backgroundWidth + ' ' + backgroundHeight});
         // console.log('background-size', this.bot.css('background-size'));
         // console.log('width', this.bot.width());
         // console.log('height', this.bot.height())
@@ -80,8 +92,15 @@ Backbone.widget({
         this.startBot();
         this.findPath(this.mapObjects.endPoints);
         var orientation = this.defineOrientation(this.path[0], this.path[1]);
-        orientation = orientation.slice(0, 1);
-        this.bot.animateSprite('play', orientation)
+
+        this.bot.animateSprite('play', orientation);
+        this.bot.animateSprite('stop');
+
+        var stopFrame = this.getStopFrame(orientation);
+        this.bot.animateSprite('frame', stopFrame);
+        console.log(stopFrame)
+
+        console.log(orientation)
         this.highlightRoad();
         this.hideEndPoints();
         //this.disableOtherPaths()
@@ -105,8 +124,9 @@ Backbone.widget({
         }
     },
 
-    giveNextMove: function(){
-        var position = this.path[this.counter+1];
+    giveNextMove: function () {
+        if ((this.counter + 1) == this.path.length) return;
+        var position = this.path[this.counter + 1];
         $('.move-player').removeClass('move-player');
         var $road = $('.road[x=' + position.x + '][y=' + position.y + ']');
         $road.addClass('move-player')
@@ -179,14 +199,19 @@ Backbone.widget({
         //    this.displaySpecialPoint(specialPoint);
         //    return;
         //}
+        context.bot.animateSprite('resume');
+
         this.moveToPosition(this.path[this.counter - 1], this.path[this.counter], this.path[this.counter + 1], function () {
 
             var orientation = context.defineOrientation(context.path[context.counter], context.path[context.counter + 1]);
-            orientation = orientation.slice(0, 1);
+            console.log(orientation)
             context.bot.animateSprite('play', orientation)
+            context.bot.animateSprite('stop');
+            var stopFrame = context.getStopFrame(orientation);
+            context.bot.animateSprite('frame', stopFrame);
 
+            context.fire('LOAD_QUESTIONS');
             if (context.counter < context.path.length - 1) {
-                context.fire('LOAD_QUESTIONS');
                 //if (!context.tour) {
                 //    context.bot.fadeOut(function () {
                 //        $(this).remove();
@@ -276,7 +301,7 @@ Backbone.widget({
         var duration = 500;
         var orientation = this.defineOrientation(position, nextposition);
         if (orientation == 'ES' || orientation == 'WN' || orientation == 'NE' || orientation == 'SW') {
-            duration = 5180;
+            duration = 750;
         }
         if (prevposition) {
             var $road = $('.road[x=' + prevposition.x + '][y=' + prevposition.y + ']').find('.move-arrow').fadeOut(function () {

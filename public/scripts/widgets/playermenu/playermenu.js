@@ -115,6 +115,7 @@ Backbone.widget({
                         context.y = parseInt($(this).closest('.road').attr('y'));
 
                         context.fire('PLACE_PLAYER', {x: context.x, y: context.y});
+                        context.$el.find('.player-container').hide();
                         context.displayInfoText(' Трябва да стигнеш до входа на училището отбелязан с:  ', function(){
                             context.$el.find('.info-chose').fadeIn();
                         });;
