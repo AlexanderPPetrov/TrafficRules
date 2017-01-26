@@ -37,6 +37,7 @@ Backbone.widget({
             fps: 12,
             loop: true,
             autoplay: false,
+            columns: 64,
             animations: {
                 W: [0, 1, 2, 3, 4, 5, 6, 7], // right
                 N: [8, 9, 10, 11, 12, 13, 14, 15], //right
@@ -95,9 +96,9 @@ Backbone.widget({
 
         this.bot.animateSprite('play', orientation);
         this.bot.animateSprite('stop');
-
         var stopFrame = this.getStopFrame(orientation);
         this.bot.animateSprite('frame', stopFrame);
+
         console.log(stopFrame)
 
         console.log(orientation)
@@ -205,7 +206,7 @@ Backbone.widget({
 
             var orientation = context.defineOrientation(context.path[context.counter], context.path[context.counter + 1]);
             console.log(orientation)
-            context.bot.animateSprite('play', orientation)
+            context.bot.animateSprite('play', orientation);
             context.bot.animateSprite('stop');
             var stopFrame = context.getStopFrame(orientation);
             context.bot.animateSprite('frame', stopFrame);

@@ -74,6 +74,10 @@ Backbone.widget({
     showResult: function(){
         this.$el.find('.player-container').show();
         this.enableDrag();
+        var context = this;
+        this.displayInfoText(' Здравей, постави героят на една от началните позиции, отбелязани с:  ', function(){
+            context.$el.find('.info-start-point').fadeIn()
+        });;
     },
 
     enableDrag: function(){

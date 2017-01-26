@@ -33,6 +33,10 @@
           "label": "Block 02"
         },
         {
+          "src": "assets/img/tiles/buildings/block_03.png",
+          "label": "Block 03"
+        },
+        {
           "src": "assets/img/tiles/buildings/monument.png",
           "label": "Monument"
         }
