@@ -37,6 +37,18 @@
           "label": "Block 03"
         },
         {
+          "src": "assets/img/tiles/buildings/block_04.png",
+          "label": "Block 04"
+        },
+        {
+          "src": "assets/img/tiles/buildings/faces.png",
+          "label": "Faces"
+        },
+        {
+          "src": "assets/img/tiles/buildings/parking.png",
+          "label": "Parking"
+        },
+        {
           "src": "assets/img/tiles/buildings/monument.png",
           "label": "Monument"
         }

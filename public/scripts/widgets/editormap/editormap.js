@@ -898,7 +898,7 @@ Backbone.widget({
         })
 
         _.each(this.mapObjects.endPoints, function(endPoint){
-            $('.road[x='+ endPoint.x +'][y=' + endPoint.y +']').find('.map-object').append("<img class='grid-image end-point hvr-bob hvr-bob-active' src='assets/img/tiles/map/end_point.png'/>")
+            $('.road[x='+ endPoint.x +'][y=' + endPoint.y +']').find('.map-object').append("<img class='grid-image end-point' src='assets/img/tiles/map/end_point.png'/>")
         })
     }
 

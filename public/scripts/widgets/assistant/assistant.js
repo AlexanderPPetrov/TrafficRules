@@ -28,6 +28,7 @@ Backbone.widget({
             fps: 12,
             loop: true,
             autoplay: false,
+            columns: 12,
             animations: {
                 E: [0, 1, 2],
                 N: [3, 4, 5],
@@ -172,7 +173,8 @@ Backbone.widget({
                         context.moveToNextSpecialPoint(specialPoint)
                     }else{
                         console.log('end')
-                        context.fire('START_MAP_QUESTIONS', {'mapObjects':context.mapObjects})
+                        context.bot.remove();
+                        context.fire('DISPLAY_END_MESSAGE');
                     }
                 }
 
@@ -250,7 +252,7 @@ Backbone.widget({
         var duration = 500;
         var orientation = this.defineOrientation(position, nextposition);
         if(orientation == 'ES' || orientation == 'WN' || orientation == 'NE' || orientation == 'SW') {
-            duration = 5180;
+            duration = 750;
         }
         if(prevposition){
             var $road = $('.road[x='+ prevposition.x +'][y=' + prevposition.y +']').find('.move-arrow').fadeOut(function(){

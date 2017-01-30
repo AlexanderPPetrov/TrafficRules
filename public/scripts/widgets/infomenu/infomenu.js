@@ -7,7 +7,8 @@ Backbone.widget({
     events: {
         "click #confirm-start": "enableDrag",
         "click #start-tour": "startTour",
-        "click #start-school": "startSchool"
+        "click #start-school": "startSchool",
+        "click #start-test": "startTest",
 
 
     },
@@ -15,6 +16,7 @@ Backbone.widget({
     listen: {
         'POINTS_INFO': 'displayInfoText',
         'SEND_MATRIX_DATA': 'setMapData',
+        'DISPLAY_END_MESSAGE': 'displayEndMessage',
         'INIT_ASSISTANT':'render'
     },
 
@@ -23,7 +25,8 @@ Backbone.widget({
     },
 
 
-    render: function(){
+    render: function(data){
+        this.model = data;
         this.renderTemplate({
 
             template: 'infomenu',
@@ -33,11 +36,19 @@ Backbone.widget({
 
                 this.fire('GET_MATRIX_DATA')
                 var context = this;
-                this.displayInfoText(' Здравей, Гоше. Аз съм твой приятел и ще ти давам полезна информация. Постави ме на една от началните позиции, отбелязани с:', function(){
+                this.displayInfoText(' Здравей, '+ context.model.playerName +'. Аз съм твой приятел и ще ти давам полезна информация. Постави ме на една от началните позиции, отбелязани с:', function(){
                     console.log('end')
                     context.$el.find('.info-start-point').fadeIn()
                 })
             }
+        })
+    },
+
+    displayEndMessage: function(){
+        var context = this;
+        this.displayInfoText(' Моята обиколка завърши, когато си готов натисни бутона "Започни", за да проверим дали си се ориентирал правилно на картата.', function(){
+            console.log('end')
+            context.$el.find('.start-test').fadeIn()
         })
     },
 
@@ -120,6 +131,12 @@ Backbone.widget({
     startSchool: function(){
         this.fire('START_ASSISTANT', {tour: false});
         this.$el.find('.info-chose').hide();
+    },
+
+    startTest: function(){
+        console.log(this.model)
+        //this.fire('START_MAP_QUESTIONS', {'mapObjects':context.mapObjects})
+
     },
 
     displayInfoText: function(infoText, callback){

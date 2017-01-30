@@ -9,7 +9,6 @@ Backbone.widget({
     listen: {
         'SEND_MATRIX_DATA': 'setBotData',
         'ADD_BOT': 'addBot',
-        'START_ASSISTANT': 'startAssistant',
         'PLACE_PLAYER': 'placePlayer',
         'MOVE_PLAYER': 'movePlayer',
         'ANSWER_GIVEN': 'giveNextMove'

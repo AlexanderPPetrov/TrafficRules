@@ -32,7 +32,7 @@ Backbone.widget({
             data: this.model,
             renderCallback: function () {
                 this.$el.find(".base-container").draggable();
-                if(this.model.mapResult == 0){
+                if(this.model.answeredQuestionsLength < 6){
                     this.playMap();
                 }else{
                     this.showResult();
@@ -62,7 +62,7 @@ Backbone.widget({
     startAssistant: function (){
         this.$el.find('.start-assistant-container').fadeOut('fast');
         this.$el.find('.info-text').empty();
-        this.fire('INIT_ASSISTANT')
+        this.fire('INIT_ASSISTANT', this.model)
     },
 
     playMap: function(){

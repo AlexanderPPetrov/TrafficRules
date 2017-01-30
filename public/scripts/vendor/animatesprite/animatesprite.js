@@ -134,7 +134,6 @@
                     column = frameNumber % data.settings.columns;
 
                 $this.css('background-position', (-data.settings.width * column) + 'px ' + (-data.settings.height * row) + 'px');
-                console.log('>>>>>>')
             }
         });
     };
