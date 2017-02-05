@@ -9,12 +9,13 @@ Backbone.widget({
         "click #start-tour": "startTour",
         "click #start-school": "startSchool",
         "click #start-test": "startTest",
+        "click #confirm-point": "confirmPoint"
 
 
     },
 
     listen: {
-        'POINTS_INFO': 'displayInfoText',
+        'POINTS_INFO': 'displaySpecialPoint',
         'SEND_MATRIX_DATA': 'setMapData',
         'DISPLAY_END_MESSAGE': 'displayEndMessage',
         'INIT_ASSISTANT':'render'
@@ -146,6 +147,29 @@ Backbone.widget({
                 callback()
             }
         }});
+    },
+
+    displaySpecialPoint: function(specialPoint){
+        this.fire('HIGHLIGHT_OBJECT', specialPoint)
+        var context = this;
+        $('.info-text-container').css('visibility', 'visible')
+        this.displayInfoText(specialPoint.info, function(){
+            $('#confirm-point').show()
+            context.$el.find('.info-signs').empty()
+            _.each(specialPoint.signs, function(sign){
+                context.$el.find('.info-signs').append('<img class="sign-thumb" src="'+ sign + '"/>')
+            }, context);
+        })
+        this.$el.find('.image-preview').attr('src', specialPoint.img);
+        this.$el.find('.point-info').text(specialPoint.label);
+        this.$el.find('.image-preview').show()
+    },
+
+    confirmPoint: function(){
+        $('.fog').hide();
+        this.fire('MOVE_TO_NEXT_POINT');
+        this.$el.find('.confirm-point').hide()
+        $('.info-text-container').css('visibility', 'hidden')
     }
 
 

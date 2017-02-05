@@ -9,7 +9,8 @@ Backbone.widget({
         'SEND_MATRIX_DATA': 'setBotData',
         'ADD_BOT': 'addBot',
         'START_ASSISTANT': 'startAssistant',
-        'PLACE_ASSISTANT': 'placeAssistant'
+        'PLACE_ASSISTANT': 'placeAssistant',
+        'MOVE_TO_NEXT_POINT': 'moveToNextSpecialPoint'
     },
 
     setBotData: function (mapData) {
@@ -149,7 +150,7 @@ Backbone.widget({
     moveBot: function () {
         var context = this;
         var specialPoint = this.checkSpecialPoints(this.path[this.counter]);
-
+        this.specialPoint = specialPoint;
         if(specialPoint && !this.tour){
 
             this.displaySpecialPoint(specialPoint);
@@ -168,9 +169,10 @@ Backbone.widget({
                     });
                 }else{
                     console.log('display special point')
+                    $('.info-text-container').addClass('assistant-info')
                     context.displaySpecialPoint(specialPoint);
                     if(context.tourPoints.length != 1){
-                        context.moveToNextSpecialPoint(specialPoint)
+                        //context.moveToNextSpecialPoint()
                     }else{
                         console.log('end')
                         context.bot.remove();
@@ -187,10 +189,11 @@ Backbone.widget({
         });
     },
 
-    moveToNextSpecialPoint: function(specialPoint){
-        this.tourPoints = _.without(this.tourPoints, specialPoint);
-        this.model.data.y = specialPoint.y;
-        this.model.data.x = specialPoint.x;
+    moveToNextSpecialPoint: function(){
+
+        this.tourPoints = _.without(this.tourPoints, this.specialPoint);
+        this.model.data.y = this.specialPoint.y;
+        this.model.data.x = this.specialPoint.x;
         this.findPath(this.tourPoints);
         this.counter = 0;
         this.moveBot();
@@ -200,13 +203,11 @@ Backbone.widget({
 
     displaySpecialPoint: function(specialPoint){
         this.bot.animateSprite('stop');
-        this.fire('POINTS_INFO', specialPoint.info);
+        this.fire('POINTS_INFO', specialPoint);
 
         this.bot.find('.point-name').html(specialPoint.label);
 
-        _.each(specialPoint.signs, function(sign){
-            this.bot.find('.signs').append('<img class="sign-thumb" src="'+ sign + '"/>')
-        }, this);
+
     },
 
     defineOrientation: function (previousPos, nextPos) {

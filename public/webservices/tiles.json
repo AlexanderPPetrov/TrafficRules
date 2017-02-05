@@ -45,6 +45,10 @@
           "label": "Faces"
         },
         {
+          "src": "assets/img/tiles/buildings/rpu.png",
+          "label": "RPU"
+        },
+        {
           "src": "assets/img/tiles/buildings/parking.png",
           "label": "Parking"
         },

@@ -1,3 +1,6 @@
+/* Google Fonts */
+/*@import url(http://fonts.googleapis.com/css?family=Anonymous+Pro);*/
+
 body {
     background: #05211b;
 }
@@ -549,6 +552,12 @@ h4 span {
     overflow:hidden;
 }
 
+.info-text-container .image-preview {
+    display:none;
+}
+
+
+
 .image-preview {
      width: 86px;
      border: 1px solid rgba(0,0,0,0.2);
@@ -998,14 +1007,70 @@ canvas{
     width:10px;
 }
 
-/* Google Fonts */
-@import url(http://fonts.googleapis.com/css?family=Anonymous+Pro);
+
 
 
 .info-text-container {
-    min-height:175px;
-    font-family:'Anonymous Pro', monospace;
+    min-height:133px;
+    /*font-family:'Anonymous Pro', monospace !important;*/
 }
+
+.assistant-info img {
+    position:absolute;
+    right: 25px;
+    top: -37px;
+    display:inline;
+    width:140px;
+}
+
+.info-signs {
+    display:none;
+    min-height:65px;
+
+}
+
+.info-text-container {
+    height:173px;
+}
+
+.assistant-info .info-signs {
+    display:block;
+    min-height: 65px;
+    padding-left: 10px;
+}
+
+.assistant-info .sign-thumb {
+    position:initial;
+    width:50px;
+}
+
+.info-text {
+    min-height: 200px;
+}
+
+.assistant-info .info-text {
+    padding-right: 165px;
+    padding-top: 5px;
+    min-height: 96px;
+}
+
+.assistant-info .point-info {
+    right: 25px;
+    top: -37px;
+    width: 140px;
+    color: #f5c91a;
+    background: #0e0e0e;
+    padding: 10px;
+    border-bottom: 1px solid #2f2e2e;
+    text-align: center;
+    display:inline-block;
+    position: absolute;
+}
+
+.point-info {
+    display:none;
+}
+
 .info-start-point {
     display:none;
     position: absolute;
