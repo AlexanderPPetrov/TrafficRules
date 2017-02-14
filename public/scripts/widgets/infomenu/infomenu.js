@@ -17,7 +17,6 @@ Backbone.widget({
     listen: {
         'POINTS_INFO': 'displaySpecialPoint',
         'SEND_MATRIX_DATA': 'setMapData',
-        'DISPLAY_END_MESSAGE': 'displayEndMessage',
         'INIT_ASSISTANT':'render'
     },
 
@@ -159,14 +158,25 @@ Backbone.widget({
             _.each(specialPoint.signs, function(sign){
                 context.$el.find('.info-signs').append('<img class="sign-thumb" src="'+ sign + '"/>')
             }, context);
+            if(specialPoint.end){
+                console.log('end')
+                context.end = true;
+            }
+
         })
         this.$el.find('.image-preview').attr('src', specialPoint.img);
         this.$el.find('.point-info').text(specialPoint.label);
         this.$el.find('.image-preview').show()
+
+
     },
 
     confirmPoint: function(){
         $('.fog').hide();
+        if(this.end){
+            this.displayEndMessage()
+            return;
+        }
         this.fire('MOVE_TO_NEXT_POINT');
         this.$el.find('.confirm-point').hide()
         $('.info-text-container').css('visibility', 'hidden')

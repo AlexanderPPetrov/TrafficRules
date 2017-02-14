@@ -170,14 +170,16 @@ Backbone.widget({
                 }else{
                     console.log('display special point')
                     $('.info-text-container').addClass('assistant-info')
-                    context.displaySpecialPoint(specialPoint);
                     if(context.tourPoints.length != 1){
                         //context.moveToNextSpecialPoint()
                     }else{
                         console.log('end')
-                        context.bot.remove();
-                        context.fire('DISPLAY_END_MESSAGE');
+                        //context.bot.remove();
+                        specialPoint.end = true;
                     }
+
+                    context.displaySpecialPoint(specialPoint);
+
                 }
 
 
