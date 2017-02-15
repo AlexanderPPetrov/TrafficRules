@@ -1,44 +1,50 @@
 Backbone.widget({
 
-    model: [],
-    rowCount: 2,
+    model: {},
+    template: false,
     columnCount: 3,
 
 
 
     events: {
 
-        'click .role' : 'switchRole',
-        'click .role-name' : 'triggerSwitchRole'
+        'click .user' : 'selectUser',
+
 
     },
 
     loaded: function () {
-
+        this.loadUsers()
     },
 
-    triggerSwitchRole: function(e){
-        $(e.currentTarget).parent().find('.role').trigger('click')
+    loadUsers: function(){
+        this.ajaxRequest({
+            url: 'webservices/users.json',
+            data: {},
+            type: "GET",
+            success: function (response) {
+                this.model.users = response;
+                this.render();
+            }
+        });
     },
 
-    switchRole: function(e){
-        var $selectedRole = $(e.currentTarget);
+    render: function(e){
+        this.renderTemplate({
 
-        this.$el.find('.role').removeClass('active-role');
+            template: 'users',
+            data: this.model,
+            renderCallback: function () {
+               console.log('rendered')
+            }
+        })
+    },
 
-        $selectedRole.addClass('active-role');
+    selectUser: function(){
 
-        var role = $selectedRole.attr('role');
-        var imgSrc = $selectedRole.find('img').attr('src');
-        var html = $selectedRole.find('.col-lg-8').html();
-
-        var selectedRoleContainer = this.$el.find('.selected-role-container');
-        selectedRoleContainer.find('img').attr('src',imgSrc)
-        selectedRoleContainer.find('.selected-role').html(html)
     }
 
 
 
 
-
-}, ['map']);
+}, []);

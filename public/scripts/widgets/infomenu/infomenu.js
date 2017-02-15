@@ -154,7 +154,6 @@ Backbone.widget({
         $('.info-text-container').css('visibility', 'visible')
         this.displayInfoText(specialPoint.info, function(){
             $('#confirm-point').show()
-            context.$el.find('.info-signs').empty()
             _.each(specialPoint.signs, function(sign){
                 context.$el.find('.info-signs').append('<img class="sign-thumb" src="'+ sign + '"/>')
             }, context);
@@ -173,6 +172,8 @@ Backbone.widget({
 
     confirmPoint: function(){
         $('.fog').hide();
+        this.$el.find('.info-signs').empty()
+
         if(this.end){
             this.displayEndMessage()
             return;
