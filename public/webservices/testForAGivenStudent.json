@@ -8,23 +8,27 @@
       "questions": [
         {
           "id": 1,
-          "description": "Веригата на велосипеда:",
+          "description": "Какво означава този знак? img['sign_A26']",
           "questionCategoryDescription": "Кръстовище",
-          "isAnswered": true,
-          "givenAnswerId": 2,
+          "isAnswered": false,
+          "givenAnswerId": 1,
           "isCorrect": false,
           "answers": [
             {
               "id": 1,
-              "description": "трябва да се обтяга периодично"
+              "description": "Кръстовище с път без предимство"
             },
             {
               "id": 2,
-              "description": "трябва да се отпуска периодично"
+              "description": "Кръстовище на равнозначни пътища"
             },
             {
               "id": 3,
-              "description": "нито се обтяга, нито се отпуска"
+              "description": "Кръстовище с път без предимство отляво"
+            },
+            {
+              "id": 4,
+              "description": "Кръстовище с кръгово движение"
             }
           ]
         },
