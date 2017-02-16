@@ -41,6 +41,7 @@ Backbone.widget({
         'SAVE_MAP': 'saveMap',
         'LOAD_MAP': 'loadMap',
         'GET_MATRIX_DATA': 'sendMatrixData',
+        'REQUEST_HIGHLIGHT_OBJECT': 'requestHighlightObject',
         'HIGHLIGHT_OBJECT': 'highlightObject',
         'PLACE_PLAYER': 'placePlayer'
 
@@ -197,7 +198,16 @@ Backbone.widget({
 
     },
 
+    requestHighlightObject: function(object){
+        var matchedLabel = _.findWhere(object.answers, {id:object.correctAnswerId}).description;
+        var matchedObject = _.findWhere(this.mapObjects.specialPoints, {label: matchedLabel})
+        if(matchedObject){
+            this.highlightObject(matchedObject)
+        }
+    },
+
     highlightObject: function(object){
+        console.log(object)
         this.initFogOfWar();
         $('.fog').show();
         // $('.base-grid[x='+ object.originx +'][y=' + object.originy +']').append("<div class='unlocked'></div>")

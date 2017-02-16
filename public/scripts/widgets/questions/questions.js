@@ -19,9 +19,9 @@ Backbone.widget({
 
     startQuestions: function (data) {
         console.log(data);
-        this.mapObjects = data.mapObjects;
-        this.mapQuestions = _.cloneDeep(data.mapObjects.specialPoints);
-        this.shuffle(this.mapQuestions);
+        //this.mapObjects = data.mapObjects;
+        this.mapQuestions = _.findWhere(data.testSections, {id:4});
+        //this.shuffle(this.mapQuestions);
         this.render();
     },
 
@@ -31,67 +31,67 @@ Backbone.widget({
             template: 'questions',
             data: this.model,
             renderCallback: function () {
-                this.prepareQuestion()
+                this.renderQuestion(this.counter);
                 this.$el.find(".base-container").draggable();
 
             }
         })
     },
 
-    prepareQuestion: function () {
-
-        this.answersIndexes = [];
-        this.answersIndexes.push(this.counter);
-
-        this.getThreeAnswers();
-
-        this.possibleAnswers = [];
-        _.each(this.answersIndexes, function (answerIndex, index) {
-            var answer = {
-                id: 'answer-' + index,
-                label: this.mapQuestions[answerIndex].label,
-            };
-            if(index == 0){
-                answer.right = true;
-            }
-            this.possibleAnswers.push(answer);
-        }, this);
-
-        this.shuffle(this.possibleAnswers);
-        this.possibleAnswers.push({id: 'answer-3', label: 'Не съм сигурен'});
-        this.renderQuestion(this.possibleAnswers);
-
-
-    },
+    //prepareQuestion: function () {
+    //
+    //    this.answersIndexes = [];
+    //    this.answersIndexes.push(this.counter);
+    //
+    //    this.getThreeAnswers();
+    //
+    //    this.possibleAnswers = [];
+    //    _.each(this.answersIndexes, function (answerIndex, index) {
+    //        var answer = {
+    //            id: 'answer-' + index,
+    //            label: this.mapQuestions[answerIndex].label,
+    //        };
+    //        if(index == 0){
+    //            answer.right = true;
+    //        }
+    //        this.possibleAnswers.push(answer);
+    //    }, this);
+    //
+    //    this.shuffle(this.possibleAnswers);
+    //    this.possibleAnswers.push({id: 'answer-3', label: 'Не съм сигурен'});
+    //    this.renderQuestion(this.possibleAnswers);
+    //
+    //
+    //},
 
     highlightBuilding: function(specialPoint){
 
-        this.fire('HIGHLIGHT_OBJECT', specialPoint)
+        this.fire('REQUEST_HIGHLIGHT_OBJECT', specialPoint)
     },
 
 
-    shuffle: function (a) {
-        var j, x, i;
-        for (i = a.length; i; i--) {
-            j = Math.floor(Math.random() * i);
-            x = a[i - 1];
-            a[i - 1] = a[j];
-            a[j] = x;
-        }
-    },
-    renderQuestion: function (answers) {
+    //shuffle: function (a) {
+    //    var j, x, i;
+    //    for (i = a.length; i; i--) {
+    //        j = Math.floor(Math.random() * i);
+    //        x = a[i - 1];
+    //        a[i - 1] = a[j];
+    //        a[j] = x;
+    //    }
+    //},
+    renderQuestion: function (counter) {
 
         this.$el.find('.possible-answers').empty();
         this.renderTemplate({
 
             template: 'answer',
-            data: {answers: answers},
+            data: {answers: this.mapQuestions.questions[counter].answers},
             el: '.possible-answers',
             append:true,
             renderCallback: function () {
                 var context = this;
                 this.$el.find('.possible-answers').find('input').first().prop('checked', true);
-                context.highlightBuilding(context.mapQuestions[context.counter]);
+                context.highlightBuilding(context.mapQuestions.questions[counter]);
                 context.counter++;
                 this.$el.find('.questions').animate({
                     opacity: 1,

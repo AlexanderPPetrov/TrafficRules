@@ -67,9 +67,8 @@ Backbone.widget({
 
     playMap: function(){
         var context = this;
-        this.displayInfoText(" Ще разгледаме района около СОУ 'Свети Софроний Врачански' с помощта на Робо. За целта натисни бутона 'Стартирай Робо'", function(){
             context.$el.find('.start-assistant-container').fadeIn('fast');
-        })
+            context.$el.find('.play-map').fadeIn('fast');
     },
     showResult: function(){
         this.$el.find('.player-container').show();
@@ -77,7 +76,7 @@ Backbone.widget({
         var context = this;
         this.displayInfoText(' Здравей, постави героят на една от началните позиции, отбелязани с:  ', function(){
             context.$el.find('.info-start-point').fadeIn()
-        });;
+        });
     },
 
     enableDrag: function(){

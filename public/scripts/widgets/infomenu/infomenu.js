@@ -36,20 +36,19 @@ Backbone.widget({
 
                 this.fire('GET_MATRIX_DATA')
                 var context = this;
-                this.displayInfoText(' Здравей, '+ context.model.playerName +'. Аз съм твой приятел и ще ти давам полезна информация. Постави ме на една от началните позиции, отбелязани с:', function(){
-                    console.log('end')
-                    context.$el.find('.info-start-point').fadeIn()
-                })
+                context.$el.find('.info-text').text(' Здравей, '+ context.model.playerName +'. Аз съм твой приятел и ще ти давам полезна информация. Постави ме на една от началните позиции, отбелязани с:')
+                context.$el.find('.info-text').fadeIn()
+                context.$el.find('.info-start-point').fadeIn()
+
             }
         })
     },
 
     displayEndMessage: function(){
         var context = this;
-        this.displayInfoText(' Моята обиколка завърши, когато си готов натисни бутона "Започни", за да проверим дали си се ориентирал правилно на картата.', function(){
-            console.log('end')
-            context.$el.find('.start-test').fadeIn()
-        })
+        context.$el.find('#confirm-point').hide();
+        context.$el.find('.info-text').text(' Моята обиколка завърши, когато си готов натисни бутона "Започни", за да проверим дали си се ориентирал правилно на картата.')
+        context.$el.find('#start-test').fadeIn()
     },
 
     enableDrag: function(){
@@ -93,9 +92,8 @@ Backbone.widget({
                         context.y = parseInt($(this).closest('.road').attr('y'));
 
                         context.fire('PLACE_ASSISTANT', {x: context.x, y: context.y});
-                        context.displayInfoText(' Ще направя обиколка на района около училището, за да те запозная с картата и забележителностите. Когато си готов ми кажи да започна. ', function(){
-                            context.$el.find('.info-chose').fadeIn();
-                        });;
+                        context.$el.find('.info-text').text(' Ще направя обиколка на района около училището, за да те запозная с картата и забележителностите. Когато си готов ми кажи да започна. ')
+                        context.$el.find('.info-chose').fadeIn();
 
 
                         $('#assistant').attr('style', 'position:relative');
@@ -134,8 +132,9 @@ Backbone.widget({
     },
 
     startTest: function(){
-        console.log(this.model)
-        //this.fire('START_MAP_QUESTIONS', {'mapObjects':context.mapObjects})
+
+        this.$el.find('.edit-menu').hide();
+        this.fire('START_MAP');
 
     },
 
@@ -152,7 +151,8 @@ Backbone.widget({
         this.fire('HIGHLIGHT_OBJECT', specialPoint)
         var context = this;
         $('.info-text-container').css('visibility', 'visible')
-        this.displayInfoText(specialPoint.info, function(){
+        this.$el.find('.info-text').text(specialPoint.info);
+        this.$el.find('.info-text').fadeIn()
             $('#confirm-point').show()
             _.each(specialPoint.signs, function(sign){
                 context.$el.find('.info-signs').append('<img class="sign-thumb" src="'+ sign + '"/>')
@@ -162,7 +162,6 @@ Backbone.widget({
                 context.end = true;
             }
 
-        })
         this.$el.find('.image-preview').attr('src', specialPoint.img);
         this.$el.find('.point-info').text(specialPoint.label);
         this.$el.find('.image-preview').show()

@@ -6,7 +6,9 @@ Backbone.widget({
 
     },
 
-    listen: {},
+    listen: {
+        'START_MAP': 'startMap'
+    },
 
 
     loaded: function () {
@@ -60,11 +62,14 @@ Backbone.widget({
         })
     },
 
+    startMap: function(){
+        this.fire('START_MAP_QUESTIONS', this.model);
+    },
 
     startGame: function () {
         this.$el.find('.overlay').fadeOut(function () {
             $(this).remove()
-        })
+        });
         this.fire('START_GAME', this.model)
     }
 

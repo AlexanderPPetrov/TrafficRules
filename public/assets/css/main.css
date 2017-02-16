@@ -539,7 +539,7 @@ h4 span {
 
 .player-menu {
     left:0;
-    height:300px;
+    min-height:300px;
 }
 .tile-menu {
     bottom:0;
@@ -1030,7 +1030,7 @@ canvas{
 }
 
 .info-text-container {
-    height:173px;
+    min-height:210px;
 }
 
 .assistant-info .info-signs {
@@ -1045,7 +1045,7 @@ canvas{
 }
 
 .info-text {
-    min-height: 200px;
+    /*min-height: 200px;*/
 }
 
 .assistant-info .info-text {
