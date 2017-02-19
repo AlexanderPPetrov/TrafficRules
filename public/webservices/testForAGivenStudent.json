@@ -8,11 +8,13 @@
       "questions": [
         {
           "id": 1,
-          "description": "Какво означава този знак? img['sign_A26']",
+          "description": "Какво означава този знак?",
+          "imgUrl": "assets/img/signs/sign_A26.png",
           "questionCategoryDescription": "Кръстовище",
-          "isAnswered": false,
+          "isAnswered": true,
           "givenAnswerId": 1,
           "isCorrect": false,
+          "correctAnswerId": 2,
           "answers": [
             {
               "id": 1,
@@ -38,6 +40,7 @@
           "questionCategoryDescription": "Кръстовище",
           "isAnswered": true,
           "givenAnswerId": 4,
+          "correctAnswerId": 4,
           "isCorrect": true,
           "answers": [
             {
@@ -62,6 +65,7 @@
           "questionCategoryDescription": "Кръстовище",
           "isAnswered": false,
           "givenAnswerId": 0,
+          "correctAnswerId": 6,
           "isCorrect": false,
           "answers": [
             {
@@ -80,6 +84,7 @@
           "questionCategoryDescription": "Кръстовище",
           "isAnswered": false,
           "givenAnswerId": 0,
+          "correctAnswerId": 8,
           "isCorrect": false,
           "answers": [
             {
@@ -104,6 +109,7 @@
           "questionCategoryDescription": "Велосипед",
           "isAnswered": false,
           "givenAnswerId": 0,
+          "correctAnswerId": 11,
           "isCorrect": false,
           "answers": [
             {
@@ -122,14 +128,15 @@
           "questionCategoryDescription": "Велосипед",
           "isAnswered": false,
           "givenAnswerId": 0,
+          "correctAnswerId": 13,
           "isCorrect": false,
           "answers": [
             {
-              "id": 11,
+              "id": 13,
               "description": "Да"
             },
             {
-              "id": 12,
+              "id": 14,
               "description": "Не"
             }
           ]
@@ -140,14 +147,15 @@
           "questionCategoryDescription": "Велосипед",
           "isAnswered": false,
           "givenAnswerId": 0,
+          "correctAnswerId": 15,
           "isCorrect": false,
           "answers": [
             {
-              "id": 11,
+              "id": 15,
               "description": "Да"
             },
             {
-              "id": 12,
+              "id": 16,
               "description": "Не"
             }
           ]
@@ -164,23 +172,23 @@
           "questionCategoryDescription": "Запознаване с картата",
           "isAnswered": false,
           "givenAnswerId": 0,
-          "correctAnswerId":13,
+          "correctAnswerId":17,
           "isCorrect": false,
           "answers": [
             {
-              "id": 13,
+              "id": 17,
               "description": "Заведение 'Мистрал'"
             },
             {
-              "id": 14,
+              "id": 18,
               "description": "РУМ Тракия"
             },
             {
-              "id": 16,
+              "id": 19,
               "description": "РУМ Тракия"
             },
             {
-              "id": 17,
+              "id": 20,
               "description": "РУМ Тракия"
             }
           ]

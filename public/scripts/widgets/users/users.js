@@ -43,7 +43,9 @@ Backbone.widget({
     selectUser: function(e){
         this.$el.find('.active').removeClass('active');
         $(e.currentTarget).addClass('active');
-        this.fire('SHOW_USER_STATS', {id: $(e.currentTarget).attr('id')})
+        var playerId = parseInt($(e.currentTarget).attr('id'));
+        var playerData = _.findWhere(this.model.users, {id:playerId})
+        this.fire('SHOW_TEST_RESULT', { playerData: playerData})
     },
 
     searchUser: function(e){

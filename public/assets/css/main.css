@@ -1395,3 +1395,81 @@ canvas{
     padding: 14px 15px;
     border-radius: 4px;
 }
+
+
+/*
+
+    User stats
+
+*/
+
+.stats-container .question {
+    position:relative;
+}
+
+.stats-container h4{
+    margin-top: 15px;
+    padding: 15px;
+    height:auto;
+}
+
+.stats-container .table-striped>tbody>tr:nth-child(odd)>td, .table-striped>tbody>tr:nth-child(odd)>th{
+    background:#444;
+}
+
+.stats-container .table>thead>tr>th {
+    vertical-align: bottom;
+    border-bottom: 1px solid #5f5f5f;
+    background: #252525;
+}
+
+.stats-container .table {
+    border: 1px solid #444;
+}
+
+.stats-container .table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
+    border-top: 1px solid #2b2a2a;
+}
+
+.stats-container h5{
+    background: #1f1f1f;
+    height: 37px;
+    border: 1px solid #444;
+    border-bottom: 0;
+    padding: 10px;
+    margin-bottom: 0;
+    color: #ffc16e;
+}
+
+.stats-container .answered-questions {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #ffffc0;
+}
+
+.stats-container .sign-img {
+    background: #292929;
+    border-radius: 5px;
+    max-width: 60px;
+    padding: 5px;
+    border: 1px solid #565656;
+    display: block;
+    margin-top: 5px;
+}
+
+.stats-container .given-answer-indicator {
+    background-color: #3a3a3a;
+    border: 2px solid #292929;
+    width: 25px;
+    height: 25px;
+    display: inline-block;;
+    border-radius:50%;
+}
+
+.stats-container .correct-answer {
+    background-color: #1fff00;
+}
+.stats-container .wrong-answer {
+    background-color: #ff0000;
+}
