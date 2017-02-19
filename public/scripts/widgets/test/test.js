@@ -50,6 +50,10 @@ Backbone.widget({
         var overallCorrect = 0;
         for (var i = 0; i < response.testSections.length; i++) {
 
+            // Remove unanswered questions
+            response.testSections[i].questions = _.reject(response.testSections[i].questions, {isAnswered: false})
+
+
             response.testSections[i].answeredCount = _.where(response.testSections[i].questions, {isAnswered: true}).length;
             response.testSections[i].correctCount = _.where(response.testSections[i].questions, {isCorrect: true}).length;
 
@@ -63,13 +67,13 @@ Backbone.widget({
             }
             response.testSections[i].percentageColor = this.getPercentageColor(response.testSections[i].percentage)
 
+
             for (var j = 0; j < response.testSections[i].questions.length; j++) {
                 var question = response.testSections[i].questions[j];
 
                 question.correctAnswer = _.findWhere(question.answers, {id: question.correctAnswerId}).description
                 if (question.isAnswered) {
                     question.givenAnswer = _.findWhere(question.answers, {id: question.givenAnswerId}).description;
-
                 }
 
                 if (question.isCorrect) {
@@ -85,6 +89,9 @@ Backbone.widget({
             }
 
         }
+
+        //Do not display unanswered sections
+        response.testSections = _.reject(response.testSections, {answeredCount: 0})
 
         if (overallAnswered == 0) {
             response.overallPercentage = 0;
