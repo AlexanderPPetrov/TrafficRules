@@ -1,0 +1,33 @@
+<div class="stats-container">
+    <h4>{{ description }}</h4>
+    <div iterate="testSections" class="question">
+        <h5>{{ description }}</h5>
+        <span class="section-percentage">
+            <span>успеваемост: </span>
+            <span class="{{ percentageColor }}"> {{ percentage }}%</span>
+        </span>
+        <span class="answered-questions">Отговорени въпроси: {{ answeredCount }}</span>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th style="width: 115px;">Категория</th>
+                <th>Въпрос</th>
+                <th style="width: 125px;">Верен отговор</th>
+                <th style="width: 125px;">Даден отговор</th>
+                <th style="width: 60px;">Вярно</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr iterate="questions" class="question">
+                <td>{{ questionCategoryDescription }}</td>
+                <td>{{ description }}
+                    <img class="sign-img" src="{{ imgUrl}}"/>
+                </td>
+                <td>{{ correctAnswer }}</td>
+                <td>{{ givenAnswer }}</td>
+                <td class="text-center"><span class="given-answer-indicator {{ isCorrectAnswer }}"></span></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
