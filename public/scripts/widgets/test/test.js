@@ -95,7 +95,7 @@ Backbone.widget({
     renderStats: function(){
         this.renderTemplate({
             el: this.$el.find('.player-stats'),
-            template: 'playerstats',
+            template: 'stats',
             data: this.model,
             renderCallback: function () {
             }
