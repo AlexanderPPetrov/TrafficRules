@@ -1396,6 +1396,28 @@ canvas{
     border-radius: 4px;
 }
 
+.user .user-stats {
+    position: absolute;
+    right: 24px;
+    top: 13px;
+    font-size: 30px;
+}
+
+.user .user-stats-label {
+    font-size: 15px;
+    position: absolute;
+    top: 11px;
+    left: 0;
+}
+.user .win-rating {
+    color:green;
+}
+
+.user .percentage {
+    font-size: 24px;
+    margin-left: 5px;
+}
+
 
 /*
 
@@ -1441,6 +1463,22 @@ canvas{
     color: #ffc16e;
 }
 
+.stats-container .section-percentage {
+    position: absolute;
+    top: 9px;
+    left: 125px;
+}
+
+.stats-container .high-percentage {
+    color: #1fff00;
+}
+.stats-container .average-percentage {
+    color: yellow;
+}
+.stats-container .low-percentage {
+    color: #ff0000;
+}
+
 .stats-container .answered-questions {
     position: absolute;
     top: 10px;
@@ -1473,3 +1511,5 @@ canvas{
 .stats-container .wrong-answer {
     background-color: #ff0000;
 }
+
+

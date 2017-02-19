@@ -48,7 +48,22 @@ Backbone.widget({
 
         for (var i = 0; i < response.testSections.length; i++) {
 
-            response.testSections[i].answeredCount = _.where(response.testSections[i].questions, {isAnswered: true}).length
+            response.testSections[i].answeredCount = _.where(response.testSections[i].questions, {isAnswered: true}).length;
+            response.testSections[i].correctCount = _.where(response.testSections[i].questions, {isCorrect: true}).length;
+            console.log(response.testSections[i].answeredCount, response.testSections[i].correctCount)
+            if(response.testSections[i].answeredCount == 0){
+                response.testSections[i].percentage = 0;
+            }else{
+                response.testSections[i].percentage = (response.testSections[i].correctCount / response.testSections[i].answeredCount)* 100 ;
+            }
+            response.testSections[i].percentageColor = 'low-percentage';
+
+            if(response.testSections[i].percentage > 40){
+                response.testSections[i].percentageColor = 'average-percentage';
+            }
+            if(response.testSections[i].percentage > 60){
+                response.testSections[i].percentageColor = 'high-percentage';
+            }
 
             for (var j = 0; j < response.testSections[i].questions.length; j++) {
                 var question = response.testSections[i].questions[j];

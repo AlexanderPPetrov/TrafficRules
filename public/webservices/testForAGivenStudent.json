@@ -63,10 +63,10 @@
           "id": 3,
           "description": "Когато буташ велосипед, тогава според ЗДвП, ти си:",
           "questionCategoryDescription": "Кръстовище",
-          "isAnswered": false,
-          "givenAnswerId": 0,
+          "isAnswered": true,
+          "givenAnswerId": 6,
           "correctAnswerId": 6,
-          "isCorrect": false,
+          "isCorrect": true,
           "answers": [
             {
               "id": 6,
@@ -170,8 +170,8 @@
           "id": 8,
           "description": "Коя е тази сграда?",
           "questionCategoryDescription": "Запознаване с картата",
-          "isAnswered": false,
-          "givenAnswerId": 0,
+          "isAnswered": true,
+          "givenAnswerId": 18,
           "correctAnswerId":17,
           "isCorrect": false,
           "answers": [
