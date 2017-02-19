@@ -44,43 +44,41 @@ Backbone.widget({
         });
     },
 
-    prepareData: function(response){
+    prepareData: function (response) {
 
+        var overallAnswered = 0;
+        var overallCorrect = 0;
         for (var i = 0; i < response.testSections.length; i++) {
 
             response.testSections[i].answeredCount = _.where(response.testSections[i].questions, {isAnswered: true}).length;
             response.testSections[i].correctCount = _.where(response.testSections[i].questions, {isCorrect: true}).length;
-            console.log(response.testSections[i].answeredCount, response.testSections[i].correctCount)
-            if(response.testSections[i].answeredCount == 0){
-                response.testSections[i].percentage = 0;
-            }else{
-                response.testSections[i].percentage = (response.testSections[i].correctCount / response.testSections[i].answeredCount)* 100 ;
-            }
-            response.testSections[i].percentageColor = 'low-percentage';
 
-            if(response.testSections[i].percentage > 40){
-                response.testSections[i].percentageColor = 'average-percentage';
+            overallAnswered += response.testSections[i].answeredCount;
+            overallCorrect += response.testSections[i].correctCount;
+
+            if (response.testSections[i].answeredCount == 0) {
+                response.testSections[i].percentage = 0;
+            } else {
+                response.testSections[i].percentage = (response.testSections[i].correctCount / response.testSections[i].answeredCount) * 100;
             }
-            if(response.testSections[i].percentage > 60){
-                response.testSections[i].percentageColor = 'high-percentage';
-            }
+            response.testSections[i].percentageColor = this.getPercentageColor(response.testSections[i].percentage)
 
             for (var j = 0; j < response.testSections[i].questions.length; j++) {
                 var question = response.testSections[i].questions[j];
 
                 question.correctAnswer = _.findWhere(question.answers, {id: question.correctAnswerId}).description
-                if(question.isAnswered){
+                if (question.isAnswered) {
                     question.givenAnswer = _.findWhere(question.answers, {id: question.givenAnswerId}).description;
 
                 }
 
-                if(question.isCorrect){
+                if (question.isCorrect) {
                     question.isCorrectAnswer = 'correct-answer'
-                }else{
+                } else {
                     question.isCorrectAnswer = 'wrong-answer'
                 }
 
-                if(question.isAnswered == false){
+                if (question.isAnswered == false) {
                     question.isCorrectAnswer = ''
                 }
 
@@ -88,20 +86,41 @@ Backbone.widget({
 
         }
 
+        if (overallAnswered == 0) {
+            response.overallPercentage = 0;
+        } else {
+            response.overallPercentage = (overallCorrect / overallAnswered ) * 100;
+        }
+        response.percentageColor = this.getPercentageColor(response.overallPercentage)
+
         this.model = response;
 
     },
 
-    renderStats: function(){
+    getPercentageColor: function(percentage){
+
+        var percentageClass = 'low-percentage';
+        if (percentage > 40) {
+            percentageClass = 'average-percentage';
+        }
+        if (percentage > 60) {
+            percentageClass = 'high-percentage';
+        }
+        return percentageClass;
+    },
+
+    renderStats: function () {
+
+        console.log(this.model)
         this.renderTemplate({
             el: this.$el.find('.player-stats'),
             template: 'stats',
             data: this.model,
             renderCallback: function () {
+
             }
         })
     }
-
 
 
 }, []);

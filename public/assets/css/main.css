@@ -1396,27 +1396,6 @@ canvas{
     border-radius: 4px;
 }
 
-.user .user-stats {
-    position: absolute;
-    right: 24px;
-    top: 13px;
-    font-size: 30px;
-}
-
-.user .user-stats-label {
-    font-size: 15px;
-    position: absolute;
-    top: 11px;
-    left: 0;
-}
-.user .win-rating {
-    color:green;
-}
-
-.user .percentage {
-    font-size: 24px;
-    margin-left: 5px;
-}
 
 
 /*
@@ -1424,6 +1403,29 @@ canvas{
     User stats
 
 */
+
+.stats-container .user-stats {
+    position: absolute;
+    right: 24px;
+    top: 15px;
+    font-size: 30px;
+}
+
+.stats-container .user-stats-label {
+    font-size: 15px;
+    position: absolute;
+    top: 13px;
+    left: 0;
+}
+.stats-container .win-rating {
+    color:green;
+}
+
+.stats-container .percentage {
+    font-size: 24px;
+    margin-left: 5px;
+}
+
 
 .stats-container .question {
     position:relative;

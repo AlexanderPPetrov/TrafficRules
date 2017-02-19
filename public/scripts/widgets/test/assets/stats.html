@@ -1,5 +1,11 @@
 <div class="stats-container">
     <h4>{{ description }}</h4>
+    <div class="user-stats">
+        <div style="position:relative;padding-left: 108px;">
+            <span class="user-stats-label">успеваемост: </span>
+            <span class="win-rating {{ percentageColor }}"><span class="win-amount">{{ overallPercentage }}</span><span class="percentage">%</span></span>
+        </div>
+    </div>
     <div iterate="testSections" class="question">
         <h5>{{ description }}</h5>
         <span class="section-percentage">
