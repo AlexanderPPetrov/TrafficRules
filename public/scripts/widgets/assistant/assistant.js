@@ -168,8 +168,8 @@ Backbone.widget({
                         $(this).remove();
                     });
                 }else{
-                    console.log('display special point')
-                    $('.info-text-container').addClass('assistant-info')
+                    console.log('display special point');
+                    $('.edit-menu').find('.info-text-container').addClass('assistant-info');
                     if(context.tourPoints.length != 1){
                         //context.moveToNextSpecialPoint()
                     }else{

@@ -20,6 +20,8 @@ Backbone.widget({
     startQuestions: function (data) {
         console.log(data);
         //this.mapObjects = data.mapObjects;
+        $('#bot-container').hide();
+        $('.move-arrow').remove();
         this.mapQuestions = _.findWhere(data.testSections, {id:4});
         //this.shuffle(this.mapQuestions);
         this.render();
@@ -91,6 +93,7 @@ Backbone.widget({
             renderCallback: function () {
                 var context = this;
                 this.$el.find('.possible-answers').find('input').first().prop('checked', true);
+                this.currentQuestion = context.mapQuestions.questions[counter];
                 context.highlightBuilding(context.mapQuestions.questions[counter]);
                 context.counter++;
                 this.$el.find('.questions').animate({
@@ -132,16 +135,14 @@ Backbone.widget({
         }
         var selectedId = this.$el.find('.possible-answers').find('input:checked').attr('id');
         var selectedAnswer = _.findWhere(this.possibleAnswers, {id:selectedId});
-        var right = false;
-        if(selectedAnswer.right){
-            right = true;
-        }
-        console.log('question is: ',_.findWhere(this.possibleAnswers, {right:true}),' given answer is ',selectedAnswer,' which is', right)
+
+        console.log(this.currentQuestion, selectedId);
+
         var context = this;
         $('.questions').animate({
             opacity: 0,
         }, 500, function() {
-            context.prepareQuestion()
+            context.renderQuestion(context.counter);
         });
 
     }

@@ -1,10 +1,16 @@
 <div class="control-menu base-container player-menu">
 
-    <h3>{{ playerName }}</h3>
+    <h3>Играч</h3>
 
     <div class="row">
         <div class="col-sm-12">
                 <div class="info-text-container">
+                    <div class="col-md-12" style="padding-bottom:15px;">
+                        <div class="user" id="{{ id }}" username="{{ playerName }}">
+                            <img src="{{ imageUrl }}">
+                            <span class="user-name">{{ playerName }}</span>
+                        </div>
+                    </div>
                     <div class="player-container" style="width: 80px;"><img src="assets/img/player.png" id="player-avatar"/></div>
 
                     <p class="info-text play-map" style="display:none;">

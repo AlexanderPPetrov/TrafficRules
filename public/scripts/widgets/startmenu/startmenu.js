@@ -1,11 +1,15 @@
 Backbone.widget({
 
     model: {},
-    template: false,
 
     events: {
 
+        'click .play-btn': 'startGame'
 
+    },
+
+    listen: {
+        'SHOW_TEST_RESULT': 'selectUser'
     },
 
     loaded: function () {
@@ -17,8 +21,13 @@ Backbone.widget({
 
     },
 
-    selectUser: function(){
+    selectUser: function(data){
+        this.model = data.playerData;
+        Backbone.session = data.playerData;
+    },
 
+    startGame: function(){
+        Backbone.router.navigate('#game', true);
     }
 
 
