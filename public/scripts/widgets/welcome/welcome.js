@@ -13,9 +13,12 @@ Backbone.widget({
 
     loaded: function () {
 
-        if(_.isEmpty(Backbone.session)){
+        this.playerData = localStorage.getItem("playerData");
+        if(!this.playerData){
             Backbone.router.navigate('#', true);
             return;
+        }else{
+            this.playerData = JSON.parse(this.playerData)
         }
 
         this.ajaxRequest({
@@ -28,11 +31,12 @@ Backbone.widget({
                 var mapTest = _.findWhere(this.model.testSections, {id: 4});
                 var answeredQuestionsLength = _.where(mapTest.questions, {isAnswered: true}).length;
 
+
                 this.model.playerData = {
-                    id:Backbone.session.id,
-                    playerName: Backbone.session.firstName + ' ' + Backbone.session.lastName,
-                    imageUrl: Backbone.session.imageUrl,
-                    role: Backbone.session.role,
+                    id:this.playerData.id,
+                    playerName: this.playerData.firstName + ' ' + this.playerData.lastName,
+                    imageUrl: this.playerData.imageUrl,
+                    role: this.playerData.role,
                     welcomeMessage:" Тази игра има за цел да те запознае с пътната обстановка около СОУ 'Свети Софроний Врачански' и да провери знанията ти по безопасност на движението. Когато си готов натисни бутона 'Започни'.",
                     answeredQuestionsLength: answeredQuestionsLength
                 };
