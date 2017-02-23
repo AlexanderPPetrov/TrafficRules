@@ -32,7 +32,7 @@ Backbone.widget({
             data: this.model,
             renderCallback: function () {
                 this.$el.find(".base-container").draggable();
-                if(this.model.answeredQuestionsLength < 6){
+                if(this.model.answeredQuestionsLength < 1){
                     this.playMap();
                 }else{
                     this.showResult();
@@ -73,10 +73,7 @@ Backbone.widget({
     showResult: function(){
         this.$el.find('.player-container').show();
         this.enableDrag();
-        var context = this;
-        this.displayInfoText(' Здравей, постави героят на една от началните позиции, отбелязани с:  ', function(){
-            context.$el.find('.info-start-point').fadeIn()
-        });
+        this.$el.find('.start-test-text').fadeIn()
     },
 
     enableDrag: function(){
@@ -114,6 +111,7 @@ Backbone.widget({
 
                         $('.hvr-ripple-out').removeClass('hvr-ripple-out');
                         context.$el.find('.info-start-point').hide()
+                        context.$el.find('.start-points-container').hide()
                         context.x = parseInt($(this).closest('.road').attr('x'));
                         context.y = parseInt($(this).closest('.road').attr('y'));
 

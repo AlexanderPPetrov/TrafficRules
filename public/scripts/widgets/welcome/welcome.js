@@ -7,7 +7,8 @@ Backbone.widget({
     },
 
     listen: {
-        'START_MAP': 'startMap'
+        'START_MAP': 'startMap',
+        'PLACE_PLAYER': 'startTestQuestions'
     },
 
 
@@ -41,7 +42,7 @@ Backbone.widget({
                     answeredQuestionsLength: answeredQuestionsLength
                 };
 
-                if (answeredQuestionsLength == 6) {
+                if (answeredQuestionsLength == 1) {
                     this.fire('START_GAME', response)
                 } else {
                     this.render();
@@ -72,6 +73,10 @@ Backbone.widget({
 
     startMap: function(){
         this.fire('START_MAP_QUESTIONS', this.model);
+    },
+
+    startTestQuestions: function(){
+        this.fire('START_TEST_QUESTIONS', this.model)
     },
 
     startGame: function () {

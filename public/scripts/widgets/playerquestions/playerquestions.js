@@ -33,7 +33,6 @@ Backbone.widget({
         });
     },
 
-
     render: function () {
         this.renderTemplate({
             template: 'questions',

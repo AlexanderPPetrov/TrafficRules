@@ -210,7 +210,6 @@ Backbone.widget({
             var stopFrame = context.getStopFrame(orientation);
             context.bot.animateSprite('frame', stopFrame);
 
-            context.fire('LOAD_QUESTIONS');
             if (context.counter < context.path.length - 1) {
                 //if (!context.tour) {
                 //    context.bot.fadeOut(function () {
@@ -226,7 +225,7 @@ Backbone.widget({
                 //        context.fire('START_MAP_QUESTIONS', {'mapObjects': context.mapObjects})
                 //    }
                 //}
-
+                context.fire('SHOW_TEST_QUESTION', context.counter);
 
             } else {
                 //context.counter++;

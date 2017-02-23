@@ -548,6 +548,14 @@ h4 span {
     left:0;
     min-height:300px;
 }
+
+.player-menu .start-test-text {
+    position: absolute;
+    top: 0;
+    padding-left: 115px;
+    pointer-events: none;
+}
+
 .tile-menu {
     bottom:0;
     height: 174px;
@@ -930,6 +938,8 @@ canvas{
 
 .player-container {
     display:none;
+    margin-left: 7px;
+    width: 80px;
 }
 
 #player {
