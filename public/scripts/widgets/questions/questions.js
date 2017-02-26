@@ -3,15 +3,16 @@ Backbone.widget({
     testIndex:0,
     mapMode:true,
     startPoints: [
-        {x: 3, y: 0},
-        {x: 13, y: 0},
-        {x: 18, y: 2},
-        {x: 18, y: 4},
-        {x: 18, y: 10},
-        {x: 17, y: 18},
-        {x: 10, y: 18},
-        {x: 0, y: 11},
-        {x: 0, y: 6}
+        {x: 3, y: 0, steps: 12},
+        {x: 13, y: 0, steps: 6},
+        {x: 18, y: 2, steps: 9},
+        {x: 18, y: 4, steps: 7},
+        {x: 18, y: 10, steps: 10},
+        {x: 17, y: 18, steps: 14},
+        {x: 10, y: 18, steps: 8},
+        {x: 0, y: 11, steps: 13},
+        {x: 0, y: 6, steps: 9}
+
     ],
     answersIndexes: [],
     possibleAnswers: [],
@@ -156,6 +157,7 @@ Backbone.widget({
             renderCallback: function () {
                 var context = this;
                 this.$el.find('.possible-answers').find('input').first().prop('checked', true);
+                console.log(counter)
                 this.currentQuestion = context.questions.questions[counter];
                 context.highlightBuilding(context.questions.questions[counter]);
                 context.counter++;
