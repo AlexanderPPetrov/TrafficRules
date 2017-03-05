@@ -12,7 +12,6 @@ Backbone.widget({
         {x: 10, y: 18, steps: 8},
         {x: 0, y: 11, steps: 13},
         {x: 0, y: 6, steps: 9}
-
     ],
     answersIndexes: [],
     possibleAnswers: [],
@@ -25,6 +24,7 @@ Backbone.widget({
     listen: {
         'START_MAP_QUESTIONS': 'startQuestions',
         'PLACE_PLAYER': 'setPlayerPosition',
+        'POSITION_PLAYER': 'positionPlayer',
         'START_TEST_QUESTIONS': 'setQuestions',
         'SHOW_TEST_QUESTION': 'renderTestQuestion'
 
@@ -32,6 +32,12 @@ Backbone.widget({
 
     loaded: function () {
 
+    },
+
+    positionPlayer: function(data){
+        this.questions = data.questions;
+        this.mapMode = false;
+        this.render();
     },
 
     setPlayerPosition: function (data) {
@@ -44,8 +50,6 @@ Backbone.widget({
     setQuestions: function (data) {
         this.model = data;
         this.mapMode = false;
-
-
     },
 
     renderTestQuestion: function(counter){

@@ -10,6 +10,7 @@ Backbone.widget({
         'SEND_MATRIX_DATA': 'setBotData',
         'ADD_BOT': 'addBot',
         'PLACE_PLAYER': 'placePlayer',
+        'POSITION_PLAYER': 'positionPlayer',
         'MOVE_PLAYER': 'movePlayer',
         'ANSWER_GIVEN': 'giveNextMove'
     },
@@ -80,6 +81,29 @@ Backbone.widget({
         // console.log('background-size', this.bot.css('background-size'));
         // console.log('width', this.bot.width());
         // console.log('height', this.bot.height())
+    },
+
+    positionPlayer: function(data){
+
+        this.model.data = data;
+        this.fire('GET_MATRIX_DATA');
+        this.findPath(this.mapObjects.endPoints);
+        this.placeBot(this.path[data.answered].y, this.path[data.answered].x);
+        this.startBot();
+        var orientation = this.defineOrientation(this.path[data.answered], this.path[data.answered + 1]);
+
+        this.bot.animateSprite('play', orientation);
+        this.bot.animateSprite('stop');
+        var stopFrame = this.getStopFrame(orientation);
+        this.bot.animateSprite('frame', stopFrame);
+
+        console.log(this.path)
+        this.counter = data.answered;
+        this.highlightRoad();
+        this.hideEndPoints();
+        //this.disableOtherPaths()
+        console.log(this.path)
+        this.giveNextMove()
     },
 
 
@@ -225,7 +249,7 @@ Backbone.widget({
                 //        context.fire('START_MAP_QUESTIONS', {'mapObjects': context.mapObjects})
                 //    }
                 //}
-                context.fire('SHOW_TEST_QUESTION', context.counter);
+                context.fire('SHOW_TEST_QUESTION', context.counter -1);
 
             } else {
                 //context.counter++;

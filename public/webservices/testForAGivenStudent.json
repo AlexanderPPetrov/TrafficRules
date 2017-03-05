@@ -12,8 +12,8 @@
           "imgUrl": "assets/img/signs/sign_A26.png",
           "questionCategoryDescription": "Кръстовище",
           "isAnswered": true,
-          "givenAnswerId": 1,
-          "isCorrect": false,
+          "givenAnswerId": 2,
+          "isCorrect": true,
           "correctAnswerId": 2,
           "answers": [
             {
@@ -38,10 +38,29 @@
           "id": 2,
           "description": "Веригата на велосипеда:",
           "questionCategoryDescription": "Кръстовище",
-          "isAnswered": true,
-          "givenAnswerId": 4,
+          "isAnswered": false,
+          "givenAnswerId": 0,
           "correctAnswerId": 4,
-          "isCorrect": true,
+          "isCorrect": false,
+          "answers": [
+            {
+              "id": 4,
+              "description": "се смазва периодично"
+            },
+            {
+              "id": 5,
+              "description": "не се смазва"
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "description": "Веригата на велосипеда:",
+          "questionCategoryDescription": "Кръстовище",
+          "isAnswered": false,
+          "givenAnswerId": 0,
+          "correctAnswerId": 4,
+          "isCorrect": false,
           "answers": [
             {
               "id": 4,
@@ -63,10 +82,10 @@
           "id": 3,
           "description": "Когато буташ велосипед, тогава според ЗДвП, ти си:",
           "questionCategoryDescription": "Кръстовище",
-          "isAnswered": true,
+          "isAnswered": false,
           "givenAnswerId": 6,
           "correctAnswerId": 6,
-          "isCorrect": true,
+          "isCorrect": false,
           "answers": [
             {
               "id": 6,

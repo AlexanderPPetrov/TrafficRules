@@ -1528,9 +1528,18 @@ canvas{
 
 
 .question-image {
-    max-width:100px;
-    max-height:100px;
-    border-radius:5px;
-    border:3px solid black;
+    max-width: 100px;
+    max-height: 100px;
+    border-radius: 5px;
+    border: 1px solid black;
+    margin-top: -11px;
+    margin-left: 15px;
+    margin-bottom: 10px;
+    padding: 5px;
+    background: #545353;
+}
+
+.questions-list .question-image {
     margin-top:10px;
+    margin-left:0;
 }

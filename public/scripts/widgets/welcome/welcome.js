@@ -43,6 +43,7 @@ Backbone.widget({
                 };
 
                 if (answeredQuestionsLength == 1) {
+                    console.log('>>>>',response)
                     this.fire('START_GAME', response)
                 } else {
                     this.render();

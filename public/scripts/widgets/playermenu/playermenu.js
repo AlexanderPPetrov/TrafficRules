@@ -3,13 +3,22 @@ Backbone.widget({
     model: {},
     x:0,
     y:0,
+    routes: [
+        {x: 3, y: 0, steps: 12},
+        {x: 13, y: 0, steps: 6},
+        {x: 18, y: 2, steps: 9},
+        {x: 18, y: 4, steps: 7},
+        {x: 18, y: 10, steps: 10},
+        {x: 17, y: 18, steps: 14},
+        {x: 10, y: 18, steps: 8},
+        {x: 0, y: 11, steps: 13},
+        {x: 0, y: 6, steps: 9}
+    ],
     events: {
         // "click #confirm-start": "enableDrag",
         // "click #start-tour": "startTour",
         // "click #start-school": "startSchool"
         "click #start-assistant": "startAssistant"
-
-
     },
 
     listen: {
@@ -24,12 +33,12 @@ Backbone.widget({
 
 
     render: function(data){
-        this.model = data.playerData;
+        this.model = data;
         console.log(this.model)
         this.renderTemplate({
 
             template: 'playermenu',
-            data: this.model,
+            data: this.model.playerData,
             renderCallback: function () {
                 this.$el.find(".base-container").draggable();
                 if(this.model.answeredQuestionsLength < 1){
@@ -62,7 +71,7 @@ Backbone.widget({
     startAssistant: function (){
         this.$el.find('.start-assistant-container').fadeOut('fast');
         this.$el.find('.info-text').empty();
-        this.fire('INIT_ASSISTANT', this.model)
+        this.fire('INIT_ASSISTANT', this.model.playerData)
     },
 
     playMap: function(){
@@ -71,6 +80,22 @@ Backbone.widget({
             context.$el.find('.play-map').fadeIn('fast');
     },
     showResult: function(){
+
+        // Check if position is finished
+        for(var i = 0; i < this.startPoints.length; i++){
+            if(this.model.testSections[i]){
+                var answeredQuestionsLength = _.where(this.model.testSections[i].questions, {isAnswered: true}).length;
+                if(this.routes[i].steps > answeredQuestionsLength && answeredQuestionsLength > 0 && this.model.testSections[i].id != 4 ){
+                    console.log('not finished')
+
+                    this.fire('POSITION_PLAYER', {x: this.startPoints[i].x, y: this.startPoints[i].y, answered: answeredQuestionsLength, questions: this.model.testSections[i].questions});
+
+                }
+            }
+
+
+        }
+        console.log(this.model)
         this.$el.find('.player-container').show();
         this.enableDrag();
         this.$el.find('.start-test-text').fadeIn()

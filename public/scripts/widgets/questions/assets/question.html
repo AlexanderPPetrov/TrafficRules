@@ -1,5 +1,6 @@
     <h4><span class="category">категория: </span> {{ questionCategoryDescription }}</h4>
     <p>{{ description }}</p>
+    <img class="question-image" src="{{ imgUrl }}">
     <div class="possible-answers">
         <div iterate="answers" class="col-sm-6 given-answer">
             <input type="radio" id="{{ id }}" name="radio" />
