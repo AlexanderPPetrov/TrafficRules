@@ -21,16 +21,14 @@ app.set('view engine', 'jade');
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
-var apiServerHost = 'https://agentmate.herokuapp.com';
-console.log('apiServerHost')
+var apiServerHost = 'https://agentmate.herokuapp.com/api';
 app.use('/api', function(req, res) {
-    console.log(apiServerHost + req.url)
     var url = apiServerHost + req.url;
     req.pipe(request(url)).pipe(res);
 });
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: false }));
-// app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
 
 //This defines which folder has your static front end files (js, css, html)
 app.use(express.static(path.join(__dirname, 'public')));
