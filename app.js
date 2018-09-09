@@ -9,8 +9,8 @@ var bodyParser = require('body-parser');
 //var users = require('./routes/users');
 
 var app = express();
-var apiServerHost = 'https://agentmate.herokuapp.com/'
-app.use('/api', function(req, res) {
+var apiServerHost = 'https://agentmate.herokuapp.com';
+app.use('/', function(req, res) {
     var url = apiServerHost + req.url;
     req.pipe(request(url)).pipe(res);
 });
