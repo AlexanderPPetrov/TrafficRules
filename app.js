@@ -1,4 +1,5 @@
 var express = require('express');
+var request = require('request');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -10,7 +11,7 @@ var bodyParser = require('body-parser');
 
 var app = express();
 var apiServerHost = 'https://agentmate.herokuapp.com';
-app.use('/', function(req, res) {
+app.use('/api', function(req, res) {
     var url = apiServerHost + req.url;
     req.pipe(request(url)).pipe(res);
 });
