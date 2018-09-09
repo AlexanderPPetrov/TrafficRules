@@ -144,6 +144,7 @@ Backbone.widget({
     },
 
     initFogOfWar: function () {
+
         var fogWidth = (this.columnCount * 2 + 3) * this.boxSize,
             fogHeight = (this.rowCount * 2 + 3) * this.boxSize
 
@@ -237,7 +238,7 @@ Backbone.widget({
                 var $row = $(this.$el.find('.r').get(i));
                 var $col = $($row.find('.base-grid').get(j));
                 $col.attr({"posx": j, "posy": i});
-                $col.css({'left': this.boxSize * j, 'top': this.boxSize * i});
+                // $col.css({'left': this.boxSize * j, 'top': this.boxSize * i});
                 var currentTile = mapMatrix[i][j];
                 if (currentTile == 0) {
 

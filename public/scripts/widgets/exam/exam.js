@@ -123,8 +123,26 @@ Backbone.widget({
 
     },
     submitAnswer: function () {
-        this.$el.find('#examModal').modal('hide');
-        this.$el.find('#submit-answer').attr('disabled', true);
+
+        var postData = JSON.stringify({
+            answerId: this.model.answerId,
+            questionId: this.model.questionId,
+            resultId: this.model.resultId
+        });
+
+        this.ajaxRequest({
+            url: 'api/v1/results/answer',
+            type: "POST",
+            contentType: 'application/json',
+            dataType: "json",
+            data: postData,
+            success: function () {
+                this.$el.find('#examModal').modal('hide');
+                this.$el.find('#submit-answer').attr('disabled', true);
+            }
+        });
+
+
     }
 
 

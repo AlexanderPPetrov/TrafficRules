@@ -1,3 +1,10 @@
+body, html, #layouts {
+    height: 100%;
+    overflow: hidden;
+}
+.container-fluid {
+
+}
 .grid-map-transform {
     opacity:0;
     display: flex;
@@ -30,11 +37,23 @@
     height: 100%;
 }
 
+.r {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+}
 .grid-image {
     position:absolute;
 }
 .base-grid {
-    position:absolute;
+    position:initial;
+}
+.base-grid:not(.road) {
+    pointer-events: none;
+}
+.map-object {
+    pointer-events: none;
 }
 /*.house{*/
     /*-moz-transform:  matrix(0.666667, 0.66667, -2, 2, 46, -58);*/
