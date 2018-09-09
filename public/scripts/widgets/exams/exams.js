@@ -12,7 +12,7 @@ Backbone.widget({
 
     loadExams: function(){
         this.ajaxRequest({
-            url: 'api/v1/exams',
+            url: 'exams',
             type: "GET",
             success: function (response) {
                 this.model.exams = response;

@@ -40,7 +40,7 @@ Backbone.widget({
     loadExam: function (examId) {
 
         this.ajaxRequest({
-            url: 'api/v1/exams/' + examId,
+            url: 'exams/' + examId,
 
             type: "GET",
             success: function (response) {
@@ -61,7 +61,7 @@ Backbone.widget({
         });
 
         this.ajaxRequest({
-            url: 'api/v1/results',
+            url: 'results',
             type: "POST",
             contentType: 'application/json',
             dataType: "json",
@@ -131,7 +131,7 @@ Backbone.widget({
         });
 
         this.ajaxRequest({
-            url: 'api/v1/results/answer',
+            url: 'results/answer',
             type: "POST",
             contentType: 'application/json',
             dataType: "json",

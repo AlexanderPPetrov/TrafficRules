@@ -14,7 +14,7 @@ Backbone.widget({
 
     loadUsers: function(){
         this.ajaxRequest({
-            url: 'api/v1/students',
+            url: 'students',
             type: "GET",
             success: function (response) {
                 this.model.users = response;
