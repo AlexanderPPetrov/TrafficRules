@@ -1,0 +1,26 @@
+<div class="question-info-container p-4">
+    <div class="row">
+        <div class="col">
+            <div class="question-info d-flex justify-content-center align-items-center h-100">
+                <div class="d-flex">
+                    {{ text }}
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="question-info text-center">
+                <img class="question-image" src="{{ imgUrl }}">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="possible-answers p-3 pt-4">
+    <div class="row">
+        <div iterate="answers" class="col-6 given-answer">
+            <div class="answer-container mb-3 p-3 d-flex" id="{{ _id }}">
+                <span class="answer-id d-flex">{{ _id }})</span>
+                <span class="d-flex">{{ text }}</span>
+            </div>
+        </div>
+    </div>
+</div>

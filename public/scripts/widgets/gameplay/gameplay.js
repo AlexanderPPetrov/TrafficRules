@@ -6,12 +6,12 @@ Backbone.widget({
     columnCount: 4,
     rowWidthPx: 0,
     mapMatrix: null,
-    currPlayerPos: {
+    playerPosition: {
         x: 0,
         y: 0
     },
     selected: null,
-    debug: true,
+
 
     events: {
         'click .map-object': 'displayInfoText',
@@ -33,7 +33,8 @@ Backbone.widget({
         'DISABLE_DESELECT': 'disableDeselect',
         'SAVE_MAP': 'saveMap',
         'LOAD_MAP': 'loadMap',
-        'GET_MATRIX_DATA': 'sendMatrixData'
+        'GET_MATRIX_DATA': 'sendMatrixData',
+        'LOAD_EXAM_MAP': 'loadExamMap'
 
 
     },
@@ -51,8 +52,8 @@ Backbone.widget({
             template: 'gridmap',
             data: this.model,
             renderCallback: function () {
-                this.setGridSize();
-                this.initializeMap();
+                // this.setGridSize();
+                // this.initializeMap();
             }
         })
     },
@@ -78,19 +79,19 @@ Backbone.widget({
     },
 
     setGridSize: function () {
-        console.log(this.columnCount, this.rowCount)
-        var factor = this.columnCount * 2 + 1
+        var factor = this.columnCount * 2 + 1;
         if (this.columnCount < this.rowCount) {
             factor = this.rowCount * 2 + 1;
 
         }
         this.boxSize = Math.floor($('#get-size').width() * 2/3 / factor );
-        console.log('>>>',this.boxSize)
         this.rowWidthPx = (this.columnCount * 2 + 1) * this.boxSize;
         this.rowHeight = this.boxSize;
 
         var marginTop = (this.columnCount - this.rowCount)*this.boxSize;
-        $('.grid-map-transform').css('marginTop', marginTop);
+        //$('.grid-map-transform').css('marginTop', marginTop);
+
+
         this.getCoordinates();
     },
 
@@ -120,7 +121,7 @@ Backbone.widget({
         this.renderRoadTiles();
         this.setIndexes();
         this.initFogOfWar();
-        this.placePlayer({x: 0, y: 1}, 'assets/img/models/car_01_E.png');
+        this.placePlayer({x: 0, y: 1}, 'assets/img/models/player_01_E.png');
         $('.grid-map-transform').animate({opacity: 1});
 
     },
@@ -460,7 +461,6 @@ Backbone.widget({
         if (this.selected == null) {
             return
         }
-        ;
         this.selected.find('.house').attr('src', imageSrc);
     },
 
@@ -468,7 +468,6 @@ Backbone.widget({
         if (this.selected == null) {
             return
         }
-        ;
         this.selected.find('.house').parent().attr('data-info', infoText);
     },
 
@@ -476,18 +475,20 @@ Backbone.widget({
         if (this.selected == null) {
             return
         }
-        ;
         this.selected.find('.house').remove();
     },
 
     showSelection: function (e) {
+        return;
+        // removed
+
         var $currentGrid = $(e.currentTarget);
         if ($currentGrid.find('.move-arrow').length > 0) {
             $currentGrid.find('.move-arrow').find('i').css({
                 'font-size': Math.ceil(this.boxSize * 3.5) + '%',
                 'padding-top': Math.ceil(this.boxSize * 0.13) + 'px',
                 'border': Math.floor(this.boxSize * 0.125) + 'px dashed rgba(161, 255, 0, 0.7)'
-            })
+            });
 
             $currentGrid.find('.move-arrow').fadeIn('fast');
             this.$el.find('.base-grid-marker').remove();
@@ -520,24 +521,43 @@ Backbone.widget({
         var newPosition = {
             x: $moveArrow.attr('posx'),
             y: $moveArrow.attr('posy')
-        }
+        };
         this.$el.find('.move-arrow').remove();
-        this.placePlayer(newPosition, 'assets/img/models/car_01_' + $moveArrow.attr('direction') + '.png')
+        this.placePlayer(newPosition, 'assets/img/models/player_01_' + $moveArrow.attr('direction') + '.png');
+        this.fire('DISPLAY_NEXT_QUESTION');
+
+    },
+
+    moveCamera: function(newPosition){
+
+        var origin = {
+            x: this.columnCount * this.boxSize,
+            y: this.rowCount * this.boxSize
+        };
+
+        var cameraX = origin.x - newPosition.x * this.boxSize,
+            cameraY = origin.y - newPosition.y * this.boxSize
+
+        var $camera = $('.camera'),
+            translate = 'translate(' + cameraX +'px, ' + cameraY + 'px)';
+        $camera.css('transform', translate);
 
     },
 
     placePlayer: function (position, model) {
         var fogPosX = (position.x * this.boxSize) + this.boxSize,
-            fogPosY = (position.y * this.boxSize) + this.boxSize
+            fogPosY = (position.y * this.boxSize) + this.boxSize;
 
         this.revealFog(fogPosX, fogPosY);
         this.$el.find('.player').fadeOut(function () {
             $(this).remove();
         });
 
-        this.currPlayerPos = position;
-        var $row = $('#grid-container').find('.r').get(this.currPlayerPos.y);
-        var $playerPosition = $($row).find('.base-grid').get(this.currPlayerPos.x);
+
+        this.playerPosition = position;
+        var $row = $('#grid-container').find('.r').get(this.playerPosition.y);
+        var $playerPosition = $($row).find('.base-grid').get(this.playerPosition.x);
+        $($playerPosition).addClass('passed');
         this.renderTemplate({
             template: 'player',
             el: $($playerPosition),
@@ -548,14 +568,16 @@ Backbone.widget({
                 var $playerImage = this.$el.find('.player').find('img');
                 $playerImage.css('transform', matrix);
             }
-        })
+        });
+
+        this.moveCamera(position);
 
         var mapMatrix = this.getMapMatrix(this.columnCount * 2 + 1, this.rowCount * 2 + 1);
 
         for (var i = 0; i < mapMatrix.length; i++) {
             for (var j = 0; j < mapMatrix[i].length; j++) {
 
-                if (this.currPlayerPos.y == i && this.currPlayerPos.x == j) {
+                if (this.playerPosition.y == i && this.playerPosition.x == j) {
 
                     if (mapMatrix[i][j + 1] !== undefined  && mapMatrix[i][j + 1] == 0) {
                         var $row = $(this.$el.find('.r').get(i));
@@ -581,6 +603,13 @@ Backbone.widget({
                         $col.append('<div class="move-arrow text-center" direction="S" posx="' + j + '" posy="' + (i + 1) + '"><i class="fa fa-long-arrow-down"></i></div>');
                     }
 
+                    this.$el.find('.move-arrow').find('i').css({
+                        'font-size': Math.ceil(this.boxSize * 3.5) + '%',
+                        'padding-top': Math.ceil(this.boxSize * 0.13) + 'px',
+                        'border': Math.floor(this.boxSize * 0.125) + 'px dashed rgba(161, 255, 0, 0.7)'
+                    });
+
+
                 }
 
             }
@@ -596,41 +625,37 @@ Backbone.widget({
 
     },
 
-    loadMap: function (mapUrl) {
-        this.ajaxRequest({
-            url: mapUrl,
-            data: {},
-            local: true,
-            type: "GET",
-            success: function (response) {
-                $('#grid-container').html('')
-                this.mapMatrix = response.mapMatrix;
-                this.rowCount = (response.mapMatrix.length - 1 ) * 0.5;
-                this.columnCount = (response.mapMatrix[0].length - 1) * 0.5;
-                console.log('rowCount: ', this.rowCount, 'colCount: ', this.columnCount);
-                this.setGridSize();
-                this.definePath(this.mapMatrix);
+    loadExamMap: function (map) {
 
-                $('#grid-container').find('.r').css({'width': this.rowWidthPx, 'height': this.rowHeight});
-                $('#grid-container').find('.road, .block').css({
-                    'width': this.boxSize,
-                    'height': this.boxSize
-                });
+        $('#grid-container').html('')
+        this.mapMatrix = map.mapMatrix;
+        this.rowCount = (map.mapMatrix.length - 1 ) * 0.5;
+        this.columnCount = (map.mapMatrix[0].length - 1) * 0.5;
+        console.log('rowCount: ', this.rowCount, 'colCount: ', this.columnCount);
+        this.setGridSize();
+        this.definePath(this.mapMatrix);
 
-                $('#grid-container').find('.road, .block').addClass('base-grid');
-
-
-                this.mapTiles(this.mapMatrix);
-                this.renderGrass();
-                this.loadSavedTiles(response.images);
-                this.renderRoadTiles();
-                this.setIndexes();
-                this.initFogOfWar();
-                var playerX = parseInt(response.player.posx)
-                var playerY = parseInt(response.player.posy)
-                this.placePlayer({x: playerX, y: playerY}, response.player.image);
-            }
+        $('#grid-container').find('.r').css({'width': this.rowWidthPx, 'height': this.rowHeight});
+        $('#grid-container').find('.road, .block').css({
+            'width': this.boxSize,
+            'height': this.boxSize
         });
+
+        $('#grid-container').find('.road, .block').addClass('base-grid');
+
+
+        this.mapTiles(this.mapMatrix);
+        this.renderGrass();
+        this.loadSavedTiles(map.images);
+        this.renderRoadTiles();
+        this.setIndexes();
+        this.initFogOfWar();
+        var playerX = parseInt(map.player.posx)
+        var playerY = parseInt(map.player.posy)
+        this.placePlayer({x: playerX, y: playerY}, map.player.image);
+        $('.grid-map-transform').animate({opacity: 1});
+
+
     },
 
     getMapData: function () {
@@ -655,12 +680,12 @@ Backbone.widget({
             imageData.y = $(this).closest('.base-grid').attr('posy');
             mapData.images.push(imageData);
 
-        })
+        });
 
         mapData.player = {};
         mapData.player.image = this.$el.find('.player').find('img').attr('src');
-        mapData.player.posx = this.currPlayerPos.x;
-        mapData.player.posy = this.currPlayerPos.y;
+        mapData.player.posx = this.playerPosition.x;
+        mapData.player.posy = this.playerPosition.y;
 
         return JSON.stringify(mapData);
     },

@@ -1,0 +1,265 @@
+.grid-map-transform {
+    opacity:0;
+    display: flex;
+    transform: none;
+}
+.camera {
+
+}
+
+.coordinates{
+    position:absolute;
+    z-index:1000;
+    left:-50%;
+    top:-50%;
+    pointer-events: none;
+    display:none;
+}
+.coordinate-grid {
+    border-top:1px solid #FF0000;
+    border-left:1px solid #00FF00;
+    position:absolute;
+
+}
+
+.coordinate-y {
+    transform: matrix(1, 1, -1, 1, 0, 0);
+    border-left: 1px solid rgba(0, 80, 255, 0.5);
+    margin-top: -2px;
+    width: 100%;
+    height: 100%;
+}
+
+.grid-image {
+    position:absolute;
+}
+.base-grid {
+    position:absolute;
+}
+/*.house{*/
+    /*-moz-transform:  matrix(0.666667, 0.66667, -2, 2, 46, -58);*/
+    /*-webkit-transform:  matrix(0.666667, 0.66667, -2, 2, 46, -58);*/
+    /*-ms-transform:  matrix(0.666667, 0.66667, -2, 2, 46, -58);*/
+    /*transform: matrix(0.666667, 0.66667, -2, 2, 46, -58);*/
+/*}*/
+
+canvas{
+    position: absolute;
+    top: -35px;
+    left: -100px;
+    z-index: 1000;
+    pointer-events: none;
+}
+.fog {
+    display: initial;
+}
+.camera {
+    -webkit-transition: 1s;
+    -moz-transition: 1s;
+    -o-transition: 1s;
+    transition: 1s;
+}
+
+.base-grid-marker{
+    position:absolute;
+    background: rgba(85,255,28,0.1) !important;
+    -webkit-box-shadow: inset 0px 0px 5px 0px rgb(233, 255, 7);
+    -moz-box-shadow: inset 0px 0px 5px 0px rgba(233,255,28,1);
+    box-shadow: inset 0px 0px 5px 0px rgba(233,255,28,1);
+    border:1px dashed yellow;
+    border-radius:10px;
+}
+.base-grid-selected {
+    position: absolute;
+    background: rgba(254, 255, 0, 0.3);
+    z-index: 9;
+    border: 1px dashed white;
+}
+
+.selected-map-object {
+    opacity:0.6;
+}
+
+.selected-inner {
+    width: 100%;
+    height: 100%;
+    background: rgba(65, 255, 0, 0.2);
+    padding: 15px;
+    border: 5px solid rgb(181, 255, 0)
+}
+
+.passed .move-arrow {
+    opacity: 0;
+}
+.move-arrow {
+    display:block;
+}
+
+.transformed-container {
+    -moz-transform: rotate(-45deg) skew(15deg, 15deg);
+    -webkit-transform: rotate(-45deg) skew(15deg, 15deg);
+    -ms-transform: rotate(-45deg) skew(15deg, 15deg);
+    transform: rotate(-45deg) skew(15deg, 15deg);
+}
+
+#grid-container .block{
+    background: #A19C73;
+    z-index: 1;
+    cursor: pointer;
+}
+
+#grid-container .road{
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    float: left;
+    z-index: 1;
+    cursor: pointer;
+}
+
+#grid-container .u{
+    background: #333;
+    float: left;
+    z-index: 1;
+    cursor: pointer;
+}
+#grid-container .d{
+    background: #333;
+    float: left;
+    z-index: 1;
+    cursor: pointer;
+}
+
+#grid-container .player{
+    position: absolute;
+    z-index: 99999;
+}
+
+#grid-container .exit{
+    background-image: url("../img/warp.png");
+    position: absolute;
+    z-index: 2;
+}
+
+.road-01{
+    background: url("../img/tiles/road/road_01.jpg") no-repeat center center ;
+}
+.road-02{
+    background: url("../img/tiles/road/road_02.jpg") no-repeat center center ;
+}
+.road-03{
+    background: url("../img/tiles/road/road_03.jpg") no-repeat center center ;
+}
+.road-04{
+    background: url("../img/tiles/road/road_04.jpg") no-repeat center center ;
+}
+.road-05{
+    background: url("../img/tiles/road/road_05.jpg") no-repeat center center ;
+}
+.road-06{
+    background: url("../img/tiles/road/road_06.jpg") no-repeat center center ;
+}
+.road-07{
+    background: url("../img/tiles/road/road_07.jpg") no-repeat center center ;
+}
+.road-08{
+    background: url("../img/tiles/road/road_08.jpg") no-repeat center center ;
+}
+.road-09{
+    background: url("../img/tiles/road/road_09.jpg") no-repeat center center ;
+}
+.road-10{
+    background: url("../img/tiles/road/road_10.jpg") no-repeat center center ;
+}
+.road-11{
+    background: url("../img/tiles/road/road_11.jpg") no-repeat center center ;
+}
+.road-12{
+    background: url("../img/tiles/road/road_12.jpg") no-repeat center center ;
+}
+.road-13{
+    background: url("../img/tiles/road/road_13.jpg") no-repeat center center ;
+}
+.road-14{
+    background: url("../img/tiles/road/road_14.jpg") no-repeat center center ;
+}
+.road-15{
+    background: url("../img/tiles/road/road_15.jpg") no-repeat center center ;
+}
+
+.map-object {
+    position:absolute;
+    padding:5px;
+    z-index:999;
+}
+
+.map-object:hover {
+    padding:0;
+    background: rgba(239, 255, 0, 0.2) !important;
+    -webkit-box-shadow: inset 0px 0px 5px 0px rgb(5, 20, 20);
+    -moz-box-shadow: inset 0px 0px 5px 0px rgb(5, 20, 20);
+    box-shadow: inset 0px 0px 5px 0px rgb(5, 20, 20);
+    border: 5px solid rgba(150,200,200, 0.2);
+    border-radius: 50%;
+}
+
+#bot {
+    background: transparent url('../img/sprites/bot.png') 0 0 no-repeat;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width:64px;
+    height:104px;
+    z-index: 2000;
+    transform:matrix(1, 1,-2,2, 0, 0);
+    cursor: pointer;
+}
+
+#dummy-bot-container {
+    pointer-events: none;
+    display:none;
+}
+.bot {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width:64px;
+    height:104px;
+    z-index: 2000;
+    transform:matrix(1, 1,-2,2, 0, 0);
+    cursor: pointer;
+}
+.bot-position {
+    background: rgba(6, 86, 95, 0.8);
+    border: 1px solid rgba(0, 34, 39, 0.4);
+    font-size: 5px;
+    color: #6BEFCC;
+    padding: 1px 4px;
+    border-radius: 3px;
+    letter-spacing: 1px;
+    display: inline;
+    position: absolute;
+    min-width: 36px;
+    top: -6px;
+}
+.bot-name {
+    color: #fff;
+}
+.bot-x {
+    margin-left:1px;
+    color: #37FF00;
+}
+.bot-y {
+    margin-left:1px;
+    color: #fff600;
+}
+.dummy-bot {
+    background: transparent url('../img/sprites/bot_02.png') 0 0 no-repeat;
+}
+.dummy-bot-pink {
+    background: transparent url('../img/sprites/bot_04.png') 0 0 no-repeat;
+}
+.dummy-bot-007 {
+    background: transparent url('../img/sprites/bot_03.png') 0 0 no-repeat;
+}

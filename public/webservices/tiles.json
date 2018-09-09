@@ -34,6 +34,26 @@
         {
           "src": "assets/img/tiles/commerce/hotel_01.png",
           "label": "Hotel 01"
+        },
+        {
+          "src": "assets/img/tiles/buildings/block_01.png",
+          "label": "Block 01"
+        },
+        {
+          "src": "assets/img/tiles/buildings/block_02.png",
+          "label": "Block 02"
+        },
+        {
+          "src": "assets/img/tiles/buildings/block_03.png",
+          "label": "Block 03"
+        },
+        {
+          "src": "assets/img/tiles/buildings/block_04.png",
+          "label": "Block 04"
+        },
+        {
+          "src": "assets/img/tiles/buildings/school.png",
+          "label": "School"
         }
       ]
     },
@@ -78,6 +98,10 @@
         {
           "src": "assets/img/tiles/nature/tree_04.png",
           "label": "Tree 04"
+        },
+        {
+          "src": "assets/img/tiles/nature/tree_05.png",
+          "label": "Tree 05"
         }
 
       ]

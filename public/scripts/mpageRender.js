@@ -20,7 +20,7 @@
         'animatesprite':"vendor/animatesprite/animatesprite",
         'underscore': 'vendor/lodash/lodash',
         'backbone': 'vendor/backbone-amd/backbone',
-        'bootstrap': 'vendor/bootstrap/bootstrap',
+        'bootstrap': 'vendor/bootstrap/bootstrap.min',
         'text': 'vendor/requirejs-text/text',
         'json': 'vendor/requirejs-json/json',
         'util': 'vendor/renderer/util',

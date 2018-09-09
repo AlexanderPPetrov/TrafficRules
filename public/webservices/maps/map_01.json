@@ -396,8 +396,8 @@
     }
   ],
   "player": {
-    "image": "assets/img/models/car_01_E.png",
-    "posx": 2,
-    "posy": 3
+    "image": "assets/img/models/player_01_E.png",
+    "posx": 0,
+    "posy": 1
   }
 }

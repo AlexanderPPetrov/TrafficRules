@@ -1,44 +1,43 @@
 Backbone.widget({
 
-    model: [],
-    rowCount: 2,
-    columnCount: 3,
-
-
+    model: {},
 
     events: {
 
-        'click .role' : 'switchRole',
-        'click .role-name' : 'triggerSwitchRole'
+        'click .play-btn': 'startGame'
 
+    },
+
+    listen: {
+        'SHOW_TEST_RESULT': 'selectUser'
     },
 
     loaded: function () {
 
     },
 
-    triggerSwitchRole: function(e){
-        $(e.currentTarget).parent().find('.role').trigger('click')
+
+    render: function(e){
+
     },
 
-    switchRole: function(e){
-        var $selectedRole = $(e.currentTarget);
+    selectUser: function(data){
+        this.model = data.playerData;
+        if (typeof(Storage) !== "undefined") {
+            localStorage.setItem("playerData", JSON.stringify(data.playerData));
+        } else {
+            Backbone.session = data.playerData;
+        }
 
-        this.$el.find('.role').removeClass('active-role');
+    },
 
-        $selectedRole.addClass('active-role');
-
-        var role = $selectedRole.attr('role');
-        var imgSrc = $selectedRole.find('img').attr('src');
-        var html = $selectedRole.find('.col-lg-8').html();
-
-        var selectedRoleContainer = this.$el.find('.selected-role-container');
-        selectedRoleContainer.find('img').attr('src',imgSrc)
-        selectedRoleContainer.find('.selected-role').html(html)
-    }
+    startGame: function(){
+        Backbone.router.navigate('#game', true);
+    },
 
 
 
 
 
-}, ['map']);
+
+}, []);

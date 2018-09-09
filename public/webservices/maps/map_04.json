@@ -1,0 +1,288 @@
+{
+  "mapMatrix": [
+    [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      1
+    ],
+    [
+      1,
+      1,
+      1,
+      1,
+      1,
+      0,
+      1,
+      0,
+      1,
+      0,
+      1
+    ],
+    [
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  ],
+  "images": [
+    {
+      "src": "assets/img/tiles/nature/tree_01.png",
+      "info": "Family house",
+      "x": "0",
+      "y": "0"
+    },
+    {
+      "src": "assets/img/tiles/nature/tree_01.png",
+      "info": "Family house",
+      "x": "1",
+      "y": "0"
+    },
+    {
+      "src": "assets/img/tiles/nature/tree_05.png",
+      "info": "Family house",
+      "x": "2",
+      "y": "0"
+    },
+    {
+      "src": "assets/img/tiles/nature/tree_04.png",
+      "info": "Family house",
+      "x": "3",
+      "y": "0"
+    },
+    {
+      "src": "assets/img/tiles/nature/tree_03.png",
+      "info": "Family house",
+      "x": "4",
+      "y": "0"
+    },
+    {
+      "src": "assets/img/tiles/nature/tree_05.png",
+      "info": "Family house",
+      "x": "5",
+      "y": "0"
+    },
+    {
+      "src": "assets/img/tiles/nature/tree_03.png",
+      "info": "Family house",
+      "x": "6",
+      "y": "0"
+    },
+    {
+      "src": "assets/img/tiles/nature/tree_05.png",
+      "rotation": -1,
+      "info": "Family house",
+      "x": "7",
+      "y": "0"
+    },
+    {
+      "src": "assets/img/tiles/nature/tree_02.png",
+      "info": "Family house",
+      "x": "8",
+      "y": "0"
+    },
+    {
+      "src": "assets/img/tiles/nature/tree_05.png",
+      "rotation": -1,
+      "info": "Family house",
+      "x": "9",
+      "y": "0"
+    },
+    {
+      "src": "assets/img/tiles/nature/tree_02.png",
+      "info": "Family house",
+      "x": "10",
+      "y": "0"
+    },
+    {
+      "src": "assets/img/tiles/buildings/block_04.png",
+      "info": "Tree",
+      "x": "6",
+      "y": "1"
+    },
+    {
+      "src": "assets/img/tiles/nature/tree_01.png",
+      "info": "Family house",
+      "x": "10",
+      "y": "1"
+    },
+    {
+      "src": "assets/img/tiles/nature/tree_01.png",
+      "info": "Family house",
+      "x": "0",
+      "y": "2"
+    },
+    {
+      "src": "assets/img/tiles/buildings/block_01.png",
+      "info": "Tree",
+      "x": "1",
+      "y": "2"
+    },
+    {
+      "src": "assets/img/tiles/nature/tree_05.png",
+      "info": "Tree",
+      "x": "2",
+      "y": "2"
+    },
+    {
+      "src": "assets/img/tiles/buildings/block_02.png",
+      "info": "Tree",
+      "x": "3",
+      "y": "2"
+    },
+    {
+      "src": "assets/img/tiles/nature/tree_05.png",
+      "rotation": -1,
+      "info": "Tree",
+      "x": "4",
+      "y": "2"
+    },
+    {
+      "src": "assets/img/tiles/commerce/gas_01.png",
+      "info": "Tree",
+      "x": "6",
+      "y": "2"
+    },
+    {
+      "src": "assets/img/tiles/nature/tree_05.png",
+      "info": "Tree",
+      "x": "8",
+      "y": "2"
+    },
+    {
+      "src": "assets/img/tiles/buildings/school.png",
+      "info": "Family house",
+      "x": "10",
+      "y": "2"
+    },
+    {
+      "src": "assets/img/tiles/nature/tree_05.png",
+      "info": "Family house",
+      "x": "0",
+      "y": "3"
+    },
+    {
+      "src": "assets/img/tiles/houses/h_01.png",
+      "rotation": -1,
+      "info": "Tree",
+      "x": "8",
+      "y": "3"
+    },
+    {
+      "src": "assets/img/tiles/nature/tree_01.png",
+      "info": "Family house",
+      "x": "0",
+      "y": "4"
+    },
+    {
+      "src": "assets/img/tiles/nature/tree_05.png",
+      "rotation": -1,
+      "info": "Family house",
+      "x": "1",
+      "y": "4"
+    },
+    {
+      "src": "assets/img/tiles/nature/tree_03.png",
+      "info": "Family house",
+      "x": "2",
+      "y": "4"
+    },
+    {
+      "src": "assets/img/tiles/nature/tree_05.png",
+      "rotation": -1,
+      "info": "Family house",
+      "x": "3",
+      "y": "4"
+    },
+    {
+      "src": "assets/img/tiles/nature/tree_05.png",
+      "info": "Family house",
+      "x": "4",
+      "y": "4"
+    },
+    {
+      "src": "assets/img/tiles/nature/tree_05.png",
+      "rotation": -1,
+      "info": "Family house",
+      "x": "5",
+      "y": "4"
+    },
+    {
+      "src": "assets/img/tiles/nature/tree_04.png",
+      "info": "Family house",
+      "x": "6",
+      "y": "4"
+    },
+    {
+      "src": "assets/img/tiles/nature/tree_03.png",
+      "info": "Family house",
+      "x": "7",
+      "y": "4"
+    },
+    {
+      "src": "assets/img/tiles/nature/tree_05.png",
+      "rotation": -1,
+      "info": "Family house",
+      "x": "8",
+      "y": "4"
+    },
+    {
+      "src": "assets/img/tiles/nature/tree_01.png",
+      "info": "Family house",
+      "x": "9",
+      "y": "4"
+    },
+    {
+      "src": "assets/img/tiles/nature/tree_03.png",
+      "info": "Family house",
+      "x": "10",
+      "y": "4"
+    }
+  ],
+  "player": {
+    "image": "assets/img/models/player_01_E.png",
+    "posx": "0",
+    "posy": "1"
+  }
+}

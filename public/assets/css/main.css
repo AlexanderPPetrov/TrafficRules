@@ -2,13 +2,6 @@ body {
     background: #000;
 }
 
-
-h1, .h1 {
-    font-size: 70px;
-    color: #FFF872;
-    text-shadow: -3px 1px 1px rgba(0,0,0,0.5);
-}
-
 /*
     bootstrap overwrite
 */
@@ -312,44 +305,6 @@ h1, .h1 {
     background: rgba(40, 40, 40, 0.2);
     border: 1px solid rgba(0,0,0,0.1);
 }
-.role-name:hover{
-    color: rgb(238, 255, 87);
-
-}
-
-#home-container h3 {
-    padding: 5px;
-    padding-left: 15px;
-    font-weight: bold;
-    color: rgb(255, 255, 0);
-    text-transform: uppercase;
-    text-shadow: -1px 1px 4px #7E4B08;
-    font-size: 18px;
-    margin: 0;
-
-}
-
-.text-label {
-    color: #FFF872;
-    padding-left: 15px;
-    font-weight: bold;
-    font-size: 18px;
-    text-shadow: -1px 1px 1px rgba(98, 64, 0, 0.7);
-}
-
-.chosen-role-container{
-    margin: 0 0 10px;
-    padding: 20px;
-    background: rgb(100, 160, 174);
-    color: #fff;
-    font-weight: bold;
-    border: 1px solid #E8FD67;
-    text-transform: uppercase;
-    text-shadow: 1px 1px 1px #0C3D3F;
-    box-shadow: inset -1px 1px 7px 0px rgba(0, 0, 0, 0.3);
-}
-
-
 
 .base-container {
     position: fixed;
@@ -450,8 +405,6 @@ h1, .h1 {
 }
 .tile-menu {
     bottom:0;
-    height: 174px;
-    overflow:hidden;
     margin-bottom:0 !important;
 }
 

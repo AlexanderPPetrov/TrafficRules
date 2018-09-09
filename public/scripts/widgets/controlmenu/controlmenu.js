@@ -19,6 +19,7 @@ Backbone.widget({
     loaded: function () {
         this.ajaxRequest({
             url: 'webservices/savedMaps.json',
+            local: true,
             type: "GET",
             success: function (response) {
                 this.model = response;

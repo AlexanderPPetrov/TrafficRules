@@ -60,6 +60,9 @@ Backbone.widget({
                 if(bot.id == 'Robo_007'){
                     bot.className = 'dummy-bot-007';
                 }
+                if(bot.id == 'Robo_008'){
+                    bot.className = 'dummy-bot-pink';
+                }
                 this.$el.find('#dummy-bot-container').append('<div id="'+ bot.id +'" class="bot '+ bot.className +'"><div class="bot-position"><span class="bot-name">'+bot.id+'</span><br>x:<span class="bot-x">'+ bot.x +'</span><span style="margin-left:2px;">y:</span><span class="bot-y">'+ bot.y +'</span></div></div>');
                 var $currentBot = this.$el.find('#' + bot.id);
 
