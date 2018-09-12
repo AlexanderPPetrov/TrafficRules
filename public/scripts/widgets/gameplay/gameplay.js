@@ -79,12 +79,8 @@ Backbone.widget({
     },
 
     setGridSize: function () {
-        var factor = this.columnCount * 2 + 1;
-        if (this.columnCount < this.rowCount) {
-            factor = this.rowCount * 2 + 1;
 
-        }
-        this.boxSize = Math.floor($('#get-size').width() * 2/3 / factor );
+        this.boxSize = Math.floor($('#get-size').width() / 20);
         this.rowWidthPx = (this.columnCount * 2 + 1) * this.boxSize;
         this.rowHeight = this.boxSize;
 
@@ -145,17 +141,17 @@ Backbone.widget({
 
     initFogOfWar: function () {
 
-        var fogWidth = (this.columnCount * 2 + 3) * this.boxSize,
-            fogHeight = (this.rowCount * 2 + 3) * this.boxSize
+        var fogWidth = (this.columnCount * 12) * this.boxSize,
+            fogHeight = (this.rowCount * 12) * this.boxSize
 
         // init canvas
         var canvas = $('canvas'),
             ctx = canvas[0].getContext('2d'),
-            overlay = 'rgba( 0, 0, 0, 1 )';
+            overlay = 'rgba( 118, 236, 245, 0.5 )';
 
         canvas.attr('width', fogWidth);
         canvas.attr('height', fogHeight);
-        canvas.css({top: -this.boxSize+ 'px', left: -this.boxSize + 'px'})
+        canvas.css({top: -this.boxSize*this.rowCount*3 + 'px', left: -this.boxSize *this.columnCount*3 + 'px'})
         // black out the canvas
         ctx.fillStyle = overlay;
         ctx.fillRect(0, 0, fogWidth, fogHeight);
@@ -166,24 +162,24 @@ Backbone.widget({
     },
 
     revealFog: function (posX, posY) {
-        var fogWidth = (this.columnCount * 2 + 3) * this.boxSize,
-            fogHeight = (this.rowCount * 2 + 3) * this.boxSize,
+        var fogWidth = (this.columnCount * 12) * this.boxSize,
+            fogHeight = (this.rowCount * 12) * this.boxSize,
             canvas = $('canvas'),
             ctx = canvas[0].getContext('2d'),
             ctx2 = canvas[1].getContext('2d'),
-            r1 = this.boxSize,
-            r2 = this.boxSize * 3,
+            r1 = this.boxSize*2,
+            r2 = this.boxSize * 6,
             density = .4,
-            hideFill = 'rgba( 0, 0, 0, .3 )'
+            hideFill = 'rgba( 118, 236, 245, 0.1)';
 
-        var pX = posX,
-            pY = posY;
+        var pX = posX + this.boxSize*this.columnCount*3 + this.boxSize * 0.5,
+            pY = posY + this.boxSize*this.rowCount*3 + this.boxSize * 0.5;
 
         // reveal wherever we move
         var radGrd = ctx.createRadialGradient(pX, pY, r1, pX, pY, r2);
-        radGrd.addColorStop(0, 'rgba( 0, 0, 0,  1 )');
-        radGrd.addColorStop(density, 'rgba( 0, 0, 0, .3 )');
-        radGrd.addColorStop(1, 'rgba( 0, 0, 0,  0 )');
+        radGrd.addColorStop(0, 'rgba( 118, 236, 245,  1 )');
+        radGrd.addColorStop(density, 'rgba( 118, 236, 245, .2 )');
+        radGrd.addColorStop(1, 'rgba( 118, 236, 245,  0 )');
 
         ctx.fillStyle = radGrd;
         ctx.fillRect(pX - r2, pY - r2, r2 * 2, r2 * 2);
@@ -196,7 +192,7 @@ Backbone.widget({
 
         var radGrd = ctx.createRadialGradient(pX, pY, r1, pX, pY, r2);
         radGrd.addColorStop(0, 'rgba( 0, 0, 0,  1 )');
-        radGrd.addColorStop(.8, 'rgba( 0, 0, 0, .1 )');
+        radGrd.addColorStop(.8, 'rgba( 0, 0, 0, .5 )');
         radGrd.addColorStop(1, 'rgba( 0, 0, 0,  0 )');
 
         ctx2.globalCompositeOperation = 'destination-out';
@@ -546,8 +542,8 @@ Backbone.widget({
     },
 
     placePlayer: function (position, model) {
-        var fogPosX = (position.x * this.boxSize) + this.boxSize,
-            fogPosY = (position.y * this.boxSize) + this.boxSize;
+        var fogPosX = (position.x * this.boxSize),
+            fogPosY = (position.y * this.boxSize);
 
         this.revealFog(fogPosX, fogPosY);
         this.$el.find('.player').fadeOut(function () {

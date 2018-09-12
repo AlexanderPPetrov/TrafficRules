@@ -1,7 +1,27 @@
 body {
-    background: #000;
+    background: #5fc4f0;
     color: #fff;
 }
+
+.overlay-image-clouds {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 40%;
+}
+.overlay-cloud {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 20%;
+}
+.overlay-ground {
+    position: fixed;
+    bottom: -80px;
+    left: 0;
+    width: 100%;
+}
+
 
 .modal-content {
     background-color: #292929;
@@ -99,6 +119,15 @@ body {
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     margin: 0;
     font-size: 14px;
+}
+
+.background-filler {
+    background-image: url('https://res.cloudinary.com/mateassets/image/upload/v1536688777/tiles/1.jpg');
+    width: 500%;
+    height: 500%;
+    left: -166%;
+    top: -166%;
+    position: absolute;
 }
 
 .base-container .text-container {
