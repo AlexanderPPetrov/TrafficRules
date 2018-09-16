@@ -1,27 +1,6 @@
-body {
-    background: #5fc4f0;
-    color: #fff;
+html, body, #layouts {
+    height: 100%;
 }
-
-.overlay-image-clouds {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 40%;
-}
-.overlay-cloud {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 20%;
-}
-.overlay-ground {
-    position: fixed;
-    bottom: -80px;
-    left: 0;
-    width: 100%;
-}
-
 
 .modal-content {
     background-color: #292929;
@@ -71,24 +50,7 @@ body {
 }
 
 .users-container {
-    max-width: 450px;
-    margin: auto;
-}
-
-.game-title {
-    display: none;
-    background: rgba(0, 0, 0, 0.5);
-    padding: 1.5rem 0;
-    width: 100%;
-    margin-bottom: 0;
-}
-
-.home-background {
-    max-width: 1280px;
-    background-image: url('https://res.cloudinary.com/mateassets/image/upload/v1534883304/game/home_background.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
+    width: 450px;
 }
 
 .base-container {
@@ -122,15 +84,6 @@ body {
     font-size: 14px;
 }
 
-.background-filler {
-    background-image: url('https://res.cloudinary.com/mateassets/image/upload/v1536688777/tiles/1.jpg');
-    width: 500%;
-    height: 500%;
-    left: -166%;
-    top: -166%;
-    position: absolute;
-}
-
 .base-container .text-container {
     padding: 3px;
     background: rgb(48, 48, 48);
@@ -154,135 +107,6 @@ body {
 .base-container textarea {
     background: rgb(48, 48, 48);
     border: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-/*
-    Info container css
-*/
-
-.info-container {
-    right: 0;
-    font-weight: bold;
-    color: rgb(253, 255, 163);
-    text-shadow: 1px 1px 3px #2A2A2A;
-    width: 350px;
-    padding: 15px;
-}
-
-.no-select {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-
-/*
-
-    Control menu css
-
-*/
-
-.control-menu {
-    width: 350px;
-}
-
-.control-menu-select {
-    padding: 3px;
-    background: rgb(48, 48, 48);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.control-menu-row {
-    margin-top: 15px;
-}
-
-.edit-menu {
-    right: 0;
-}
-
-.tile-menu {
-    bottom: 0;
-    height: 174px;
-    overflow: hidden;
-    margin-bottom: 0 !important;
-}
-
-.image-preview {
-    width: 86px;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    background: rgba(0, 0, 0, 0.4);
-    padding: 5px;
-}
-
-.thumb-container {
-    float: left;
-    cursor: pointer;
-    padding: 2px;
-    position: relative;
-}
-
-.thumb-label {
-    padding: 3px;
-    font-size: 11px;
-    background: rgba(0, 0, 0, 0.5);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
-    color: #7E7E7E;
-    position: absolute;
-    width: 86px;
-}
-
-.thumb-container:hover {
-    border: 2px solid rgba(181, 255, 0, 0.2);
-    padding: 0px;
-}
-
-.thumb-container-selected {
-    border: 2px solid rgba(181, 255, 0, 0.7);
-    padding: 0;
-}
-
-.thumb-container-selected:hover {
-    border: 2px solid rgba(181, 255, 0, 0.7);
-    padding: 0px;
-}
-
-.tiles-container {
-    padding-left: 42px;
-    padding-right: 42px;
-    margin-top: 2px;
-}
-
-.tiles-right {
-    right: 15px;
-}
-
-.tiles-left {
-    left: 15px;
-}
-
-.tiles-control {
-    position: absolute;
-    height: 118px;
-    width: 25px;
-    margin-top: 2px;
-    border: 1px solid rgba(40, 40, 40, 0.7);
-    background: rgba(0, 0, 0, 0.6);
-    padding-top: 45px;
-    font-size: 20px;
-    color: rgb(26, 26, 26);
-    cursor: pointer;
-}
-
-.tiles-control:hover {
-    border: 1px solid rgba(50, 50, 50, 0.7);
-    color: rgb(50, 50, 50);
-}
-
-.toggle-search-type {
-    margin-left: 8px;
-    padding: 5px;
 }
 
 /*

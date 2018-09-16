@@ -6,6 +6,7 @@ Backbone.widget({
     columnCount: 4,
     rowWidthPx: 0,
     mapMatrix: null,
+    assetsUrl: 'https://res.cloudinary.com/mateassets/image/upload/v1536820257/tiles/',
     playerPosition: {
         x: 0,
         y: 0
@@ -336,7 +337,7 @@ Backbone.widget({
     renderGrass: function () {
         this.$el.find('.block').each(function () {
             var randomGrass = Math.floor((Math.random() * 5) + 1);
-            var grass = '<img class="grid-image" src="assets/img/tiles/grass/' + 1 + '.jpg"/>'
+            var grass = '<img class="grid-image" src="https://res.cloudinary.com/mateassets/image/upload/v1536820257/tiles/' + 1 + '.jpg"/>'
             $(this).append(grass);
 
         })
@@ -388,21 +389,22 @@ Backbone.widget({
     },
 
     loadSavedTiles: function (images) {
-        var context = this;
 
         _.each(images, function(image){
 
-            var house = '<div class="map-object" style="width:' + context.boxSize + 'px; height:' + context.boxSize + 'px;" data-info="' + image.info + '"><img class="grid-image house" src="' + image.src + '" style="width:' + context.boxSize + 'px; pointer-events:none;" /></div>'
-            context.$el.find('.base-grid[posx="'+image.x+'"][posy="'+ image.y +'"]').append(house);
-            var $lastPlaced = context.$el.find('.house').last();
-            var invertedOffsetX = Math.floor(-context.boxSize) - 5;
-            var offsetY = context.boxSize - 5;
+            image.src = this.assetsUrl + image.src + '.png';
+
+            var house = '<div class="map-object" style="width:' + this.boxSize + 'px; height:' + this.boxSize + 'px;" data-info="' + image.info + '"><img class="grid-image house" src="' + image.src + '" style="width:' + this.boxSize + 'px; pointer-events:none;" /></div>';
+            this.$el.find('.base-grid[posx="'+image.x+'"][posy="'+ image.y +'"]').append(house);
+            var $lastPlaced = this.$el.find('.house').last();
+            var invertedOffsetX = Math.floor(-this.boxSize) - 5;
+            var offsetY = this.boxSize - 5;
             var matrix = 'matrix(1, 1, -3, 3, ' + offsetY + ',' + invertedOffsetX + ')';
             if (image.rotation) {
                 matrix = 'matrix(-1, -1, -3, 3, ' + offsetY + ',' + invertedOffsetX + ')';
             }
             $lastPlaced.css('transform', matrix);
-        })
+        }, this)
 
 
     },
@@ -520,7 +522,7 @@ Backbone.widget({
             y: $moveArrow.attr('posy')
         };
         this.$el.find('.move-arrow').remove();
-        this.placePlayer(newPosition, 'assets/img/models/player_01_' + $moveArrow.attr('direction') + '.png');
+        this.placePlayer(newPosition, this.assetsUrl + 'player_01_' + $moveArrow.attr('direction') + '.png');
         this.fire('DISPLAY_NEXT_QUESTION');
 
     },

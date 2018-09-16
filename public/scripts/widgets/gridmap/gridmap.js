@@ -642,6 +642,9 @@ Backbone.widget({
         this.$el.find('.house').each(function () {
             var imageData = {};
             imageData.src = $(this).attr('src');
+            imageData.src = imageData.src.split('/');
+            imageData.src = imageData.src[imageData.src.length - 1];
+            imageData.src = imageData.src.replace('.png', '');
             var currentMatrix = $(this).css('transform');
             var values = currentMatrix.split('(')[1];
             values = values.split(')')[0];
@@ -655,7 +658,7 @@ Backbone.widget({
             imageData.y = $(this).closest('.base-grid').attr('posy');
             mapData.images.push(imageData);
 
-        })
+        });
 
         mapData.player = {};
         mapData.player.image = this.$el.find('.player').find('img').attr('src');
