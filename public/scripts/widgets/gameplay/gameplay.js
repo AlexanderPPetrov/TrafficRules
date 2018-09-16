@@ -16,7 +16,7 @@ Backbone.widget({
 
     events: {
         'click .map-object': 'displayInfoText',
-        'click .move-arrow': 'movePlayer',
+        'touchstart .move-arrow': 'movePlayer',
         'click .road ': 'deselectTile',
         'contextmenu .block': 'deselectTile',
         'mouseenter .base-grid': 'showSelection',
