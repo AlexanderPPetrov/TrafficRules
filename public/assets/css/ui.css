@@ -238,3 +238,44 @@ html, body, #layouts {
     color: #fffeb4;
     letter-spacing: 3px;
 }
+
+.loader:before {
+    box-sizing: border-box;
+    position: absolute;
+    z-index: 2;
+    display: block;
+    content: "";
+    border-radius: 50%;
+    width: 4em;
+    height: 4em;
+    top: 50%;
+    left: 50%;
+    margin-top: -1em;
+    margin-left: -1em;
+    border-top: 0.5em solid rgba(255, 255, 255, 0.2);
+    border-right: 0.5em solid rgba(255, 255, 255, 0.2);
+    border-bottom: 0.5em solid rgba(255, 255, 255, 0.2);
+    border-left: 0.5em solid #00f569;
+    animation: loading-animation-1 1.2s infinite linear;
+}
+
+.loader:after {
+    position: absolute;
+    z-index: 1;
+    display: block;
+    content: "";
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0,0,0,1);
+}
+
+@keyframes loading-animation-1 {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

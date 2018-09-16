@@ -648,7 +648,11 @@ Backbone.widget({
         var playerX = parseInt(map.player.posx)
         var playerY = parseInt(map.player.posy)
         this.placePlayer({x: playerX, y: playerY}, map.player.image);
-        $('.grid-map-transform').animate({opacity: 1});
+        $('.grid-map-transform').css({opacity: 1});
+        setTimeout(function(){
+            $('#get-size').removeClass('loader')
+
+        }, 1500);
 
 
     },

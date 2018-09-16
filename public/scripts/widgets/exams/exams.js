@@ -28,7 +28,7 @@ Backbone.widget({
             template: 'exams',
             data: this.model,
             renderCallback: function () {
-
+                $('.exams-container').removeClass('loader')
             }
         })
     },
