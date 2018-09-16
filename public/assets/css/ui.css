@@ -2,6 +2,9 @@ html, body, #layouts {
     height: 100%;
 }
 
+.modal-dialog {
+    min-width: 800px;
+}
 .modal-content {
     background-color: #292929;
 }

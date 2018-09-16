@@ -85,7 +85,7 @@ Backbone.widget({
             sceneHeight = $('#get-size').height(),
             k =  sceneWidth / sceneHeight;
 
-        this.boxSize = Math.floor((sceneWidth / 20) * k);
+        this.boxSize = Math.floor((sceneWidth / 25) * k);
         this.rowWidthPx = (this.columnCount * 2 + 1) * this.boxSize;
         this.rowHeight = this.boxSize;
 

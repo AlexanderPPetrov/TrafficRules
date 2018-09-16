@@ -46,7 +46,7 @@ canvas{
     pointer-events: none;
 }
 .fog {
-    display: initial;
+    /*display: initial;*/
 }
 
 
