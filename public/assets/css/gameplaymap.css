@@ -9,32 +9,14 @@ body, html, #layouts {
     opacity:0;
     display: flex;
     transform: none;
+    position: relative;
 }
+
 .camera {
-
-}
-
-.coordinates{
-    position:absolute;
-    z-index:1000;
-    left:-50%;
-    top:-50%;
-    pointer-events: none;
-    display:none;
-}
-.coordinate-grid {
-    border-top:1px solid #FF0000;
-    border-left:1px solid #00FF00;
-    position:absolute;
-
-}
-
-.coordinate-y {
-    transform: matrix(1, 1, -1, 1, 0, 0);
-    border-left: 1px solid rgba(0, 80, 255, 0.5);
-    margin-top: -2px;
-    width: 100%;
-    height: 100%;
+    -webkit-transition: 1s;
+    -moz-transition: 1s;
+    -o-transition: 1s;
+    transition: 1s;
 }
 
 .r {
@@ -55,12 +37,6 @@ body, html, #layouts {
 .map-object {
     pointer-events: none;
 }
-/*.house{*/
-    /*-moz-transform:  matrix(0.666667, 0.66667, -2, 2, 46, -58);*/
-    /*-webkit-transform:  matrix(0.666667, 0.66667, -2, 2, 46, -58);*/
-    /*-ms-transform:  matrix(0.666667, 0.66667, -2, 2, 46, -58);*/
-    /*transform: matrix(0.666667, 0.66667, -2, 2, 46, -58);*/
-/*}*/
 
 canvas{
     position: absolute;
@@ -72,12 +48,7 @@ canvas{
 .fog {
     display: initial;
 }
-.camera {
-    -webkit-transition: 1s;
-    -moz-transition: 1s;
-    -o-transition: 1s;
-    transition: 1s;
-}
+
 
 .base-grid-marker{
     position:absolute;
@@ -155,11 +126,6 @@ canvas{
     z-index: 99999;
 }
 
-#grid-container .exit{
-    background-image: url("../img/warp.png");
-    position: absolute;
-    z-index: 2;
-}
 
 .road-01{
     background: url("../img/tiles/road/road_01.jpg") no-repeat center center ;
@@ -221,64 +187,4 @@ canvas{
     box-shadow: inset 0px 0px 5px 0px rgb(5, 20, 20);
     border: 5px solid rgba(150,200,200, 0.2);
     border-radius: 50%;
-}
-
-#bot {
-    background: transparent url('../img/sprites/bot.png') 0 0 no-repeat;
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    width:64px;
-    height:104px;
-    z-index: 2000;
-    transform:matrix(1, 1,-2,2, 0, 0);
-    cursor: pointer;
-}
-
-#dummy-bot-container {
-    pointer-events: none;
-    display:none;
-}
-.bot {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    width:64px;
-    height:104px;
-    z-index: 2000;
-    transform:matrix(1, 1,-2,2, 0, 0);
-    cursor: pointer;
-}
-.bot-position {
-    background: rgba(6, 86, 95, 0.8);
-    border: 1px solid rgba(0, 34, 39, 0.4);
-    font-size: 5px;
-    color: #6BEFCC;
-    padding: 1px 4px;
-    border-radius: 3px;
-    letter-spacing: 1px;
-    display: inline;
-    position: absolute;
-    min-width: 36px;
-    top: -6px;
-}
-.bot-name {
-    color: #fff;
-}
-.bot-x {
-    margin-left:1px;
-    color: #37FF00;
-}
-.bot-y {
-    margin-left:1px;
-    color: #fff600;
-}
-.dummy-bot {
-    background: transparent url('../img/sprites/bot_02.png') 0 0 no-repeat;
-}
-.dummy-bot-pink {
-    background: transparent url('../img/sprites/bot_04.png') 0 0 no-repeat;
-}
-.dummy-bot-007 {
-    background: transparent url('../img/sprites/bot_03.png') 0 0 no-repeat;
 }
