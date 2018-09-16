@@ -1,0 +1,9 @@
+#layouts {
+    display: flex;
+    align-items: center;
+}
+
+.exam-container {
+    margin: auto;
+    max-width: 750px;
+}
