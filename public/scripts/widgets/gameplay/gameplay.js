@@ -522,7 +522,7 @@ Backbone.widget({
             y: $moveArrow.attr('posy')
         };
         this.$el.find('.move-arrow').remove();
-        this.placePlayer(newPosition, this.assetsUrl + 'player_01_' + $moveArrow.attr('direction') + '.png');
+        this.placePlayer(newPosition, 'player_01_' + $moveArrow.attr('direction'));
         this.fire('DISPLAY_NEXT_QUESTION');
 
     },
