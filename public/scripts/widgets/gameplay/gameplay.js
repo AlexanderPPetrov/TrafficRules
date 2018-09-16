@@ -552,7 +552,7 @@ Backbone.widget({
             $(this).remove();
         });
 
-
+        model = this.assetsUrl + model + '.png';
         this.playerPosition = position;
         var $row = $('#grid-container').find('.r').get(this.playerPosition.y);
         var $playerPosition = $($row).find('.base-grid').get(this.playerPosition.x);
@@ -615,14 +615,6 @@ Backbone.widget({
         }
     },
 
-    saveMap: function (mapName) {
-
-        var dataParams = {};
-        dataParams.mapName = mapName;
-        dataParams.mapData = this.getMapData();
-        console.log(dataParams.mapData);
-
-    },
 
     loadExamMap: function (map) {
 
@@ -657,37 +649,6 @@ Backbone.widget({
 
     },
 
-    getMapData: function () {
-        var mapData = {};
-
-        mapData.mapMatrix = this.mapMatrix;
-        mapData.images = [];
-
-        this.$el.find('.house').each(function () {
-            var imageData = {};
-            imageData.src = $(this).attr('src');
-            var currentMatrix = $(this).css('transform');
-            var values = currentMatrix.split('(')[1];
-            values = values.split(')')[0];
-            values = values.split(',');
-            var a = values[0];
-            if (a == '-1') {
-                imageData.rotation = -1;
-            }
-            imageData.info = $(this).parent().attr('data-info');
-            imageData.x = $(this).closest('.base-grid').attr('posx');
-            imageData.y = $(this).closest('.base-grid').attr('posy');
-            mapData.images.push(imageData);
-
-        });
-
-        mapData.player = {};
-        mapData.player.image = this.$el.find('.player').find('img').attr('src');
-        mapData.player.posx = this.playerPosition.x;
-        mapData.player.posy = this.playerPosition.y;
-
-        return JSON.stringify(mapData);
-    },
 
     sendMatrixData: function(){
         var matrixData = {

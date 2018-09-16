@@ -662,6 +662,9 @@ Backbone.widget({
 
         mapData.player = {};
         mapData.player.image = this.$el.find('.player').find('img').attr('src');
+        mapData.player.image = mapData.player.image.split('/');
+        mapData.player.image = mapData.player.image[mapData.player.image.length - 1];
+        mapData.player.image = mapData.player.image.replace('.png', '');
         mapData.player.posx = this.currPlayerPos.x;
         mapData.player.posy = this.currPlayerPos.y;
 
