@@ -328,7 +328,7 @@ body {
     color: rgb(255, 194, 0);
     text-shadow: -1px 1px 3px rgba(0,0,0,0.5);
 }
-.base-container h3{
+.base-container .header-container{
     width: 100%;
     height: 46px;
     display: block;

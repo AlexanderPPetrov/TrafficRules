@@ -3,7 +3,7 @@ Backbone.widget({
     model: {},
 
     events: {
-
+        'click #start-menu': 'goBack'
     },
 
     loaded: function () {
@@ -31,6 +31,9 @@ Backbone.widget({
             template: 'student',
             data: this.model.userData
         })
+    },
+    goBack: function(){
+        window.location.href = window.location.href.split('#')[0]
     }
 
 

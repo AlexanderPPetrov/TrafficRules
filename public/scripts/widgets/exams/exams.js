@@ -34,9 +34,13 @@ Backbone.widget({
     },
 
     selectExam: function(e){
-        var selectedExam = $(e.currentTarget).attr('id');
-        console.log(selectedExam)
-        Backbone.router.navigate('#gameplay/' + selectedExam, true);
+        var $selectedExam = $(e.currentTarget),
+            examId = $selectedExam.attr('id');
+        $selectedExam.addClass('active');
+        setTimeout(function(){
+            Backbone.router.navigate('#gameplay/' + examId, true);
+
+        }, 300);
     },
 
 
