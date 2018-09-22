@@ -86,7 +86,7 @@ Backbone.widget({
             k = 25;
 
         if($('body').hasClass('webview')){
-            k = 15;
+            k = 13;
         }
         this.boxSize = Math.floor(sceneWidth / k);
         this.rowWidthPx = (this.columnCount * 2 + 1) * this.boxSize;
