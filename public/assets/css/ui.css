@@ -8,16 +8,28 @@ html, body, #layouts {
 input:focus {
     outline: 0;
 }
-.modal-dialog {
-    min-width: 800px;
-}
 .modal-content {
     background-color: #292929;
 }
 
+.webview .modal-header {
+    padding: .375rem .75rem;
+    font-size: 0.75em;
+}
 .modal-header {
     border-bottom: 1px solid black;
 
+}
+
+#submit-answer {
+    padding: 1rem;
+}
+
+.webview #submit-answer {
+    padding: 0.75rem 1rem;
+}
+.webview #submit-answer {
+    padding: .375rem .75rem;
 }
 
 .modal-title {
@@ -190,11 +202,26 @@ input:focus {
 }
 
 .answer-container {
-    border-radius: 50px;
+    border-radius: 8px;
     background-color: #111111;
     color: #cecece;
-    border: 5px solid #555555;
+    border: 3px solid #555555;
+    padding: 10px 15px;
+    margin-bottom: 15px;
 }
+.webview .answer-container {
+    padding: 3px 10px;
+    margin-bottom: 7px;
+}
+
+.given-answer {
+    flex: 0 0 50%;
+    padding: 0 7px;
+}
+.webview .given-answer {
+    padding: 0 3px;
+}
+
 .btn-primary.disabled, .btn-primary:disabled {
     color: #fff;
     background-color: #636363;
@@ -214,6 +241,14 @@ input:focus {
 }
 .question-info-container {
     background-color: #171717;
+    padding: 15px 23px;
+}
+.webview .question-info-container {
+    padding: 5px;
+}
+.webview .question-info {
+    padding: 0.5em 12px;
+    font-size: 0.875em;
 }
 .question-info {
     color: #fffeb4;
@@ -221,16 +256,30 @@ input:focus {
     background-color: #263335;
     padding: 1em;
     border-radius: 5px;
-    font-size: 1.25em;
 }
+.answers-container {
+    flex-wrap: wrap;
+    padding: 15px 15px 0 15px;
+}
+
+.webview .answers-container{
+    padding: 7px 5px 0 5px;
+}
+
 .possible-answers {
     border-top: 1px solid #2d2d2d;
+}
+.webview .answer-id {
+    font-size: 0.875em;
 }
 .answer-id {
     text-transform: uppercase;
     padding-right: 5px;
     color: #fffeb4;
     letter-spacing: 3px;
+}
+.webview .answer-description {
+    font-size: 0.75em;
 }
 
 .loader:before {
