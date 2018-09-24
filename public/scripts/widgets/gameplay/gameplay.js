@@ -489,34 +489,7 @@ Backbone.widget({
         this.selected.find('.house').remove();
     },
 
-    showSelection: function (e) {
-        return;
-        // removed
 
-        var $currentGrid = $(e.currentTarget);
-        if ($currentGrid.find('.move-arrow').length > 0) {
-            $currentGrid.find('.move-arrow').find('i').css({
-                'font-size': Math.ceil(this.boxSize * 3.5) + '%',
-                'padding-top': Math.ceil(this.boxSize * 0.13) + 'px',
-                'border': Math.floor(this.boxSize * 0.125) + 'px dashed rgba(161, 255, 0, 0.7)'
-            });
-
-            $currentGrid.find('.move-arrow').fadeIn('fast');
-            this.$el.find('.base-grid-marker').remove();
-            return;
-        } else {
-            this.$el.find('.move-arrow').hide();
-        }
-
-        if ($currentGrid.find('.grid-image').length > 0) {
-            $currentGrid.find('.grid-image').append('<div class="base-grid-marker"></div>');
-            return;
-        }
-
-
-        $currentGrid.append('<div class="base-grid-marker" style="width:100%; height:100%;"></div>')
-        this.$el.find('.base-grid-marker').css({'width': this.boxSize, 'height': this.boxSize})
-    },
 
     hideSelection: function (e) {
         this.$el.find('.base-grid-marker').remove();
@@ -586,6 +559,7 @@ Backbone.widget({
 
         if($($playerPosition).attr('question') == 'true'){
             this.fire('DISPLAY_NEXT_QUESTION');
+            $($playerPosition).removeAttr('question');
         }
 
     },

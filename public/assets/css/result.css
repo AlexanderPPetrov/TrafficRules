@@ -1,0 +1,36 @@
+.webview #layouts {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    padding-top: 60px;
+}
+.base-container .header-container {
+    position: fixed;
+    z-index:999;
+}
+.results-container .base-container{
+    color: #ffffff;
+}
+.success-label {
+    color: #50f750;
+}
+.error-label {
+    color: red;
+}
+.warning-label {
+    color: yellow;
+}
+.success-evaluation {
+    background-color: #50f750;
+}
+.error-evaluation {
+    background-color: red;
+}
+.answer-given-value, .correct-answer-value {
+    text-transform: uppercase;
+}
+.gray-label {
+    color: #bfbfbf;
+    font-size: 0.675rem !important;
+    text-transform: uppercase;
+    margin-right: 10px;
+}

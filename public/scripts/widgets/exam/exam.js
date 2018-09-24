@@ -139,11 +139,32 @@ Backbone.widget({
             success: function () {
                 this.$el.find('#examModal').modal('hide');
                 this.$el.find('#submit-answer').attr('disabled', true);
+                if(this.currentQuestion == this.model.exam.questions.length){
+                    this.finishResult(this.model.resultId);
+                }
             }
         });
 
+    },
 
-    }
+    finishResult: function(resultId){
+        var postData = JSON.stringify({
+            resultId: resultId
+        });
+
+        this.ajaxRequest({
+            url: 'results/finish',
+            type: "POST",
+            contentType: 'application/json',
+            dataType: "json",
+            data: postData,
+            success: function () {
+                Backbone.router.navigate('#gameplay/' + resultId, true);
+            }
+        })
+
+    },
+
 
 
 }, []);

@@ -1,0 +1,81 @@
+<div class="base-container">
+    <div class="d-flex align-items-center header-container">
+        <div>
+            <span>Резултат</span>
+        </div>
+
+        <button class="btn btn-primary btn-sm ml-auto" id="exams-menu">Назад</button>
+    </div>
+
+    <div class="current-student-container">
+        <div class="user" id="5b3c477c13629e3333a0808d">
+            <div class="user-container d-flex align-items-center">
+                <img src="https://res.cloudinary.com/mateassets/image/upload/v1534874788/game/avatar.png">
+                <span class="user-name">
+                       <span class="text-info bg-dark py-1 px-2 rounded right-label mr-3">
+                  {{result.student.group}}
+                </span>
+                    {{result.student.name}}
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="base-container py-1 px-2">
+    <div class="student-results-details h-100">
+        <div class="subject-name-container d-flex">
+            <span class="gray-label">Предмет: </span>
+            <span class="subject-name-text ml-auto">{{result.exam.subjectName}}</span>
+            <div class="variant-container">
+          <span class="variant
+              text-info
+              rounded ml-3 pl-2 pr-2 pt-1 pb-1 font-weight-light">
+              Вариант: {{result.exam.variant}}
+        </span>
+            </div>
+        </div>
+        <div class="d-flex percentage-container">
+            <span class="gray-label align-self-end">Успеваемост: </span>
+            <span class="percentage ml-auto align-self-end"> 50% </span>
+        </div>
+    </div>
+
+    <div class="answers-list mt-3">
+        <div iterate="result.questions" class="row">
+            <div class="col-md-7">
+                <div>
+                    <div class="question-counter d-inline-block">
+                        <span>{{index}}</span>
+                    </div>
+                    <span class="question-label gray-label">
+              Въпрос:
+            </span>
+                    <span class="question-text">{{text}}</span>
+                </div>
+            </div>
+            <div class="col-md-2">
+          <span class="correct-answer-label gray-label">
+            Верен отговор:
+          </span>
+                <span class="correct-answer-value">
+            {{correctAnswer}}
+          </span>
+            </div>
+            <div class="col-md-3">
+                <div class="d-flex">
+            <span class="answer-given-label gray-label align-self-center">
+                Даден отговор:
+            </span>
+                    <span class="answer-given-value align-self-center">
+              {{givenAnswer}}
+            </span>
+                    <div class="answer-evaluation-container ml-auto mr-3">
+                        <span class="answer-evaluation"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
