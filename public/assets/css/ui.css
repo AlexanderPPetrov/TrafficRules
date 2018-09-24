@@ -61,11 +61,14 @@ input:focus {
 /*
     bootstrap overwrite
 */
+
+.btn {
+    border-radius: 2px;
+}
 .btn-primary {
     color: #fff;
     background-color: #0E7920;
     border-color: #089143;
-    border-radius: 2px;
 }
 
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open .dropdown-toggle.btn-primary {
@@ -349,4 +352,33 @@ input:focus {
     flex: 0 0 100%;
     margin-top: 0;
     height: 86px;
+}
+.bottom-menu {
+    position: absolute;
+    bottom: 0;
+    background-color: rgba(44,44,44,0.5);
+    width: 100%;
+    padding: 5px;
+}
+
+
+.top-menu {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 5px;
+}
+
+.bar-container {
+    width: 85px;
+    height: 20px;
+    background-color: black;
+    border-radius: 50px;
+    border: 1px solid #93d700;
+    padding: 3px;
+}
+.progress-bar {
+    background-color: green;
+    height: 100%;
+    border-radius: 50px 0 0 50px;
 }
