@@ -159,7 +159,7 @@ Backbone.widget({
             dataType: "json",
             data: postData,
             success: function () {
-                Backbone.router.navigate('#gameplay/' + resultId, true);
+                Backbone.router.navigate('#result/' + resultId, true);
             }
         })
 
