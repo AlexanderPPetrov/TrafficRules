@@ -4,7 +4,7 @@
             <span>Резултат</span>
         </div>
 
-        <button class="btn btn-primary btn-sm ml-auto" id="exams-menu">Назад</button>
+        <button class="btn btn-primary btn-sm ml-auto" id="exams-menu">Нова игра</button>
     </div>
 
     <div class="current-student-container">
@@ -23,59 +23,69 @@
 </div>
 
 
-<div class="base-container py-1 px-2">
+<div class="base-container px-2">
     <div class="student-results-details h-100">
-        <div class="subject-name-container d-flex">
-            <span class="gray-label">Предмет: </span>
-            <span class="subject-name-text ml-auto">{{result.exam.subjectName}}</span>
-            <div class="variant-container">
-          <span class="variant
-              text-info
-              rounded ml-3 pl-2 pr-2 pt-1 pb-1 font-weight-light">
-              Вариант: {{result.exam.variant}}
-        </span>
+        <div class="d-flex">
+            <div class="d-flex align-items-center subject-name-container">
+                <div class="subject-name-text">{{result.exam.subjectName}}</div>
+                <div class="variant text-info rounded">
+                      Вариант: {{result.exam.variant}}
+
+                </div>
+            </div>
+            <div class="percentage-container ml-auto">
+                <div class=" ml-auto align-self-end {{result.percentageClass}}">
+                    <span class="percentage">{{result.percentage}}</span>
+                    <span class="percentage-sign">%</span>
+                </div>
             </div>
         </div>
-        <div class="d-flex percentage-container">
-            <span class="gray-label align-self-end">Успеваемост: </span>
-            <span class="percentage ml-auto align-self-end"> 50% </span>
-        </div>
+
     </div>
 
-    <div class="answers-list mt-3">
-        <div iterate="result.questions" class="row">
-            <div class="col-md-7">
-                <div>
-                    <div class="question-counter d-inline-block">
-                        <span>{{index}}</span>
+    <div class="answers-list">
+
+        <table class="table result-table">
+            <thead>
+            <tr>
+                <th scope="col" colspan="2">Въпрос</th>
+                <th scope="col" style="width:110px;">Верен отговор</th>
+                <th scope="col" style="width:110px;">Даден отговор</th>
+                <th scope="col" class="text-right">
+                    <span class="score">{{ result.score }}</span>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr iterate="result.questions">
+                <td scope="row">
+                    <span class="question-index">
+                        {{index}}
+                    </span>
+                </td>
+                <td class="pl-0">
+                    <span class="gray-label">
+                    {{text}}
+                    </span>
+                </td>
+                <td class="text-center">
+                    <span class="correct-answer-value">
+                    {{correctAnswer}}
+                    </span>
+                </td>
+                <td class="text-center">
+                    <span class="answer-given-value {{ answerClass }}">
+                        {{givenAnswer}}
+                    </span>
+                </td>
+                <td class="text-right">
+                    <div class="answer-evaluation-container d-flex align-items-center justify-content-center">
+                        <span class="answer-evaluation {{ indicatorClass }}"></span>
                     </div>
-                    <span class="question-label gray-label">
-              Въпрос:
-            </span>
-                    <span class="question-text">{{text}}</span>
-                </div>
-            </div>
-            <div class="col-md-2">
-          <span class="correct-answer-label gray-label">
-            Верен отговор:
-          </span>
-                <span class="correct-answer-value">
-            {{correctAnswer}}
-          </span>
-            </div>
-            <div class="col-md-3">
-                <div class="d-flex">
-            <span class="answer-given-label gray-label align-self-center">
-                Даден отговор:
-            </span>
-                    <span class="answer-given-value align-self-center">
-              {{givenAnswer}}
-            </span>
-                    <div class="answer-evaluation-container ml-auto mr-3">
-                        <span class="answer-evaluation"></span>
-                    </div>
-                </div>
-            </div>
-        </div>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
     </div>
 </div>

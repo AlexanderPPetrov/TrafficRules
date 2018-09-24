@@ -11,7 +11,9 @@
 .webview .exams-container {
     align-self: flex-start;
     margin: 0 auto;
-    min-width: auto;
+    min-width: initial;
+    max-width: initial;
+    width: 100%;
 }
 .exams-list-container {
     flex-wrap: wrap;

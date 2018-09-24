@@ -1,9 +1,8 @@
 .webview #layouts {
     overflow-x: hidden;
     overflow-y: scroll;
-    padding-top: 60px;
 }
-.base-container .header-container {
+.webview .base-container .header-container {
     position: fixed;
     z-index:999;
 }
@@ -30,7 +29,64 @@
 }
 .gray-label {
     color: #bfbfbf;
-    font-size: 0.675rem !important;
-    text-transform: uppercase;
-    margin-right: 10px;
+    font-size: 0.75rem !important;
+}
+.webview .current-student-container {
+    padding-top: 40px;
+}
+
+.result-table {
+    font-size: 0.675em;
+}
+.student-results-details {
+    padding: 5px 12px;
+    background-color: #131313;
+}
+.variant {
+    font-size: 0.75em;
+}
+.score {
+    font-size: 1em;
+    letter-spacing: 2px;
+}
+.percentage {
+    font-size: 2em;
+}
+.subject-name-container {
+    flex-wrap: wrap;
+}
+.subject-name-text {
+    flex: 0 0 100%;
+}
+.answer-evaluation-container {
+    border-radius: 50%;
+    background-color: black;
+    border: 1px solid #555;
+    width: 18px;
+    height: 18px;
+}
+.answer-evaluation {
+    border-radius: 50%;
+    width: 12px;
+    height: 12px;
+    display: inline-block;
+}
+
+.table thead th {
+    border-bottom: 1px solid #464646;
+}
+.table td, .table th {
+    border-top: 1px solid #464646;
+    padding: 7px .75rem;
+}
+.question-index {
+    background: #3ba961;
+    padding: 1px 7px 1px 7px;
+    font-size: 0.75rem;
+    border-radius: 5px;
+    display: inline-block;
+    color: #fff;
+}
+.percentage-sign {
+    font-size: 20px;
 }

@@ -6,10 +6,7 @@ Backbone.widget({
     currentQuestion: 0,
     template: false,
     events: {
-        'click .map-object': 'displayInfoText',
-        'click #submit-answer': 'submitAnswer',
-        'click .answer-container': 'selectAnswer',
-
+        'click #exams-menu': 'examsMenu',
     },
 
     listen: {
@@ -31,26 +28,66 @@ Backbone.widget({
             url: 'results/' + resultId,
             type: "GET",
             success: function (result) {
-                this.render(result)
+                this.model.result = this.transformResultData(result);
+                this.render()
             }
         });
     },
 
+    transformResultData: function(result) {
 
+        for(var i = 0; i < result.questions.length; i++) {
+            var question = result.questions[i];
+            question.index = i + 1;
+            if(question.givenAnswer == question.correctAnswer){
+                question.answerClass = 'success-label';
+                question.indicatorClass = 'success-evaluation';
+            }else{
+                question.answerClass = 'error-label';
+                question.indicatorClass = 'error-evaluation';
+            }
+        }
 
-    render: function (result) {
+        result.percentage = '0.00';
+        var score = result.score;
+        if (score) {
+            var scoreResult = score.split('/');
+            scoreResult = (scoreResult[0] / scoreResult[1]) * 100;
+            result.percentageClass = this.getPercentageLabel(scoreResult);
+            result.percentage = parseFloat(scoreResult).toFixed(2);
 
-        console.log(result)
+        }
+
+        return result;
+
+    },
+
+    getPercentageLabel: function(percentage){
+
+        if(percentage > 66){
+            return 'success-label';
+        }
+        if(percentage < 66 && percentage > 40) {
+            return 'warning-label'
+        }
+        return 'error-label'
+
+    },
+    render: function () {
+
         this.renderTemplate({
             template: 'result',
             data: {
-                result: result
+                result: this.model.result
             },
             renderCallback: function () {
                 $('.results-container').removeClass('loader')
             }
         })
 
+    },
+    examsMenu: function (){
+        Backbone.router.navigate('#exams', true);
     }
 
 

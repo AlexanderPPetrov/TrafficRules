@@ -175,6 +175,10 @@ input:focus {
     color: white;
 }
 
+.current-student-container .user{
+    margin-top: 0;
+}
+
 .user {
     border: 2px solid transparent;
     padding: 5px;
