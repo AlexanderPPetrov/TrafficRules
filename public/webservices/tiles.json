@@ -6,11 +6,11 @@
       "label": "Houses",
       "images": [
         {
-          "src": "assets/img/tiles/houses/h_01.png",
+          "src": "h_01",
           "label": "House 01"
         },
         {
-          "src": "assets/img/tiles/houses/h_02.png",
+          "src": "h_02",
           "label": "House 02"
         }
       ]
@@ -20,39 +20,39 @@
       "label": "Public buildings",
       "images": [
         {
-          "src": "assets/img/tiles/buildings/police_01.png",
+          "src": "police_01",
           "label": "Police 01"
         },
         {
-          "src": "assets/img/tiles/buildings/hospital_01.png",
+          "src": "hospital_01",
           "label": "Hospital 01"
         },
         {
-          "src": "assets/img/tiles/buildings/library_01.png",
+          "src": "library_01",
           "label": "Library 01"
         },
         {
-          "src": "assets/img/tiles/commerce/hotel_01.png",
+          "src": "hotel_01",
           "label": "Hotel 01"
         },
         {
-          "src": "assets/img/tiles/buildings/block_01.png",
+          "src": "block_01",
           "label": "Block 01"
         },
         {
-          "src": "assets/img/tiles/buildings/block_02.png",
+          "src": "block_02",
           "label": "Block 02"
         },
         {
-          "src": "assets/img/tiles/buildings/block_03.png",
+          "src": "block_03",
           "label": "Block 03"
         },
         {
-          "src": "assets/img/tiles/buildings/block_04.png",
+          "src": "block_04",
           "label": "Block 04"
         },
         {
-          "src": "assets/img/tiles/buildings/school.png",
+          "src": "school",
           "label": "School"
         }
       ]
@@ -62,19 +62,19 @@
       "label": "Commerce buildings",
       "images": [
         {
-          "src": "assets/img/tiles/commerce/gas_01.png",
+          "src": "gas_01",
           "label": "Gas Station 01"
         },
         {
-          "src": "assets/img/tiles/commerce/factory_01.png",
+          "src": "factory_01",
           "label": "Factory 01"
         },
         {
-          "src": "assets/img/tiles/commerce/center_01.png",
+          "src": "center_01",
           "label": "Business Center 01"
         },
         {
-          "src": "assets/img/tiles/commerce/store_01.png",
+          "src": "store_01",
           "label": "Store 01"
         }
       ]
@@ -84,24 +84,51 @@
       "label": "Nature",
       "images": [
         {
-          "src": "assets/img/tiles/nature/tree_01.png",
+          "src": "tree_01",
           "label": "Tree 01"
         },
         {
-          "src": "assets/img/tiles/nature/tree_02.png",
+          "src": "tree_02",
           "label": "Tree 02"
         },
         {
-          "src": "assets/img/tiles/nature/tree_03.png",
+          "src": "tree_03",
           "label": "Tree 03"
         },
         {
-          "src": "assets/img/tiles/nature/tree_04.png",
+          "src": "tree_04",
           "label": "Tree 04"
         },
         {
-          "src": "assets/img/tiles/nature/tree_05.png",
+          "src": "tree_05",
           "label": "Tree 05"
+        }
+
+      ]
+    },
+    {
+      "type": "road",
+      "label": "Road",
+      "images": [
+        {
+          "src": "lights_01",
+          "label": "Lights 01"
+        },
+        {
+          "src": "arrow_01",
+          "label": "Arrow 01"
+        },
+        {
+          "src": "arrow_02",
+          "label": "Arrow 02"
+        },
+        {
+          "src": "arrow_03",
+          "label": "Arrow 03"
+        },
+        {
+          "src": "arrow_04",
+          "label": "Arrow 04"
         }
 
       ]
@@ -111,7 +138,7 @@
       "label": "Test",
       "images": [
         {
-          "src": "assets/img/tiles/test/test_01.png",
+          "src": "test_01",
           "label": "Perspective"
         }
       ]

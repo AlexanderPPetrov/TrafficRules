@@ -1,30 +1,38 @@
 <div class="control-menu base-container edit-menu">
     <div class="header-container">Edit menu</div>
-    <img src="assets/img/ui/compass.png" style="position: absolute; top: 15px; right: 15px;">
+    <img src="assets/img/ui/compass.png" style="position: absolute; top: 15px; right: 15px; width: 100px;">
     <div class="col-lg-12 col-md-12 col-sm-12">
         <div class="row control-menu-row">
-            <p>
+            <div>
                 Selected tile
-                <span class="pull-right" style="margin-right: 10px;"> Info text</span>
-            </p>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="min-height: 132px;">
+                        <img class="image-preview" src="assets/img/tiles/houses/h_01.png">
+                    </div>
+                    <button class="btn btn-primary" id="rotate-image" style="width:100%;">Rotate</button>
+                </div>
+                <div class="col">
+                    <textarea id="edit-info-text" rows="5"></textarea>
+                    <button class="btn btn-primary" id="remove-image">Изтрий</button>
+                </div>
+            </div>
 
-            <div class="col-lg-4 col-md-4 col-sm-4">
-                <img class="image-preview" src="assets/img/tiles/houses/h_01.png">
-            </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 text-left" style="padding:4px;margin-top: -4px;">
-                <textarea id="edit-info-text" rows="5" cols="27" style="width: 100%; height: 118px;"></textarea>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-4">
-                <button class="btn btn-primary pull-left" id="rotate-image" style="width:100%;">Rotate</button>
-            </div>
-            <div class="col-lg-8 col-md-8 col-sm-8" style="padding:4px;">
+
+            <div style="padding:4px;">
                 <div style="margin-top:3px;">
                     <label class="pull-left">PosX:</label>
                     <div class="selected-x pull-left text-container"></div>
                     <label class="pull-left" style="margin-left: 15px;">PosY:</label>
                     <div class="selected-y pull-left text-container"></div>
                 </div>
-                <button class="btn btn-primary pull-right" id="remove-image" style="position: absolute; top: 0; right: 5px;"><i class="fa fa-times"></i></button>
+            </div>
+            <div>
+                <button class="btn btn-primary" id="place-player">Постави играч</button>
+                <button class="btn btn-primary" id="place-endpoint">Постави крайна цел</button>
+                <button class="btn btn-primary" id="add-question">Постави въпрос</button>
+                <button class="btn btn-primary" id="remove-question">Изтрий въпрос</button>
             </div>
 
         </div>

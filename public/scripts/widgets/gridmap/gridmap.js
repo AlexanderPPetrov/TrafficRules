@@ -11,12 +11,12 @@ Backbone.widget({
         y: 0
     },
     selected: null,
+    assetsUrl: 'https://res.cloudinary.com/mateassets/image/upload/v1536820257/tiles/',
     debug: true,
 
     events: {
         'click .map-object': 'displayInfoText',
-        'click .move-arrow': 'movePlayer',
-        'click .road ': 'deselectTile',
+        'click .road ': 'selectTile',
         'contextmenu .block': 'deselectTile',
         'mouseenter .base-grid': 'showSelection',
         'click .block': 'selectTile',
@@ -33,7 +33,10 @@ Backbone.widget({
         'DISABLE_DESELECT': 'disableDeselect',
         'SAVE_MAP': 'saveMap',
         'LOAD_MAP': 'loadMap',
-        'GET_MATRIX_DATA': 'sendMatrixData'
+        'GET_MATRIX_DATA': 'sendMatrixData',
+        'PLACE_PLAYER': 'positionPlayer',
+        'ADD_QUESTION': 'addQuestion',
+        'REMOVE_QUESTION': 'removeQuestion',
 
 
     },
@@ -120,11 +123,23 @@ Backbone.widget({
         this.renderRoadTiles();
         this.setIndexes();
         this.initFogOfWar();
-        this.placePlayer({x: 0, y: 1}, 'assets/img/models/car_01_E.png');
+        this.placePlayer({x: 0, y: 1}, 'player_01_E');
         $('.grid-map-transform').animate({opacity: 1});
 
     },
 
+    positionPlayer: function(position) {
+        this.placePlayer({x: position.x, y: position.y}, 'player_01_E');
+
+    },
+
+    addQuestion: function(position){
+        this.$el.find('.base-grid[posx="'+position.x+'"][posy="'+ position.y +'"]').attr('question','true');
+    },
+    removeQuestion: function(position) {
+        this.$el.find('.base-grid[posx="'+position.x+'"][posy="'+ position.y +'"]').removeAttr('question');
+
+    },
     definePath: function (mapMatrix) {
         var $container = this.$el.find('#grid-container');
 
@@ -338,7 +353,7 @@ Backbone.widget({
     renderGrass: function () {
         this.$el.find('.block').each(function () {
             var randomGrass = Math.floor((Math.random() * 5) + 1);
-            var grass = '<img class="grid-image" src="assets/img/tiles/grass/' + 1 + '.jpg"/>'
+            var grass = '<img class="grid-image" src="assets/img/tiles/objects/' + 1 + '.jpg"/>'
             $(this).append(grass);
 
         })
@@ -348,14 +363,24 @@ Backbone.widget({
         var context = this;
         this.$el.find('.road').each(function (index, roadTile) {
             $(roadTile).addClass(context.roadTiles[index])
-        })
+            if(!$(roadTile).find('.map-image').length){
+                var roadObject = '<div class="map-object" style="width:' + context.boxSize + 'px; height:' + context.boxSize + 'px;" data-info="road"><img class="grid-image map-image" src="assets/img/tiles/objects/blank.png" style="width:' + context.boxSize + 'px; pointer-events:none;" /></div>';
+                $(roadTile).append(roadObject);
+                var $lastPlaced = $(roadTile).find('.map-image');
+                var invertedOffsetX = -context.boxSize - 5;
+                var offsetY = context.boxSize - 5;
+                var matrix = 'matrix(1, 1, -3, 3, ' + offsetY + ',' + invertedOffsetX + ')';
+                $lastPlaced.css('transform', matrix);
+            }
+
+        });
 
         this.$el.find('.grid-image').css({'width': this.boxSize, 'height': this.boxSize})
     },
 
     renderHouses: function (e) {
         var context = this;
-        var counter = 0;
+        var blockCounter = 0;
         for (var i = 0; i < this.mapMatrix.length; i++) {
             for (var j = 0; j < this.mapMatrix[i].length; j++) {
                 if (this.mapMatrix[i][j] == 1) {
@@ -363,48 +388,49 @@ Backbone.widget({
 
                     if(i == 0 ||  j == 0 || i == this.mapMatrix.length-1 || j == this.mapMatrix[i].length-1){
                         var treeNumber = context.zeroFill(Math.floor((Math.random() * 4) + 1), 2);
-                        var tree = '<div class="map-object" style="width:' + context.boxSize + 'px; height:' + context.boxSize + 'px;" data-info="Tree"><img class="grid-image house" src="assets/img/tiles/nature/tree_' + treeNumber + '.png" style="width:' + context.boxSize + 'px; pointer-events:none;" /></div>'
-                        $(this.$el.find('.block').get(counter)).append(tree);
+                        var tree = '<div class="map-object" style="width:' + context.boxSize + 'px; height:' + context.boxSize + 'px;" data-info="Tree"><img class="grid-image map-image" src="assets/img/tiles/objects/tree_' + treeNumber + '.png" style="width:' + context.boxSize + 'px; pointer-events:none;" /></div>'
+                        $(this.$el.find('.block').get(blockCounter)).append(tree);
                     }else{
                         var houseNumber = context.zeroFill(Math.floor((Math.random() * 2) + 1), 2);
-                        var house = '<div class="map-object" style="width:' + context.boxSize + 'px; height:' + context.boxSize + 'px;" data-info="Family house"><img class="grid-image house" src="assets/img/tiles/houses/h_' + houseNumber + '.png" style="width:' + context.boxSize + 'px; pointer-events:none;" /></div>'
-                        $(this.$el.find('.block').get(counter)).append(house);
+                        var house = '<div class="map-object" style="width:' + context.boxSize + 'px; height:' + context.boxSize + 'px;" data-info="Family house"><img class="grid-image map-image" src="assets/img/tiles/objects/h_' + houseNumber + '.png" style="width:' + context.boxSize + 'px; pointer-events:none;" /></div>'
+                        $(this.$el.find('.block').get(blockCounter)).append(house);
                     }
+                    blockCounter++;
 
-
-                    var $lastPlaced = context.$el.find('.house').last();
-                    var invertedOffsetX = -context.boxSize - 5;
-                    var offsetY = context.boxSize - 5;
-                    var matrix = 'matrix(1, 1, -3, 3, ' + offsetY + ',' + invertedOffsetX + ')';
-                    $lastPlaced.css('transform', matrix);
-
-                    counter++;
                 }
+
+                var $lastPlaced = context.$el.find('.map-image').last();
+                var invertedOffsetX = -context.boxSize - 5;
+                var offsetY = context.boxSize - 5;
+                var matrix = 'matrix(1, 1, -3, 3, ' + offsetY + ',' + invertedOffsetX + ')';
+                $lastPlaced.css('transform', matrix);
+
 
             }
         }
 
-        this.$el.find('.block').each(function () {
-
-        })
     },
 
     loadSavedTiles: function (images) {
-        var context = this;
 
         _.each(images, function(image){
+            image.src = this.assetsUrl + image.src + '.png';
 
-            var house = '<div class="map-object" style="width:' + context.boxSize + 'px; height:' + context.boxSize + 'px;" data-info="' + image.info + '"><img class="grid-image house" src="' + image.src + '" style="width:' + context.boxSize + 'px; pointer-events:none;" /></div>'
-            context.$el.find('.base-grid[posx="'+image.x+'"][posy="'+ image.y +'"]').append(house);
-            var $lastPlaced = context.$el.find('.house').last();
-            var invertedOffsetX = Math.floor(-context.boxSize) - 5;
-            var offsetY = context.boxSize - 5;
+            var $mapObject = '<div class="map-object" style="width:' + this.boxSize + 'px; height:' + this.boxSize + 'px;" data-info="' + image.info + '"><img class="grid-image map-image" src="' + image.src + '" style="width:' + this.boxSize + 'px; pointer-events:none;" /></div>'
+            var $container = this.$el.find('.base-grid[posx="'+image.x+'"][posy="'+ image.y +'"]');
+            $container.append($mapObject);
+            if(image.question){
+                $container.attr('question', 'true');
+            }
+            var $lastPlaced = this.$el.find('.map-image').last();
+            var invertedOffsetX = Math.floor(-this.boxSize) - 5;
+            var offsetY = this.boxSize - 5;
             var matrix = 'matrix(1, 1, -3, 3, ' + offsetY + ',' + invertedOffsetX + ')';
             if (image.rotation) {
                 matrix = 'matrix(-1, -1, -3, 3, ' + offsetY + ',' + invertedOffsetX + ')';
             }
             $lastPlaced.css('transform', matrix);
-        })
+        }, this)
 
 
     },
@@ -421,7 +447,7 @@ Backbone.widget({
         var blockData = {};
         blockData.x = this.selected.attr('posx');
         blockData.y = this.selected.attr('posy');
-        blockData.image = this.selected.find('.house').attr('src');
+        blockData.image = this.selected.find('.map-image').attr('src');
         this.fire('BLOCK_SELECTED', blockData);
 
     },
@@ -435,7 +461,7 @@ Backbone.widget({
 
     rotateImage: function () {
         if (this.selected == null) return;
-        var currentMatrix = this.selected.find('.house').css('transform');
+        var currentMatrix = this.selected.find('.map-image').css('transform');
         var values = currentMatrix.split('(')[1];
         values = values.split(')')[0];
         values = values.split(',');
@@ -453,31 +479,28 @@ Backbone.widget({
             b = '1';
         }
         var newMatrix = 'matrix(' + a + ',' + b + ',' + c + ',' + d + ',' + e + ',' + f + ')'
-        this.selected.find('.house').css('transform', newMatrix);
+        this.selected.find('.map-image').css('transform', newMatrix);
     },
 
     replaceImage: function (imageSrc) {
         if (this.selected == null) {
             return
         }
-        ;
-        this.selected.find('.house').attr('src', imageSrc);
+        this.selected.find('.map-image').attr('src', imageSrc);
     },
 
     setInfoText: function (infoText) {
         if (this.selected == null) {
             return
         }
-        ;
-        this.selected.find('.house').parent().attr('data-info', infoText);
+        this.selected.find('.map-image').parent().attr('data-info', infoText);
     },
 
     removeImage: function () {
         if (this.selected == null) {
             return
         }
-        ;
-        this.selected.find('.house').remove();
+        this.selected.find('.map-image').attr('src','assets/img/tiles/objects/blank.png');
     },
 
     showSelection: function (e) {
@@ -515,17 +538,6 @@ Backbone.widget({
         this.fire('DISPLAY_INFO', dataInfo);
     },
 
-    movePlayer: function (e) {
-        var $moveArrow = $(e.currentTarget);
-        var newPosition = {
-            x: $moveArrow.attr('posx'),
-            y: $moveArrow.attr('posy')
-        }
-        this.$el.find('.move-arrow').remove();
-        this.placePlayer(newPosition, 'assets/img/models/car_01_' + $moveArrow.attr('direction') + '.png')
-
-    },
-
     placePlayer: function (position, model) {
         var fogPosX = (position.x * this.boxSize) + this.boxSize,
             fogPosY = (position.y * this.boxSize) + this.boxSize
@@ -534,13 +546,14 @@ Backbone.widget({
         this.$el.find('.player').fadeOut(function () {
             $(this).remove();
         });
-
+        model = this.assetsUrl + model + '.png';
         this.currPlayerPos = position;
         var $row = $('#grid-container').find('.r').get(this.currPlayerPos.y);
         var $playerPosition = $($row).find('.base-grid').get(this.currPlayerPos.x);
         this.renderTemplate({
             template: 'player',
             el: $($playerPosition),
+            append: true,
             data: {modelImage: model, width: this.boxSize, height: this.boxSize},
             renderCallback: function () {
                 var inversedOffset = Math.floor(-this.boxSize * 0.7);
@@ -552,39 +565,39 @@ Backbone.widget({
 
         var mapMatrix = this.getMapMatrix(this.columnCount * 2 + 1, this.rowCount * 2 + 1);
 
-        for (var i = 0; i < mapMatrix.length; i++) {
-            for (var j = 0; j < mapMatrix[i].length; j++) {
-
-                if (this.currPlayerPos.y == i && this.currPlayerPos.x == j) {
-
-                    if (mapMatrix[i][j + 1] !== undefined  && mapMatrix[i][j + 1] == 0) {
-                        var $row = $(this.$el.find('.r').get(i));
-                        var $col = $($row.find('.base-grid').get(j + 1));
-                        $col.append('<div class="move-arrow text-center" direction="E"  posx="' + (j + 1) + '" posy="' + i + '"><i class="fa fa-long-arrow-right"></i></div>');
-                    }
-
-                    if (mapMatrix[i][j - 1] !== undefined  && mapMatrix[i][j - 1] == 0) {
-                        var $row = $(this.$el.find('.r').get(i));
-                        var $col = $($row.find('.base-grid').get(j - 1));
-                        $col.append('<div class="move-arrow text-center" direction="W" posx="' + (j - 1) + '" posy="' + i + '"><i class="fa fa-long-arrow-left"></i></div>');
-                    }
-
-                    if (mapMatrix[i - 1] !== undefined  && mapMatrix[i - 1][j] !== undefined  && mapMatrix[i - 1][j] == 0) {
-                        var $row = $(this.$el.find('.r').get(i - 1));
-                        var $col = $($row.find('.base-grid').get(j));
-                        $col.append('<div class="move-arrow text-center" direction="N" posx="' + j + '" posy="' + (i - 1) + '"><i class="fa fa-long-arrow-up"></i></div>');
-                    }
-
-                    if (mapMatrix[i + 1] !== undefined  && mapMatrix[i + 1][j] !== undefined  && mapMatrix[i + 1][j] == 0) {
-                        var $row = $(this.$el.find('.r').get(i + 1));
-                        var $col = $($row.find('.base-grid').get(j));
-                        $col.append('<div class="move-arrow text-center" direction="S" posx="' + j + '" posy="' + (i + 1) + '"><i class="fa fa-long-arrow-down"></i></div>');
-                    }
-
-                }
-
-            }
-        }
+        // for (var i = 0; i < mapMatrix.length; i++) {
+        //     for (var j = 0; j < mapMatrix[i].length; j++) {
+        //
+        //         if (this.currPlayerPos.y == i && this.currPlayerPos.x == j) {
+        //
+        //             if (mapMatrix[i][j + 1] !== undefined  && mapMatrix[i][j + 1] == 0) {
+        //                 var $row = $(this.$el.find('.r').get(i));
+        //                 var $col = $($row.find('.base-grid').get(j + 1));
+        //                 $col.append('<div class="move-arrow text-center" direction="E"  posx="' + (j + 1) + '" posy="' + i + '"><i class="fa fa-long-arrow-right"></i></div>');
+        //             }
+        //
+        //             if (mapMatrix[i][j - 1] !== undefined  && mapMatrix[i][j - 1] == 0) {
+        //                 var $row = $(this.$el.find('.r').get(i));
+        //                 var $col = $($row.find('.base-grid').get(j - 1));
+        //                 $col.append('<div class="move-arrow text-center" direction="W" posx="' + (j - 1) + '" posy="' + i + '"><i class="fa fa-long-arrow-left"></i></div>');
+        //             }
+        //
+        //             if (mapMatrix[i - 1] !== undefined  && mapMatrix[i - 1][j] !== undefined  && mapMatrix[i - 1][j] == 0) {
+        //                 var $row = $(this.$el.find('.r').get(i - 1));
+        //                 var $col = $($row.find('.base-grid').get(j));
+        //                 $col.append('<div class="move-arrow text-center" direction="N" posx="' + j + '" posy="' + (i - 1) + '"><i class="fa fa-long-arrow-up"></i></div>');
+        //             }
+        //
+        //             if (mapMatrix[i + 1] !== undefined  && mapMatrix[i + 1][j] !== undefined  && mapMatrix[i + 1][j] == 0) {
+        //                 var $row = $(this.$el.find('.r').get(i + 1));
+        //                 var $col = $($row.find('.base-grid').get(j));
+        //                 $col.append('<div class="move-arrow text-center" direction="S" posx="' + j + '" posy="' + (i + 1) + '"><i class="fa fa-long-arrow-down"></i></div>');
+        //             }
+        //
+        //         }
+        //
+        //     }
+        // }
     },
 
     saveMap: function (mapName) {
@@ -639,7 +652,7 @@ Backbone.widget({
         mapData.mapMatrix = this.mapMatrix;
         mapData.images = [];
 
-        this.$el.find('.house').each(function () {
+        this.$el.find('.map-image').each(function () {
             var imageData = {};
             imageData.src = $(this).attr('src');
             imageData.src = imageData.src.split('/');
@@ -654,6 +667,9 @@ Backbone.widget({
                 imageData.rotation = -1;
             }
             imageData.info = $(this).parent().attr('data-info');
+            if($(this).closest('.base-grid').attr('question') == 'true'){
+                imageData.question = true;
+            }
             imageData.x = $(this).closest('.base-grid').attr('posx');
             imageData.y = $(this).closest('.base-grid').attr('posy');
             mapData.images.push(imageData);

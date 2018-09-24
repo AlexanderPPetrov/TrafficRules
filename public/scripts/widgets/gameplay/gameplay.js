@@ -401,8 +401,13 @@ Backbone.widget({
 
             image.src = this.assetsUrl + image.src + '.png';
 
-            var house = '<div class="map-object" style="width:' + this.boxSize + 'px; height:' + this.boxSize + 'px;" data-info="' + image.info + '"><img class="grid-image house" src="' + image.src + '" style="width:' + this.boxSize + 'px; pointer-events:none;" /></div>';
-            this.$el.find('.base-grid[posx="'+image.x+'"][posy="'+ image.y +'"]').append(house);
+            var $mapObject = '<div class="map-object" style="width:' + this.boxSize + 'px; height:' + this.boxSize + 'px;" data-info="' + image.info + '"><img class="grid-image house" src="' + image.src + '" style="width:' + this.boxSize + 'px; pointer-events:none;" /></div>';
+            var $container = this.$el.find('.base-grid[posx="'+image.x+'"][posy="'+ image.y +'"]');
+            $container.append($mapObject);
+            if(image.question){
+                $container.attr('question', 'true');
+            }
+
             var $lastPlaced = this.$el.find('.house').last();
             var invertedOffsetX = Math.floor(-this.boxSize) - 5;
             var offsetY = this.boxSize - 5;
@@ -530,7 +535,6 @@ Backbone.widget({
         };
         this.$el.find('.move-arrow').remove();
         this.placePlayer(newPosition, 'player_01_' + $moveArrow.attr('direction'));
-        this.fire('DISPLAY_NEXT_QUESTION');
 
     },
 
@@ -567,6 +571,7 @@ Backbone.widget({
         this.renderTemplate({
             template: 'player',
             el: $($playerPosition),
+            append: true,
             data: {modelImage: model, width: this.boxSize, height: this.boxSize},
             renderCallback: function () {
                 var inversedOffset = Math.floor(-this.boxSize * 0.7);
@@ -577,7 +582,15 @@ Backbone.widget({
         });
 
         this.moveCamera(position);
+        this.addMoveArrow();
 
+        if($($playerPosition).attr('question') == 'true'){
+            this.fire('DISPLAY_NEXT_QUESTION');
+        }
+
+    },
+
+    addMoveArrow: function(){
         var mapMatrix = this.getMapMatrix(this.columnCount * 2 + 1, this.rowCount * 2 + 1);
 
         for (var i = 0; i < mapMatrix.length; i++) {
@@ -620,6 +633,7 @@ Backbone.widget({
 
             }
         }
+
     },
 
 

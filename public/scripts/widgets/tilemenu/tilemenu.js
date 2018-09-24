@@ -2,7 +2,7 @@ Backbone.widget({
 
     model: {},
     template: false,
-
+    assetsUrl: 'assets/img/tiles/objects/',
     events: {
         // Map control
         'change .toggle-search-type input':'toggleTileSearch',
@@ -21,6 +21,12 @@ Backbone.widget({
             type: "GET",
             success: function (response) {
                 this.model = response;
+                for(var i = 0; i < response.tiles.length; i++){
+                    var tilesSet = response.tiles[i];
+                    for(var k = 0; k < tilesSet.images.length; k++){
+                        tilesSet.images[k].src = this.assetsUrl + tilesSet.images[k].src + '.png';
+                    }
+                }
                 this.render();
             }
         })
