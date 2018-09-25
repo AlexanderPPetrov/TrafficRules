@@ -644,11 +644,12 @@ Backbone.widget({
         this.renderRoadTiles();
         this.setIndexes();
         this.initFogOfWar();
-        var playerX = parseInt(map.player.posx)
-        var playerY = parseInt(map.player.posy)
+        var playerX = parseInt(map.player.posx);
+        var playerY = parseInt(map.player.posy);
         this.placePlayer({x: playerX, y: playerY}, map.player.image);
         $('.grid-map-transform').css({opacity: 1});
         setTimeout(function(){
+            $('.ui-container').removeClass('d-none');
             $('#get-size').removeClass('loader')
 
         }, 1500);

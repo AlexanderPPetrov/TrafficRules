@@ -5,6 +5,7 @@
 .webview .base-container .header-container {
     position: fixed;
     z-index:999;
+    top: 0;
 }
 .results-container .base-container{
     color: #ffffff;
