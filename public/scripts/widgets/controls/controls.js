@@ -13,7 +13,7 @@ Backbone.widget({
     },
 
     listen: {
-
+        'FILL_BAR': 'fillBar'
     },
 
 
@@ -28,8 +28,11 @@ Backbone.widget({
         });
     },
 
+    fillBar: function(percentage){
+        this.$el.find('.progress-bar').css({width: percentage + '%'});
+    },
     moveToNext: function () {
-        console.log('move to next')
+        $('.move-arrow').trigger('click')
     },
     exitGame: function(){
         this.$el.find('#confirmExit').modal('show');

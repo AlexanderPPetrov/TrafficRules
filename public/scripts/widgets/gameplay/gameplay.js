@@ -575,25 +575,33 @@ Backbone.widget({
                     if (mapMatrix[i][j + 1] !== undefined  && mapMatrix[i][j + 1] == 0) {
                         var $row = $(this.$el.find('.r').get(i));
                         var $col = $($row.find('.base-grid').get(j + 1));
-                        $col.append('<div class="move-arrow text-center" direction="E"  posx="' + (j + 1) + '" posy="' + i + '"><i class="fa fa-long-arrow-right"></i></div>');
+                        if($col.attr('question') == 'true'){
+                            $col.append('<div class="move-arrow text-center" direction="E"  posx="' + (j + 1) + '" posy="' + i + '"><i class="fa fa-long-arrow-right"></i></div>');
+                        }
                     }
 
                     if (mapMatrix[i][j - 1] !== undefined  && mapMatrix[i][j - 1] == 0) {
                         var $row = $(this.$el.find('.r').get(i));
                         var $col = $($row.find('.base-grid').get(j - 1));
-                        $col.append('<div class="move-arrow text-center" direction="W" posx="' + (j - 1) + '" posy="' + i + '"><i class="fa fa-long-arrow-left"></i></div>');
+                        if($col.attr('question') == 'true') {
+                            $col.append('<div class="move-arrow text-center" direction="W" posx="' + (j - 1) + '" posy="' + i + '"><i class="fa fa-long-arrow-left"></i></div>');
+                        }
                     }
 
                     if (mapMatrix[i - 1] !== undefined  && mapMatrix[i - 1][j] !== undefined  && mapMatrix[i - 1][j] == 0) {
                         var $row = $(this.$el.find('.r').get(i - 1));
                         var $col = $($row.find('.base-grid').get(j));
-                        $col.append('<div class="move-arrow text-center" direction="N" posx="' + j + '" posy="' + (i - 1) + '"><i class="fa fa-long-arrow-up"></i></div>');
+                        if($col.attr('question') == 'true') {
+                            $col.append('<div class="move-arrow text-center" direction="N" posx="' + j + '" posy="' + (i - 1) + '"><i class="fa fa-long-arrow-up"></i></div>');
+                        }
                     }
 
                     if (mapMatrix[i + 1] !== undefined  && mapMatrix[i + 1][j] !== undefined  && mapMatrix[i + 1][j] == 0) {
                         var $row = $(this.$el.find('.r').get(i + 1));
                         var $col = $($row.find('.base-grid').get(j));
-                        $col.append('<div class="move-arrow text-center" direction="S" posx="' + j + '" posy="' + (i + 1) + '"><i class="fa fa-long-arrow-down"></i></div>');
+                        if($col.attr('question') == 'true') {
+                            $col.append('<div class="move-arrow text-center" direction="S" posx="' + j + '" posy="' + (i + 1) + '"><i class="fa fa-long-arrow-down"></i></div>');
+                        }
                     }
 
                     this.$el.find('.move-arrow').find('i').css({

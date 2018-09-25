@@ -80,7 +80,7 @@ Backbone.widget({
         var context = this;
         setTimeout(function(){
             context.$el.find('#examModal').modal('show');
-        }, 250);
+        }, 500);
     },
 
     renderQuestion: function (question) {
@@ -124,6 +124,8 @@ Backbone.widget({
     },
     submitAnswer: function () {
 
+        this.calculateProgress();
+
         var postData = JSON.stringify({
             answerId: this.model.answerId,
             questionId: this.model.questionId,
@@ -145,6 +147,11 @@ Backbone.widget({
             }
         });
 
+    },
+
+    calculateProgress: function(){
+        var percentage = (this.currentQuestion / this.model.exam.questions.length) * 100;
+        this.fire('FILL_BAR', percentage)
     },
 
     finishResult: function(resultId){
