@@ -12,7 +12,7 @@ Backbone.widget({
         y: 0
     },
     selected: null,
-
+    soundOn: true,
 
     events: {
         'click .map-object': 'displayInfoText',
@@ -35,7 +35,8 @@ Backbone.widget({
         'SAVE_MAP': 'saveMap',
         'LOAD_MAP': 'loadMap',
         'GET_MATRIX_DATA': 'sendMatrixData',
-        'LOAD_EXAM_MAP': 'loadExamMap'
+        'LOAD_EXAM_MAP': 'loadExamMap',
+        'TOGGLE_SOUND': 'toggleSound'
 
 
     },
@@ -509,6 +510,8 @@ Backbone.widget({
         this.$el.find('.move-arrow').remove();
         this.placePlayer(newPosition, 'player_01_' + $moveArrow.attr('direction'));
 
+        // Deprecated for now
+        // this.$el.find('#button_sound_effect_01')[0].play();
     },
 
     moveCamera: function(newPosition){
@@ -618,6 +621,9 @@ Backbone.widget({
 
     },
 
+    toggleSound: function() {
+        this.soundOn = !this.soundOn;
+    },
 
     loadExamMap: function (map) {
 

@@ -1,0 +1,72 @@
+{
+  "objects": [
+    {
+      "src": "block_01",
+      "label": "Block 01"
+    },
+    {
+      "src": "block_02",
+      "label": "Block 01"
+    },
+    {
+      "src": "block_03",
+      "label": "Block 01"
+    },
+    {
+      "src": "center_03",
+      "label": "Center 01"
+    },
+    {
+      "src": "factory_01",
+      "label": "Factory 01"
+    },
+    {
+      "src": "gas_01",
+      "label": "Gas 01"
+    },
+    {
+      "src": "h_01",
+      "label": "Gas 01"
+    },
+    {
+      "src": "tree_01",
+      "label": "Tree 01"
+    },
+    {
+      "src": "tree_02",
+      "label": "Tree 01"
+    },
+    {
+      "src": "tree_03",
+      "label": "Tree 01"
+    },
+    {
+      "src": "tree_04",
+      "label": "Tree 01"
+    },
+    {
+      "src": "tree_05",
+      "label": "Tree 01"
+    },
+    {
+      "src": "store_01",
+      "label": "Store 01"
+    },
+    {
+      "src": "hotel_01",
+      "label": "Hote 01"
+    },
+    {
+      "src": "hotel_01",
+      "label": "Hotel 01"
+    },
+    {
+      "src": "school_01",
+      "label": "School 01"
+    },
+    {
+      "src": "hospital_01",
+      "label": "School 01"
+    }
+  ]
+}

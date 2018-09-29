@@ -27,6 +27,8 @@
 }
 .answer-given-value, .correct-answer-value {
     text-transform: uppercase;
+    font-size: 0.75rem;
+    font-weight: bold;
 }
 .gray-label {
     color: #bfbfbf;

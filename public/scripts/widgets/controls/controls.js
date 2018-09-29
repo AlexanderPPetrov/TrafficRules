@@ -9,6 +9,7 @@ Backbone.widget({
         'click #next-question': 'moveToNext',
         'click #exit-game': 'exitGame',
         'click #confirm-exit': 'confirmExit',
+        'click .sound-container': 'toggleSound',
 
     },
 
@@ -18,7 +19,7 @@ Backbone.widget({
 
 
     loaded: function () {
-        $(".meter > span").each(function() {
+        $(".meter > span").each(function () {
             $(this)
                 .data("origWidth", $(this).width())
                 .width(0)
@@ -28,24 +29,26 @@ Backbone.widget({
         });
     },
 
-    fillBar: function(percentage){
+    toggleSound: function (e) {
+        $(e.currentTarget).toggleClass('active');
+        this.fire('TOGGLE_SOUND')
+    },
+
+    fillBar: function (percentage) {
         this.$el.find('.progress-bar').css({width: percentage + '%'});
     },
     moveToNext: function () {
         $('.move-arrow').trigger('click')
     },
-    exitGame: function(){
+    exitGame: function () {
         this.$el.find('#confirmExit').modal('show');
     },
-    confirmExit: function(){
+    confirmExit: function () {
         this.$el.find('#confirmExit').modal('hide');
         $('#confirmExit').on('hidden.bs.modal', function (e) {
             Backbone.router.navigate('#exams', true);
         })
     }
-
-
-
 
 
 }, []);

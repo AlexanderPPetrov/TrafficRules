@@ -10,6 +10,78 @@ Backbone.widget({
         x: 0,
         y: 0
     },
+    randomObjects: {
+        "objects": [
+            {
+                "src": "block_01",
+                "label": "Block 01"
+            },
+            {
+                "src": "block_02",
+                "label": "Block 01"
+            },
+            {
+                "src": "block_03",
+                "label": "Block 01"
+            },
+            {
+                "src": "center_01",
+                "label": "Center 01"
+            },
+            {
+                "src": "factory_01",
+                "label": "Factory 01"
+            },
+            {
+                "src": "gas_01",
+                "label": "Gas 01"
+            },
+            {
+                "src": "h_01",
+                "label": "Gas 01"
+            },
+            {
+                "src": "tree_01",
+                "label": "Tree 01"
+            },
+            {
+                "src": "tree_02",
+                "label": "Tree 01"
+            },
+            {
+                "src": "tree_03",
+                "label": "Tree 01"
+            },
+            {
+                "src": "tree_04",
+                "label": "Tree 01"
+            },
+            {
+                "src": "tree_05",
+                "label": "Tree 01"
+            },
+            {
+                "src": "store_01",
+                "label": "Store 01"
+            },
+            {
+                "src": "hotel_01",
+                "label": "Hote 01"
+            },
+            {
+                "src": "hotel_01",
+                "label": "Hotel 01"
+            },
+            {
+                "src": "school",
+                "label": "School 01"
+            },
+            {
+                "src": "hospital_01",
+                "label": "School 01"
+            }
+        ]
+    },
     selected: null,
     assetsUrl: 'https://res.cloudinary.com/mateassets/image/upload/v1536820257/tiles/',
     debug: true,
@@ -391,8 +463,8 @@ Backbone.widget({
                         var tree = '<div class="map-object" style="width:' + context.boxSize + 'px; height:' + context.boxSize + 'px;" data-info="Tree"><img class="grid-image map-image" src="assets/img/tiles/objects/tree_' + treeNumber + '.png" style="width:' + context.boxSize + 'px; pointer-events:none;" /></div>'
                         $(this.$el.find('.block').get(blockCounter)).append(tree);
                     }else{
-                        var houseNumber = context.zeroFill(Math.floor((Math.random() * 2) + 1), 2);
-                        var house = '<div class="map-object" style="width:' + context.boxSize + 'px; height:' + context.boxSize + 'px;" data-info="Family house"><img class="grid-image map-image" src="assets/img/tiles/objects/h_' + houseNumber + '.png" style="width:' + context.boxSize + 'px; pointer-events:none;" /></div>'
+
+                        var house = '<div class="map-object" style="width:' + context.boxSize + 'px; height:' + context.boxSize + 'px;" data-info="Family house"><img class="grid-image map-image" src="assets/img/tiles/objects/'+ this.getRandomTile() +'.png" style="width:' + context.boxSize + 'px; pointer-events:none;" /></div>'
                         $(this.$el.find('.block').get(blockCounter)).append(house);
                     }
                     blockCounter++;
@@ -409,6 +481,14 @@ Backbone.widget({
             }
         }
 
+    },
+
+    getRandomTile: function(){
+        var randomInt = this.getRandomArbitrary(0, this.randomObjects.objects.length);
+        return this.randomObjects.objects[randomInt].src;
+    },
+    getRandomArbitrary: function(min, max) {
+        return Math.floor(Math.random() * (max - min) + min);
     },
 
     loadSavedTiles: function (images) {
@@ -561,43 +641,8 @@ Backbone.widget({
                 var $playerImage = this.$el.find('.player').find('img');
                 $playerImage.css('transform', matrix);
             }
-        })
+        });
 
-        var mapMatrix = this.getMapMatrix(this.columnCount * 2 + 1, this.rowCount * 2 + 1);
-
-        // for (var i = 0; i < mapMatrix.length; i++) {
-        //     for (var j = 0; j < mapMatrix[i].length; j++) {
-        //
-        //         if (this.currPlayerPos.y == i && this.currPlayerPos.x == j) {
-        //
-        //             if (mapMatrix[i][j + 1] !== undefined  && mapMatrix[i][j + 1] == 0) {
-        //                 var $row = $(this.$el.find('.r').get(i));
-        //                 var $col = $($row.find('.base-grid').get(j + 1));
-        //                 $col.append('<div class="move-arrow text-center" direction="E"  posx="' + (j + 1) + '" posy="' + i + '"><i class="fa fa-long-arrow-right"></i></div>');
-        //             }
-        //
-        //             if (mapMatrix[i][j - 1] !== undefined  && mapMatrix[i][j - 1] == 0) {
-        //                 var $row = $(this.$el.find('.r').get(i));
-        //                 var $col = $($row.find('.base-grid').get(j - 1));
-        //                 $col.append('<div class="move-arrow text-center" direction="W" posx="' + (j - 1) + '" posy="' + i + '"><i class="fa fa-long-arrow-left"></i></div>');
-        //             }
-        //
-        //             if (mapMatrix[i - 1] !== undefined  && mapMatrix[i - 1][j] !== undefined  && mapMatrix[i - 1][j] == 0) {
-        //                 var $row = $(this.$el.find('.r').get(i - 1));
-        //                 var $col = $($row.find('.base-grid').get(j));
-        //                 $col.append('<div class="move-arrow text-center" direction="N" posx="' + j + '" posy="' + (i - 1) + '"><i class="fa fa-long-arrow-up"></i></div>');
-        //             }
-        //
-        //             if (mapMatrix[i + 1] !== undefined  && mapMatrix[i + 1][j] !== undefined  && mapMatrix[i + 1][j] == 0) {
-        //                 var $row = $(this.$el.find('.r').get(i + 1));
-        //                 var $col = $($row.find('.base-grid').get(j));
-        //                 $col.append('<div class="move-arrow text-center" direction="S" posx="' + j + '" posy="' + (i + 1) + '"><i class="fa fa-long-arrow-down"></i></div>');
-        //             }
-        //
-        //         }
-        //
-        //     }
-        // }
     },
 
     saveMap: function (mapName) {
