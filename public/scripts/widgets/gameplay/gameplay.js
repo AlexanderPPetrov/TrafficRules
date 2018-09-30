@@ -407,7 +407,7 @@ Backbone.widget({
             $container.append($mapObject);
             if(image.question){
                 $container.attr('question', 'true');
-                $container.find('.map-object').append('<img class="grid-image house" src="assets/img/question.png" style="width:' + this.boxSize + 'px; pointer-events:none;" />')
+                // $container.find('.map-object').append('<img class="grid-image house question-mark d-none" src="assets/img/question.png" style="width:' + this.boxSize + 'px; pointer-events:none;" />')
             }
 
             var $lastPlaced = $container.find('.house');

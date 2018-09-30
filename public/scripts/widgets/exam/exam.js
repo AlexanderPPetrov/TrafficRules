@@ -94,7 +94,7 @@ Backbone.widget({
             data: question,
             renderCallback: function () {
                 var $questionImage = this.$el.find('.question-image'),
-                    $questionImageContainer = $questionImage.closest('.col');
+                    $questionImageContainer = $questionImage.closest('.question-wrapper');
 
                 if (question.imageUrl) {
                     $questionImage.attr('src', question.imageUrl);
