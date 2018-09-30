@@ -407,9 +407,10 @@ Backbone.widget({
             $container.append($mapObject);
             if(image.question){
                 $container.attr('question', 'true');
+                $container.find('.map-object').append('<img class="grid-image house" src="assets/img/question.png" style="width:' + this.boxSize + 'px; pointer-events:none;" />')
             }
 
-            var $lastPlaced = this.$el.find('.house').last();
+            var $lastPlaced = $container.find('.house');
             var invertedOffsetX = Math.floor(-this.boxSize) - 5;
             var offsetY = this.boxSize - 5;
             var matrix = 'matrix(1, 1, -3, 3, ' + offsetY + ',' + invertedOffsetX + ')';

@@ -284,6 +284,11 @@ input:focus {
     background-color: #263335;
     padding: 8px 12px;
     border-radius: 5px;
+    flex: 1;
+}
+.question-wrapper {
+    flex: 1;
+    margin: 0 5px;
 }
 .answers-container {
     flex-wrap: wrap;

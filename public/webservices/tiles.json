@@ -112,23 +112,87 @@
       "images": [
         {
           "src": "lights_01",
-          "label": "Lights 01"
+          "label": "Светофар 01"
         },
         {
-          "src": "arrow_01",
-          "label": "Arrow 01"
+          "src": "zebra_sign_01",
+          "label": "Пешеходна пътека 01"
         },
         {
-          "src": "arrow_02",
-          "label": "Arrow 02"
+          "src": "zebra_sign_02",
+          "label": "Пешеходна пътека 02"
         },
         {
-          "src": "arrow_03",
-          "label": "Arrow 03"
+          "src": "stop_sign_01",
+          "label": "Знак стоп 01"
         },
         {
-          "src": "arrow_04",
-          "label": "Arrow 04"
+          "src": "stop_sign_02",
+          "label": "Знак стоп 02"
+        },
+        {
+          "src": "b3_sign_02",
+          "label": "Път с предимство"
+        },
+        {
+          "src": "subway_sign_01",
+          "label": "Подлез"
+        },
+        {
+          "src": "lying_policeman_01",
+          "label": "Легнал полицай"
+        },
+        {
+          "src": "parking_sign_01",
+          "label": "Знак паркинг"
+        },
+        {
+          "src": "parking_sign_02",
+          "label": "Знак паркинг 02"
+        },
+        {
+          "src": "gas_station_sign_01",
+          "label": "Знак Бензиностанция 01"
+        },
+        {
+          "src": "gas_station_sign_02",
+          "label": "Знак Бензиностанция 02"
+        },
+        {
+          "src": "closed_road_01",
+          "label": "Затворен път 01"
+        },
+        {
+          "src": "barrier_01",
+          "label": "Бариера 01"
+        },
+        {
+          "src": "sign_v1_01",
+          "label": "Забранено влизането на ППС 01"
+        },
+        {
+          "src": "sign_v1_02",
+          "label": "Забранено влизането на ППС 01"
+        },
+        {
+          "src": "sign_v2_01",
+          "label": "Забранено влизането на ППС в двете посоки 01"
+        },
+        {
+          "src": "sign_v2_02",
+          "label": "Забранено влизането на ППС в двете посоки 02"
+        },
+        {
+          "src": "sign_v2_02",
+          "label": "Забранено влизането на ППС в двете посоки 02"
+        },
+        {
+          "src": "busstop_sign_01",
+          "label": "Автобусна спирка 01"
+        },
+        {
+          "src": "busstop_sign_02",
+          "label": "Автобусна спирка 02"
         }
 
       ]
