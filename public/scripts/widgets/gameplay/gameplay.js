@@ -656,7 +656,7 @@ Backbone.widget({
         this.placePlayer({x: playerX, y: playerY}, map.player.image);
         $('.grid-map-transform').css({opacity: 1});
         setTimeout(function(){
-            $('.ui-container').removeClass('d-none');
+            $('.ui-container').removeClass('hidden-by-default');
             $('#get-size').removeClass('loader')
 
         }, 1500);

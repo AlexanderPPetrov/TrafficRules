@@ -69,6 +69,11 @@ input:focus {
     min-width: 100px;
 }
 
+.btn:focus,.btn:active {
+    outline: none !important;
+    box-shadow: none;
+}
+
 .btn-primary {
     color: #fff;
     background-color: #0E7920;
@@ -447,4 +452,10 @@ input:focus {
 .success-message {
     color: #ffffff;
     margin-bottom: 15px;
+}
+.ui-container {
+    opacity: 1;
+}
+.ui-container .hidden-by-default {
+    opacity: 0;
 }
