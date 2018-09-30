@@ -2,10 +2,6 @@ Backbone.widget({
 
     model: {},
 
-    events: {
-        'click #start-menu': 'goBack'
-    },
-
     loaded: function () {
         this.readUserData();
         this.render();
@@ -31,10 +27,8 @@ Backbone.widget({
             template: 'student',
             data: this.model.userData
         })
-    },
-    goBack: function(){
-        window.location.href = window.location.href.split('#')[0]
     }
+
 
 
 }, []);

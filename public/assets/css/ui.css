@@ -77,7 +77,11 @@ input:focus {
 
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open .dropdown-toggle.btn-primary {
     color: #fff;
-    background-color: #0F8622;
+    background-color: #008e2d;
+    border-color: #08C158;
+}
+.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
+    background-color: #00af35;
     border-color: #08C158;
 }
 
@@ -87,10 +91,14 @@ input:focus {
     border-color: #517186;
 }
 
-.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open .dropdown-toggle.btn-primary {
+.btn-secondary:hover, .btn-secondary:focus, .btn-secondary:active, .btn-secondary.active, .open .dropdown-toggle.btn-secondary {
     color: #fff;
-    background-color: #436175;
-    border-color: #517186;
+    background-color: #4f7086;
+    border-color: #59788d;
+}
+.btn-secondary:not(:disabled):not(.disabled).active, .btn-secondary:not(:disabled):not(.disabled):active, .show>.btn-secondary.dropdown-toggle {
+    background-color: #4f7086;
+    border-color: #59788d;
 }
 
 .users-container {
@@ -425,4 +433,18 @@ input:focus {
 }
 .sound-container.active {
     opacity: 1;
+}
+.exams-controls {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+}
+.logo-finish {
+    max-height: 100px;
+    margin-right: 15px;
+}
+.success-message {
+    color: #ffffff;
+    margin-bottom: 15px;
 }

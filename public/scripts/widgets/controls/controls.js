@@ -4,7 +4,7 @@ Backbone.widget({
 
     selected: null,
     currentQuestion: 0,
-
+    buttonAllowed: true,
     events: {
         'click #next-question': 'moveToNext',
         'click #exit-game': 'exitGame',
@@ -14,7 +14,8 @@ Backbone.widget({
     },
 
     listen: {
-        'FILL_BAR': 'fillBar'
+        'FILL_BAR': 'fillBar',
+        'ENABLE_NEXT_QUESTION_BUTTON': 'enableButton'
     },
 
 
@@ -29,6 +30,10 @@ Backbone.widget({
         });
     },
 
+    enableButton: function(){
+        this.buttonAllowed = true;
+    },
+
     toggleSound: function (e) {
         $(e.currentTarget).toggleClass('active');
         this.fire('TOGGLE_SOUND')
@@ -38,7 +43,11 @@ Backbone.widget({
         this.$el.find('.progress-bar').css({width: percentage + '%'});
     },
     moveToNext: function () {
-        $('.move-arrow').trigger('click')
+        if(!this.buttonAllowed){
+            return;
+        }
+        $('.move-arrow').trigger('click');
+        this.buttonAllowed = false;
     },
     exitGame: function () {
         this.$el.find('#confirmExit').modal('show');

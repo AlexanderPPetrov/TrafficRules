@@ -4,7 +4,9 @@ Backbone.widget({
 
     events: {
         'click .exam-container': 'selectExam',
-        'click #start-game': 'startGame'
+        'click #start-game': 'startGame',
+        'click #start-menu': 'goBack'
+
     },
 
     loaded: function () {
@@ -16,8 +18,9 @@ Backbone.widget({
             url: 'exams',
             type: "GET",
             success: function (response) {
-                this.model.exams = response;
-                console.log(this.model.exams)
+                this.model.exams = _.sortBy(response, function(exam) {
+                    return exam.variant;
+                });
                 this.render();
             }
         });
@@ -42,7 +45,9 @@ Backbone.widget({
         this.$el.find('#start-game').removeAttr('disabled');
 
     },
-
+    goBack: function(){
+        window.location.href = window.location.href.split('#')[0]
+    },
     startGame: function(){
         var context = this;
         setTimeout(function(){

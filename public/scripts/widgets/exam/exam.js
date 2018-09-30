@@ -9,6 +9,7 @@ Backbone.widget({
         'click .map-object': 'displayInfoText',
         'click #submit-answer': 'submitAnswer',
         'click .answer-container': 'selectAnswer',
+        'click #see-result': 'goToResult',
 
     },
 
@@ -131,6 +132,7 @@ Backbone.widget({
             questionId: this.model.questionId,
             resultId: this.model.resultId
         });
+        this.fire('ENABLE_NEXT_QUESTION_BUTTON');
 
         this.ajaxRequest({
             url: 'results/answer',
@@ -166,12 +168,18 @@ Backbone.widget({
             dataType: "json",
             data: postData,
             success: function () {
-                Backbone.router.navigate('#result/' + resultId, true);
+                this.$el.find('#successEnd').modal('show');
             }
         })
 
     },
-
+    goToResult: function () {
+        this.$el.find('#successEnd').modal('hide');
+        var context = this;
+        setTimeout(function(){
+            Backbone.router.navigate('#result/' + context.model.resultId, true);
+        }, 300);
+    }
 
 
 }, []);
