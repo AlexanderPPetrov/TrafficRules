@@ -456,6 +456,6 @@ input:focus {
 .ui-container {
     opacity: 1;
 }
-.ui-container .hidden-by-default {
+.ui-container.hidden-by-default {
     opacity: 0;
 }
