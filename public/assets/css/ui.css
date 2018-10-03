@@ -139,10 +139,10 @@ input:focus {
     display: block;
     background: rgb(63, 63, 63);
     color: #fff;
-    padding: 15px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     margin: 0;
-    font-size: 14px;
+    padding: .5rem .75rem;
+    font-size: 0.75em;
 }
 
 .base-container .text-container {
@@ -156,13 +156,12 @@ input:focus {
 }
 
 .base-container input[type="text"] {
-    padding: 15px;
     background: rgb(48, 48, 48);
     border: 1px solid rgba(0, 0, 0, 0.1);
     width: 100%;
     color: #fff;
-    font-size: 14px;
-    line-height: 1.2;
+    padding: .5rem .75rem;
+    font-size: 0.75em;
 }
 
 .base-container textarea {
@@ -197,7 +196,7 @@ input:focus {
 /*}*/
 
 .user.active {
-    border: 2px solid #06d244;
+    border-color: #06d244;
     background: #444444;
     color: #ffffff;
 }
@@ -212,14 +211,14 @@ input:focus {
 }
 
 .user {
-    border: 2px solid transparent;
-    padding: 5px;
-    border-radius: 5px;
+    border-radius: 12px;
     margin-top: 5px;
     color: #cacaca;
     position: relative;
     min-height: 72px;
     cursor: pointer;
+    padding: 10px;
+    border: 5px solid #505050;
 }
 
 .user img {
@@ -238,8 +237,8 @@ input:focus {
     flex: 1;
     display: flex;
     align-items: center;
-    font-size: 1rem;
-    padding: 14px 15px;
+    font-size: 0.875rem;
+    padding: 0 15px;
     border-radius: 4px;
     margin-left: 10px;
 }
@@ -372,12 +371,6 @@ input:focus {
     }
 }
 
-.user-container {
-    background: #1f1e1e;
-    border-radius: 5px;
-    padding: 10px;
-
-}
 .users {
     /*display: flex;*/
     min-height: 91px;

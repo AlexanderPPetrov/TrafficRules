@@ -330,7 +330,6 @@ body {
 }
 .base-container .header-container{
     width: 100%;
-    height: 46px;
     display: block;
     background: rgba(0,0,0,0.1);
     padding: 15px;
