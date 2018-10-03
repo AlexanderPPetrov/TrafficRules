@@ -38,7 +38,7 @@ Backbone.widget({
             data: this.model,
             renderCallback: function () {
                 this.$el.find('.user').first().trigger('click');
-                this.$el.find('.base-container').removeClass('loader');
+                $('.container-fluid').removeClass('loader');
                 this.initCarousel();
             }
         })

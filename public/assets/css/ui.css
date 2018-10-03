@@ -107,7 +107,12 @@ input:focus {
 }
 
 .users-container {
-    width: 450px;
+    width: 100%;
+    flex-wrap: wrap;
+}
+.start-menu-wrapper {
+    flex-wrap: wrap;
+    max-width: 500px;
 }
 
 .webview .base-container {
@@ -143,6 +148,7 @@ input:focus {
     margin: 0;
     padding: .5rem .75rem;
     font-size: 0.75em;
+    height: 31px;
 }
 
 .base-container .text-container {
@@ -175,10 +181,6 @@ input:focus {
 
 .search-container {
     position: relative;
-}
-
-.search-container input {
-    padding-right: 40px !important
 }
 
 .search-container .glyphicon-search {
@@ -215,24 +217,23 @@ input:focus {
     margin-top: 5px;
     color: #cacaca;
     position: relative;
-    min-height: 72px;
     cursor: pointer;
-    padding: 10px;
+    padding: 5px;
     border: 5px solid #505050;
 }
 
 .user img {
-    max-width: 50px;
-    max-height: 50px;
-    min-width: 50px;
-    min-height: 50px;
+    max-width: 44px;
+    max-height: 44px;
+    min-width: 44px;
+    min-height: 44px;
     border-radius: 4px;
     box-shadow: 0 2px 4px #101010
 }
 
 .user .user-name {
     border: 1px solid #101010;
-    height: 52px;
+    height: 44px;
     background: #272727;
     flex: 1;
     display: flex;
@@ -240,7 +241,7 @@ input:focus {
     font-size: 0.875rem;
     padding: 0 15px;
     border-radius: 4px;
-    margin-left: 10px;
+    margin-left: 5px;
 }
 
 .answer-container {
@@ -371,15 +372,15 @@ input:focus {
     }
 }
 
-.users {
-    /*display: flex;*/
-    min-height: 91px;
-}
 .webview .users .user {
     /*flex: 0 0 100%;*/
     /*margin-top: 0;*/
     /*height: 86px;*/
     /*width: 350px;*/
+    max-width: 500px;
+}
+.webview .users {
+    min-height: 69px;
 }
 
 .bottom-menu {
