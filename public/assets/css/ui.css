@@ -188,13 +188,13 @@ input:focus {
     right: 15px;
 }
 
-.users {
-    height: 235px;
-    padding: 0 10px;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    position: relative;
-}
+/*.users {*/
+    /*height: 235px;*/
+    /*padding: 0 10px;*/
+    /*overflow-y: scroll;*/
+    /*overflow-x: hidden;*/
+    /*position: relative;*/
+/*}*/
 
 .user.active {
     border: 2px solid #06d244;
@@ -236,6 +236,9 @@ input:focus {
     height: 52px;
     background: #272727;
     flex: 1;
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
     padding: 14px 15px;
     border-radius: 4px;
     margin-left: 10px;
@@ -373,21 +376,19 @@ input:focus {
     background: #1f1e1e;
     border-radius: 5px;
     padding: 10px;
+
 }
-.webview .users {
-    display: flex;
-    overflow-x: scroll;
-    overflow-y: hidden;
-    height: auto;
-    padding: 0;
-    margin-top: 10px;
-    min-height: 101px;
+.users {
+    /*display: flex;*/
+    min-height: 91px;
 }
 .webview .users .user {
-    flex: 0 0 100%;
-    margin-top: 0;
-    height: 86px;
+    /*flex: 0 0 100%;*/
+    /*margin-top: 0;*/
+    /*height: 86px;*/
+    /*width: 350px;*/
 }
+
 .bottom-menu {
     position: absolute;
     bottom: 0;

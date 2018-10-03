@@ -54,7 +54,8 @@
         'inplaceEdit': 'vendor/datatables/inplaceEdit',
         'bootstrap-dialog': 'vendor/bootstrap-dialog/bootstrap-dialog',
         'chart' : 'vendor/chartjs/Chart.min',
-        'rangeSlider' : 'vendor/rangeSlider/range'
+        'rangeSlider' : 'vendor/rangeSlider/range',
+        'owlcarousel' : 'vendor/owlcarousel/owl.carousel.min',
 
     },
 
