@@ -33,7 +33,19 @@ Backbone.widget({
             data: this.model,
             renderCallback: function () {
                 $('.exams-container').removeClass('loader')
+                this.initCarousel();
             }
+        })
+    },
+
+    initCarousel: function () {
+        this.$el.find('.owl-carousel').owlCarousel({
+            stagePadding: 50,
+            loop:true,
+            margin:10,
+            nav:false,
+            dots: false,
+            items:2,
         })
     },
 
@@ -56,4 +68,4 @@ Backbone.widget({
     }
 
 
-}, []);
+}, ['owlcarousel']);

@@ -38,8 +38,8 @@ Backbone.widget({
             data: this.model,
             renderCallback: function () {
                 this.$el.find('.user').first().trigger('click');
-                $('.container-fluid').removeClass('loader');
                 this.initCarousel();
+
             }
         })
     },
@@ -52,6 +52,9 @@ Backbone.widget({
             nav:false,
             dots: false,
             items:1,
+            onInitialized: function(){
+                $('.container-fluid').removeClass('loader');
+            }
         })
     },
 
