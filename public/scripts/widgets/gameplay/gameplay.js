@@ -100,6 +100,16 @@ Backbone.widget({
         this.getCoordinates();
     },
 
+    applyTransform: function ($el, matrix) {
+        $el.css({
+            '-webkit-transform' : matrix,
+            '-moz-transform'    : matrix,
+            '-ms-transform'     : matrix,
+            '-o-transform'      : matrix,
+            'transform'         : matrix
+        });
+    },
+
     getCoordinates: function () {
         var coordinatesData = {};
         coordinatesData.gridSize = this.boxSize;
@@ -383,7 +393,7 @@ Backbone.widget({
                     var invertedOffsetX = -context.boxSize - 5;
                     var offsetY = context.boxSize - 5;
                     var matrix = 'matrix(1, 1, -3, 3, ' + offsetY + ',' + invertedOffsetX + ')';
-                    $lastPlaced.css('transform', matrix);
+                    this.applyTransform($lastPlaced, matrix);
 
                     counter++;
                 }
@@ -417,7 +427,8 @@ Backbone.widget({
             if (image.rotation) {
                 matrix = 'matrix(-1, -1, -3, 3, ' + offsetY + ',' + invertedOffsetX + ')';
             }
-            $lastPlaced.css('transform', matrix);
+            this.applyTransform($lastPlaced, matrix);
+
         }, this)
 
 
@@ -467,7 +478,7 @@ Backbone.widget({
             b = '1';
         }
         var newMatrix = 'matrix(' + a + ',' + b + ',' + c + ',' + d + ',' + e + ',' + f + ')'
-        this.selected.find('.house').css('transform', newMatrix);
+        this.applyTransform(this.selected.find('.house'), newMatrix);
     },
 
     replaceImage: function (imageSrc) {
@@ -527,7 +538,8 @@ Backbone.widget({
 
         var $camera = $('.camera'),
             translate = 'translate(' + cameraX +'px, ' + cameraY + 'px)';
-        $camera.css('transform', translate);
+        this.applyTransform($camera, translate);
+
 
     },
 
@@ -554,7 +566,7 @@ Backbone.widget({
                 var inversedOffset = Math.floor(-this.boxSize * 0.7);
                 var matrix = 'matrix(0.66667, 0.66667, -1, 1, ' + Math.floor(this.boxSize * 0.3) + ',' + inversedOffset + ')';
                 var $playerImage = this.$el.find('.player').find('img');
-                $playerImage.css('transform', matrix);
+                this.applyTransform($playerImage, matrix);
             }
         });
 

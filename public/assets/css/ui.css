@@ -272,7 +272,7 @@ input:focus {
 }
 
 .answer-container {
-    transition: all 0.5s ease;
+    /*transition: all 0.5s ease;*/
 }
 .answer-container.selected{
     /*background: #9dd53a;*/

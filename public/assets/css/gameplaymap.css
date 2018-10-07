@@ -8,12 +8,17 @@ body, html, #layouts {
 .grid-map-transform {
     opacity:0;
     display: flex;
+    -moz-transform: none;
+    -webkit-transform: none;
+    -ms-transform: none;
+    -o-transform: none;
     transform: none;
     position: relative;
 }
 
 .camera {
     -webkit-transition: 1s;
+    -moz-transition: 1s;
     -moz-transition: 1s;
     -o-transition: 1s;
     transition: 1s;
@@ -86,6 +91,7 @@ canvas{
     -moz-transform: rotate(-45deg) skew(15deg, 15deg);
     -webkit-transform: rotate(-45deg) skew(15deg, 15deg);
     -ms-transform: rotate(-45deg) skew(15deg, 15deg);
+    -o-transform: rotate(-45deg) skew(15deg, 15deg);
     transform: rotate(-45deg) skew(15deg, 15deg);
 }
 
