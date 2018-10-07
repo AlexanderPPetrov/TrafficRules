@@ -1,43 +1,53 @@
 <div class="control-menu base-container edit-menu">
     <div class="header-container">Edit menu</div>
-    <img src="assets/img/ui/compass.png" style="position: absolute; top: 15px; right: 15px; width: 100px;">
-    <div class="col-lg-12 col-md-12 col-sm-12">
-        <div class="row control-menu-row">
-            <div>
-                Selected tile
-            </div>
+    <!--<img src="assets/img/ui/compass.png" style="position: absolute; top: 15px; right: 15px; width: 100px;">-->
+    <div class="px-2">
+        <div class="control-menu-row">
             <div class="row">
                 <div class="col">
-                    <div class="min-height: 132px;">
-                        <img class="image-preview" src="assets/img/tiles/houses/h_01.png">
+                    <div>
+                        <div class="image-preview-container d-flex align-items-center justify-content-center">
+                            <img class="image-preview" src="assets/img/tiles/houses/h_01.png">
+                        </div>
+                        <button class="btn btn-primary" id="rotate-image" style="width:100%;">Завърти</button>
                     </div>
-                    <button class="btn btn-primary" id="rotate-image" style="width:100%;">Rotate</button>
+
                 </div>
                 <div class="col">
                     <textarea id="edit-info-text" rows="5"></textarea>
                     <button class="btn btn-primary" id="remove-image">Изтрий</button>
                 </div>
+
+
+                <!--<div style="padding:4px;">-->
+                <!--<div style="margin-top:3px;">-->
+                <!--<label class="pull-left">PosX:</label>-->
+                <!--<div class="selected-x pull-left text-container"></div>-->
+                <!--<label class="pull-left" style="margin-left: 15px;">PosY:</label>-->
+                <!--<div class="selected-y pull-left text-container"></div>-->
+                <!--</div>-->
+                <!--</div>-->
             </div>
+        </div>
 
-
-            <div style="padding:4px;">
-                <div style="margin-top:3px;">
-                    <label class="pull-left">PosX:</label>
-                    <div class="selected-x pull-left text-container"></div>
-                    <label class="pull-left" style="margin-left: 15px;">PosY:</label>
-                    <div class="selected-y pull-left text-container"></div>
+        <div class="control-menu-row">
+            <div class="row">
+                <div class="col">
+                    <button class="btn btn-primary" id="add-question">Постави въпрос</button>
+                    <button class="btn btn-primary" id="remove-question">Изтрий въпрос</button>
                 </div>
             </div>
-            <div>
-                <button class="btn btn-primary" id="place-player">Постави играч</button>
-                <button class="btn btn-primary" id="place-endpoint">Постави крайна цел</button>
-                <button class="btn btn-primary" id="add-question">Постави въпрос</button>
-                <button class="btn btn-primary" id="remove-question">Изтрий въпрос</button>
+        </div>
+        <div class="control-menu-row">
+            <div class="row">
+                <div class="col">
+                    <button class="btn btn-primary" id="place-player">Постави играч</button>
+                </div>
             </div>
-
         </div>
 
     </div>
+
 </div>
 
 

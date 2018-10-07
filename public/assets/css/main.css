@@ -391,7 +391,7 @@ input, select, textarea {
 */
 
 .control-menu {
-    width:400px;
+    width:380px;
 }
 .control-menu-select {
     padding: 3px;
@@ -402,6 +402,10 @@ input, select, textarea {
 .control-menu-row {
     margin-top: 15px;
 }
+.control-menu-row + .control-menu-row {
+    border-top: 1px solid #424242;
+    padding-top: 15px;
+}
 
 .edit-menu {
     right:0;
@@ -411,17 +415,23 @@ input, select, textarea {
     margin-bottom:0 !important;
 }
 
-.image-preview {
-    width: 86px;
+.image-preview-container {
     border: 1px solid rgba(0,0,0,0.2);
     background: rgba(0,0,0,0.4);
     padding: 5px;
+    min-height: 135px;
+}
+.image-preview {
+    width: 86px;
 }
 .thumb-container {
     float:left;
     cursor: pointer;
     padding:2px;
     position:relative;
+}
+.thumb-container .image-preview{
+    background: rgba(0,0,0,0.4);
 }
 .thumb-label {
     padding: 3px;
