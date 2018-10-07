@@ -46,6 +46,8 @@ Backbone.widget({
                 question.answerClass = 'error-label';
                 question.indicatorClass = 'error-evaluation';
             }
+            question.correctValue = _.findWhere(question.answers, {_id: question.correctAnswer}).text;
+            question.givenValue = _.findWhere(question.answers, {_id: question.givenAnswer}).text;
         }
 
         result.percentage = '0.00';

@@ -74,9 +74,9 @@ Backbone.widget({
     },
 
     displayNextQuestion: function () {
-        var question = this.model.exam.questions[this.currentQuestion];
-        this.model.questionId = question._id;
-        this.renderQuestion(question);
+        this.model.question = this.model.exam.questions[this.currentQuestion];
+        this.model.questionId = this.model.question._id;
+        this.renderQuestion();
         this.currentQuestion++;
         var context = this;
         setTimeout(function(){
@@ -84,21 +84,21 @@ Backbone.widget({
         }, 500);
     },
 
-    renderQuestion: function (question) {
+    renderQuestion: function () {
 
-        this.clearEmptyAnswers(question);
-        this.$el.find('.question-category').text(question.category);
+        this.clearEmptyAnswers();
+        this.$el.find('.question-category').text(this.model.question.category);
         this.$el.find('.question-container').empty();
         this.renderTemplate({
             el: '.question-container',
             template: 'question',
-            data: question,
+            data: this.model.question,
             renderCallback: function () {
                 var $questionImage = this.$el.find('.question-image'),
                     $questionImageContainer = $questionImage.closest('.question-wrapper');
 
-                if (question.imageUrl) {
-                    $questionImage.attr('src', question.imageUrl);
+                if (this.model.question.imageUrl) {
+                    $questionImage.attr('src', this.model.question.imageUrl);
                     $questionImageContainer.removeClass('d-none');
                 } else {
                     $questionImageContainer.addClass('d-none');
@@ -109,8 +109,8 @@ Backbone.widget({
 
     },
 
-    clearEmptyAnswers: function(question){
-        question.answers = _.filter(question.answers, function(answer){
+    clearEmptyAnswers: function(){
+        this.model.question.answers = _.filter(this.model.question.answers, function(answer){
             return answer.text !== ''
         });
     },
@@ -123,8 +123,25 @@ Backbone.widget({
         this.$el.find('#submit-answer').removeAttr('disabled');
 
     },
-    submitAnswer: function () {
 
+    checkAnswer: function() {
+        this.$el.find('#submit-answer').attr('disabled', true);
+        this.$el.find('.answer-container').addClass('locked');
+        var time = 250;
+        if(this.model.question.correctAnswer == this.model.answerId){
+            this.$el.find('.selected').removeClass('selected').addClass('correct');
+        }else{
+            this.$el.find('.selected').removeClass('selected').addClass('wrong');
+            this.$el.find('.answer-container[id="' + this.model.question.correctAnswer + '"]').addClass('correct');
+            time = 2000;
+        }
+        var context = this;
+        setTimeout(function(){
+            context.postAnswer();
+        }, time)
+    },
+
+    postAnswer: function() {
         this.calculateProgress();
 
         var postData = JSON.stringify({
@@ -148,6 +165,13 @@ Backbone.widget({
                 }
             }
         });
+    },
+
+    submitAnswer: function () {
+
+        this.checkAnswer();
+
+
 
     },
 

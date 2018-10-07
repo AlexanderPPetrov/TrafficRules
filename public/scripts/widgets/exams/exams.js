@@ -21,6 +21,11 @@ Backbone.widget({
                 this.model.exams = _.sortBy(response, function(exam) {
                     return exam.variant;
                 });
+
+                for(var i = 0; i < this.model.exams.length; i++) {
+                    this.model.exams[i].index = i;
+                }
+
                 this.render();
             }
         });
@@ -32,7 +37,7 @@ Backbone.widget({
             template: 'exams',
             data: this.model,
             renderCallback: function () {
-                $('.exams-container').removeClass('loader')
+                $('.exams-container').removeClass('loader');
                 this.initCarousel();
             }
         })
@@ -49,13 +54,21 @@ Backbone.widget({
         })
     },
 
+    goToItem: function($el) {
+        var n = $el.attr('index');
+        this.$el.find('.owl-carousel').trigger('to.owl.carousel', n);
+    },
+
     selectExam: function(e){
         var $selectedExam = $(e.currentTarget);
         this.model.examId = $selectedExam.attr('id');
         this.$el.find('.exam-container').removeClass('active');
         $selectedExam.addClass('active');
-        this.$el.find('#start-game').removeAttr('disabled');
+        this.$el.find('.exam-container[id="'+ this.model.examId +'"]').addClass('active');
 
+
+        this.$el.find('#start-game').removeAttr('disabled');
+        this.goToItem($selectedExam);
     },
     goBack: function(){
         window.location.href = window.location.href.split('#')[0]

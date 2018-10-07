@@ -2,6 +2,9 @@ body {
     background: rgb(48, 48, 48);
 }
 
+input, select, textarea {
+    color: #f1f1f1;
+}
 /*
     bootstrap overwrite
 */
@@ -308,7 +311,7 @@ body {
 
 .base-container {
     position: fixed;
-    z-index: 999999;
+    z-index: 1;
     width:100%;
     padding-bottom:15px;
     min-height:100px;
@@ -321,6 +324,7 @@ body {
     font-size: 14px;
     font-weight: normal;
     text-shadow: -1px 1px 3px rgba(0,0,0,0.5);
+    margin: 0;
 }
 
 .base-container p {
@@ -387,7 +391,7 @@ body {
 */
 
 .control-menu {
-    width:350px;
+    width:400px;
 }
 .control-menu-select {
     padding: 3px;
@@ -442,9 +446,7 @@ body {
     padding:0px;
 }
 .tiles-container {
-    padding-left: 42px;
-    padding-right: 42px;
-    margin-top: 2px;
+
 }
 .tiles-right {
     right: 15px;

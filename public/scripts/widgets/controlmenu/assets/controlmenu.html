@@ -1,84 +1,93 @@
 <div class="control-menu base-container">
-    <div class="header-container">Control menu</div>
-    <div class="col-lg-12 col-md-12 col-sm-12" style="position:relative;">
+    <div class="header-container">Карта</div>
+    <div class="px-2" style="position:relative;">
+
+    <!--<div>-->
+        <!--<p>Map</p>-->
+        <!--<div class="toggle-coordinates" style="position:absolute; top:15px; right:130px;">-->
+            <!--<label>-->
+                <!--<input type="checkbox"> Coordinates-->
+            <!--</label>-->
+        <!--</div>-->
+        <!--<div class="toggle-fog" style="position:absolute; top:15px; right:15px;">-->
+            <!--<label>-->
+                <!--<input type="checkbox"> Fog of war-->
+            <!--</label>-->
+        <!--</div>-->
+    <!--</div>-->
+        <div class="control-menu-row">
+            <div class="row ">
+                <div class="col">
+                    <button class="btn btn-primary" id="new-level">Генерирай</button>
+                </div>
+                <div class="col d-flex align-items-center" >
+                    <label>Редове:</label>
+                    <select id="new-level-rows" class="control-menu-select">
+                        <option value="2">5</option>
+                        <option value="3">7</option>
+                        <option value="4">9</option>
+                        <option value="5">11</option>
+                        <option value="6">13</option>
+                        <option value="7">15</option>
+                        <option value="8" selected>17</option>
+                        <option value="9">19</option>
+                        <option value="10">21</option>
+                    </select>
+                </div>
+                <div class="col d-flex align-items-center">
+                    <label>Колони:</label>
+                    <select id="new-level-cols" class="control-menu-select">
+                        <option value="2">5</option>
+                        <option value="3">7</option>
+                        <option value="4" selected>9</option>
+                        <option value="5">11</option>
+                        <option value="6">13</option>
+                        <option value="7">15</option>
+                        <option value="8" selected>17</option>
+                        <option value="9">19</option>
+                        <option value="10">21</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="control-menu-row">
+            <div class="row">
+                <div class="col">
+                    <button class="btn btn-primary btn-block" id="load-map">Зареди Карта</button>
+                </div>
+                <div class="col d-flex align-items-center">
+                    <select id="select-map" class="control-menu-select w-100">
+                        <option iterate="savedMaps" value="{{ path }}">{{ name }}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="control-menu-row">
+            <div class="row">
+                <div class="col">
+                    <input id="map-name" type="text" placeholder="Name"/>
+                </div>
+                <div class="col">
+                    <button class="btn btn-primary btn-block" id="save-map">Запази</button>
+                </div>
+            </div>
+        </div>
 
 
-    <div class="row control-menu-row">
-        <p>Map</p>
-        <div class="toggle-coordinates" style="position:absolute; top:15px; right:130px;">
-            <label>
-                <input type="checkbox"> Coordinates
-            </label>
-        </div>
-        <div class="toggle-fog" style="position:absolute; top:15px; right:15px;">
-            <label>
-                <input type="checkbox"> Fog of war
-            </label>
-        </div>
-        <div class="col-lg-4 col-md-4 col-sm-4">
-            <button class="btn btn-primary" id="new-level">Generate</button>
-        </div>
-        <div class="col-lg-4 col-md-4 col-sm-4 text-left" style="padding: 3px 10px;">
-            <label>Rows:</label>
-            <select id="new-level-rows" class="control-menu-select">
-                <option value="2">5</option>
-                <option value="3">7</option>
-                <option value="4">9</option>
-                <option value="5">11</option>
-                <option value="6">13</option>
-                <option value="7">15</option>
-                <option value="8" selected>17</option>
-                <option value="9">19</option>
-                <option value="10">21</option>
-            </select>
-        </div>
-        <div class="col-lg-4 col-md-4 col-sm-4 text-right" style="padding: 3px 15px;">
-            <label>Cols:</label>
-            <select id="new-level-cols" class="control-menu-select">
-                <option value="2">5</option>
-                <option value="3">7</option>
-                <option value="4" selected>9</option>
-                <option value="5">11</option>
-                <option value="6">13</option>
-                <option value="7">15</option>
-                <option value="8" selected>17</option>
-                <option value="9">19</option>
-                <option value="10">21</option>
-            </select>
-        </div>
-    </div>
-    <div class="row control-menu-row">
-        <div class="col-lg-8 col-md-8 col-sm-8">
-            <input id="map-name" type="text" placeholder="Name"/>
-        </div>
-        <div class="col-lg-4 col-md-4 col-sm-4">
-            <button class="btn btn-primary" id="save-map" style="width:100%;">Save</button>
-        </div>
-    </div>
-    <div class="row control-menu-row">
-        <div class="col-lg-4 col-md-4 col-sm-4">
-            <button class="btn btn-primary" id="load-map">Load Map</button>
-        </div>
-        <div class="col-lg-8 col-md-8 col-sm-8">
-            <select id="select-map" class="control-menu-select" style="width:100%; margin-top:4px;">
-                <option iterate="savedMaps" value="{{ path }}">{{ name }}</option>
-            </select>
-        </div>
-    </div>
-    <div class="row control-menu-row">
-        <p>Add AI</p>
-        <div class="col-lg-4 col-md-4 col-sm-4">
-            <button class="btn btn-primary" id="add-bot">A* Robo</button>
-        </div>
-        <div class="col-lg-4 col-md-4 col-sm-4">
-            <button class="btn btn-primary" id="add-dummy-bots">Dummy Robos</button>
-        </div>
-    </div>
-    <div class="row control-menu-row">
-        <p>Quests</p>
-        <div class="col-lg-4 col-md-4 col-sm-4">
-            <button class="btn btn-primary" id="generate-quest">Generate Quests</button>
-        </div>
-    </div>
+    <!--<div class="row control-menu-row">-->
+        <!--<p>Add AI</p>-->
+        <!--<div class="col-lg-4 col-md-4 col-sm-4">-->
+            <!--<button class="btn btn-primary" id="add-bot">A* Robo</button>-->
+        <!--</div>-->
+        <!--<div class="col-lg-4 col-md-4 col-sm-4">-->
+            <!--<button class="btn btn-primary" id="add-dummy-bots">Dummy Robos</button>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="row control-menu-row">-->
+        <!--<p>Quests</p>-->
+        <!--<div class="col-lg-4 col-md-4 col-sm-4">-->
+            <!--<button class="btn btn-primary" id="generate-quest">Generate Quests</button>-->
+        <!--</div>-->
+    <!--</div>-->
     </div>
 </div>

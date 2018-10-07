@@ -19,7 +19,7 @@ Backbone.widget({
             success: function (response) {
                 this.model.users = response;
                 _.each(this.model.users, function (user, index) {
-                    user.index = index
+                    user.index = index;
                     user.searchString = user.name.replace(/ /g, '').toLowerCase();
                     if (user.imageUrl == undefined || user.imageUrl == '') {
                         user.imageUrl = this.assetsURL + 'game/avatar.png'
@@ -63,17 +63,16 @@ Backbone.widget({
         var $selected = $(e.currentTarget);
         $selected.addClass('active');
         var playerId = $selected.attr('id');
+        this.$el.find('.user[id="'+ playerId +'"]').addClass('active');
         var playerData = _.findWhere(this.model.users, {_id: playerId});
         this.setUser(playerData);
-        this.goToItem($(e.currentTarget));
+        this.goToItem($selected);
     },
 
     goToItem: function($el) {
         var n = $el.attr('index');
-        console.log('goto: ', n);
-        if(n){
-            this.$el.find('.owl-carousel').trigger('to.owl.carousel', n);
-        }
+        this.$el.find('.owl-carousel').trigger('to.owl.carousel', n);
+
     },
 
     searchUser: function (e) {
