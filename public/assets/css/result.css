@@ -31,14 +31,21 @@
 }
 .gray-label {
     color: #bfbfbf;
+    font-size: 0.875rem !important;
+}
+.webview .gray-label {
+    color: #bfbfbf;
     font-size: 0.75rem !important;
 }
 .webview .current-student-container {
     padding-top: 55px;
 }
 
-.result-table {
+.webview .result-table {
     font-size: 0.675em;
+}
+.result-table {
+    font-size: 0.75em;
 }
 .student-results-details {
     padding: 5px 12px;
@@ -77,8 +84,17 @@
 .table thead th {
     border-bottom: 1px solid #464646;
 }
+
+.webview .th-answer {
+    width: 110px;
+}
 .table td, .table th {
-    border-top: 1px solid #464646;
+    border-top: 1px solid #272727;
+    padding: 10px .75rem;
+
+}
+
+.webview .table td, .webview .table th {
     padding: 7px .75rem;
 }
 .question-index {

@@ -14,6 +14,15 @@ body, html, #layouts {
     -o-transform: none;
     transform: none;
     position: relative;
+    width: 1200px;
+    height: 750px;
+    overflow: hidden;
+
+}
+.webview .grid-map-transform{
+    width: auto;
+    height: auto;
+    overflow: visible;
 }
 
 .camera {

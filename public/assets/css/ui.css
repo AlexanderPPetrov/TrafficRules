@@ -120,7 +120,7 @@ input:focus {
     margin-bottom: 0;
 }
 .base-container {
-    background: rgb(48, 48, 48);
+    background: #1d1d1d;
     border: 1px solid rgba(0, 0, 0, 0.1);
     color: #BDBDBD;
     margin-bottom: 15px;
@@ -139,6 +139,11 @@ input:focus {
     text-shadow: -1px 1px 3px rgba(0, 0, 0, 0.5);
 }
 
+.webview .base-container .header-container {
+    padding: .5rem .75rem;
+    height: 31px;
+}
+
 .base-container .header-container {
     width: 100%;
     display: block;
@@ -146,9 +151,8 @@ input:focus {
     color: #fff;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     margin: 0;
-    padding: .5rem .75rem;
     font-size: 0.75em;
-    height: 31px;
+    padding: 1rem .75rem;
 }
 
 .base-container .text-container {
@@ -181,6 +185,10 @@ input:focus {
 
 .search-container {
     position: relative;
+    padding: 2rem;
+}
+.webview .search-container {
+    padding: 0;
 }
 
 .search-container .glyphicon-search {
@@ -189,13 +197,9 @@ input:focus {
     right: 15px;
 }
 
-/*.users {*/
-    /*height: 235px;*/
-    /*padding: 0 10px;*/
-    /*overflow-y: scroll;*/
-    /*overflow-x: hidden;*/
-    /*position: relative;*/
-/*}*/
+.users {
+    margin-top: 2rem;
+}
 
 .user.active {
     border-color: #06d244;
@@ -413,13 +417,25 @@ input:focus {
 }
 .webview .users {
     min-height: 69px;
+    margin-top: 0;
 }
 
-.bottom-menu {
-    position: absolute;
+.webview .bottom-menu {
     bottom: 0;
     width: 100%;
     padding: 12px;
+}
+
+.bottom-menu {
+    padding: 12px;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+}
+
+.bottom-menu .btn {
+    box-shadow: 0 0 25px 5px rgba(0,0,0,0.5);
 }
 
 .top-menu {
@@ -427,6 +443,7 @@ input:focus {
     width: 100%;
     top: 0;
     padding: 12px;
+    left: 0;
 }
 
 .bar-container {
@@ -440,6 +457,7 @@ input:focus {
     background: -webkit-linear-gradient(top, #474747 0%,#000000 50%,#474747 100%);
     background: linear-gradient(to bottom, #474747 0%,#000000 50%,#474747 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#474747', endColorstr='#474747',GradientType=0 );
+    box-shadow: 0 0 25px 5px rgba(0,0,0,0.3);
 }
 .bar-wrapper {
     width: 100%;
@@ -470,12 +488,14 @@ input:focus {
     padding: 15px;
 }
 .exams-controls {
-    position: fixed !important;
     width: 100% !important;
     bottom: 0 !important;
     left: 0 !important;
     padding: 15px;
     font-size: 0.875rem;
+}
+.webview .exams-controls {
+    position: fixed !important;
 }
 .logo-finish {
     max-height: 100px;

@@ -104,7 +104,7 @@ Backbone.widget({
         'ENABLE_DESELECT': 'enableDeselect',
         'DISABLE_DESELECT': 'disableDeselect',
         'SAVE_MAP': 'saveMap',
-        'LOAD_MAP': 'loadMap',
+        'LOAD_EXAM': 'loadExam',
         'GET_MATRIX_DATA': 'sendMatrixData',
         'PLACE_PLAYER': 'positionPlayer',
         'ADD_QUESTION': 'addQuestion',
@@ -206,10 +206,21 @@ Backbone.widget({
     },
 
     addQuestion: function(position){
-        this.$el.find('.base-grid[posx="'+position.x+'"][posy="'+ position.y +'"]').attr('question','true');
+        var $container = this.$el.find('.base-grid[posx="'+position.x+'"][posy="'+ position.y +'"]');
+        if($container.attr('question') == 'true'){
+            return;
+        }
+        var $mapObject = $container.find('.map-object');
+        var $clonedImage = $mapObject.find('img').clone();
+        $clonedImage.attr('src', 'assets/img/tiles/objects/question.png').addClass('question-mark');
+        $mapObject.append($clonedImage);
+        $container.attr('question','true');
+
     },
     removeQuestion: function(position) {
-        this.$el.find('.base-grid[posx="'+position.x+'"][posy="'+ position.y +'"]').removeAttr('question');
+        var $container = this.$el.find('.base-grid[posx="'+position.x+'"][posy="'+ position.y +'"]');
+        $container.removeAttr('question');
+        $container.find('.question-mark').remove();
 
     },
     definePath: function (mapMatrix) {
@@ -499,9 +510,7 @@ Backbone.widget({
             var $mapObject = '<div class="map-object" style="width:' + this.boxSize + 'px; height:' + this.boxSize + 'px;" data-info="' + image.info + '"><img class="grid-image map-image" src="' + image.src + '" style="width:' + this.boxSize + 'px; pointer-events:none;" /></div>'
             var $container = this.$el.find('.base-grid[posx="'+image.x+'"][posy="'+ image.y +'"]');
             $container.append($mapObject);
-            if(image.question){
-                $container.attr('question', 'true');
-            }
+
             var $lastPlaced = this.$el.find('.map-image').last();
             var invertedOffsetX = Math.floor(-this.boxSize) - 5;
             var offsetY = this.boxSize - 5;
@@ -510,6 +519,13 @@ Backbone.widget({
                 matrix = 'matrix(-1, -1, -3, 3, ' + offsetY + ',' + invertedOffsetX + ')';
             }
             $lastPlaced.css('transform', matrix);
+
+            if(image.question){
+                $container.attr('question', 'true');
+                var $clonedImage = $container.find('img').clone();
+                $clonedImage.attr('src', 'assets/img/tiles/objects/question.png').addClass('question-mark');
+                $container.find('.map-object').append($clonedImage);
+            }
         }, this)
 
 
@@ -566,7 +582,7 @@ Backbone.widget({
         if (this.selected == null) {
             return
         }
-        this.selected.find('.map-image').attr('src', imageSrc);
+        this.selected.find('.map-image').first().attr('src', imageSrc);
     },
 
     setInfoText: function (infoText) {
@@ -654,41 +670,36 @@ Backbone.widget({
 
     },
 
-    loadMap: function (mapUrl) {
-        this.ajaxRequest({
-            url: mapUrl,
-            data: {},
-            local: true,
-            type: "GET",
-            success: function (response) {
-                $('#grid-container').html('')
-                this.mapMatrix = response.mapMatrix;
-                this.rowCount = (response.mapMatrix.length - 1 ) * 0.5;
-                this.columnCount = (response.mapMatrix[0].length - 1) * 0.5;
-                console.log('rowCount: ', this.rowCount, 'colCount: ', this.columnCount);
-                this.setGridSize();
-                this.definePath(this.mapMatrix);
+    loadExam: function (exam) {
+        this.model.exam = exam;
+        var map = JSON.parse(this.model.exam.map);
 
-                $('#grid-container').find('.r').css({'width': this.rowWidthPx, 'height': this.rowHeight});
-                $('#grid-container').find('.road, .block').css({
-                    'width': this.boxSize,
-                    'height': this.boxSize
-                });
+        $('#grid-container').html('');
+        this.mapMatrix = map.mapMatrix;
+        this.rowCount = (map.mapMatrix.length - 1 ) * 0.5;
+        this.columnCount = (map.mapMatrix[0].length - 1) * 0.5;
+        this.setGridSize();
+        this.definePath(this.mapMatrix);
 
-                $('#grid-container').find('.road, .block').addClass('base-grid');
-
-
-                this.mapTiles(this.mapMatrix);
-                this.renderGrass();
-                this.loadSavedTiles(response.images);
-                this.renderRoadTiles();
-                this.setIndexes();
-                this.initFogOfWar();
-                var playerX = parseInt(response.player.posx)
-                var playerY = parseInt(response.player.posy)
-                this.placePlayer({x: playerX, y: playerY}, response.player.image);
-            }
+        $('#grid-container').find('.r').css({'width': this.rowWidthPx, 'height': this.rowHeight});
+        $('#grid-container').find('.road, .block').css({
+            'width': this.boxSize,
+            'height': this.boxSize
         });
+
+        $('#grid-container').find('.road, .block').addClass('base-grid');
+
+
+        this.mapTiles(this.mapMatrix);
+        this.renderGrass();
+        this.loadSavedTiles(map.images);
+        this.renderRoadTiles();
+        this.setIndexes();
+        this.initFogOfWar();
+        var playerX = parseInt(map.player.posx)
+        var playerY = parseInt(map.player.posy)
+        this.placePlayer({x: playerX, y: playerY}, map.player.image);
+
     },
 
     getMapData: function () {
@@ -697,7 +708,7 @@ Backbone.widget({
         mapData.mapMatrix = this.mapMatrix;
         mapData.images = [];
 
-        this.$el.find('.map-image').each(function () {
+        this.$el.find('.map-image:not(.question-mark)').each(function () {
             var imageData = {};
             imageData.src = $(this).attr('src');
             imageData.src = imageData.src.split('/');
@@ -736,7 +747,7 @@ Backbone.widget({
         var matrixData = {
             'mapMatrix': this.mapMatrix,
             'gridSize': this.boxSize
-        }
+        };
         this.fire('SEND_MATRIX_DATA', matrixData)
     }
 

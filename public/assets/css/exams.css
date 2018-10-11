@@ -5,9 +5,7 @@
 
 .exams-container {
     margin: auto;
-    max-width: 750px;
-    min-width: 750px;
-
+    width: 1200px;
 }
 .webview .exams-container {
     align-self: flex-start;

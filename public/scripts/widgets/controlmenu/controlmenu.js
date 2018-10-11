@@ -17,15 +17,23 @@ Backbone.widget({
     },
 
     loaded: function () {
+
         this.ajaxRequest({
-            url: 'webservices/savedMaps.json',
-            local: true,
+            url: 'exams',
             type: "GET",
             success: function (response) {
-                this.model = response;
+
+                this.model.exams = _.sortBy(response, function(exam) {
+                    return exam.variant;
+                });
+
+                for(var i = 0; i < this.model.exams.length; i++) {
+                    this.model.exams[i].index = i;
+                }
+
                 this.render();
             }
-        })
+        });
     },
 
     render: function () {
@@ -73,8 +81,9 @@ Backbone.widget({
     },
 
     loadMap: function () {
-        var mapToLoad = this.$el.find('#select-map').val();
-        this.fire('LOAD_MAP', mapToLoad);
+        var examId = this.$el.find('#select-map').val();
+        var exam = _.findWhere(this.model.exams, {_id: examId});
+        this.fire('LOAD_EXAM', exam);
         this.fire('REMOVE_DUMMY_BOTS');
     },
 

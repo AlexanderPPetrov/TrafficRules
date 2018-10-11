@@ -84,7 +84,7 @@ Backbone.widget({
 
         var sceneWidth = $('#get-size').width(),
             sceneHeight = $('#get-size').height(),
-            k = 25;
+            k = 18;
 
         if($('body').hasClass('webview')){
             k = 13;
@@ -533,8 +533,13 @@ Backbone.widget({
             y: this.rowCount * this.boxSize
         };
 
-        var cameraX = origin.x - newPosition.x * this.boxSize,
-            cameraY = origin.y - newPosition.y * this.boxSize
+        var cameraX = origin.x - newPosition.x * this.boxSize + this.boxSize* 3,
+            cameraY = origin.y - newPosition.y * this.boxSize - this.boxSize*4;
+
+        if($('body').hasClass('webview')){
+            cameraX = origin.x - newPosition.x * this.boxSize
+            cameraY = origin.y - newPosition.y * this.boxSize;
+        }
 
         var $camera = $('.camera'),
             translate = 'translate(' + cameraX +'px, ' + cameraY + 'px)';
