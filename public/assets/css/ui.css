@@ -424,6 +424,7 @@ input:focus {
     bottom: 0;
     width: 100%;
     padding: 12px;
+    position: fixed;
 }
 
 .bottom-menu {
@@ -444,6 +445,9 @@ input:focus {
     top: 0;
     padding: 12px;
     left: 0;
+}
+.webview .top-menu {
+    position: fixed;
 }
 
 .bar-container {
