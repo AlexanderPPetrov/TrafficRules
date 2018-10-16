@@ -674,7 +674,7 @@ Backbone.widget({
         $('.grid-map-transform').css({opacity: 1});
         setTimeout(function(){
             $('.ui-container').removeClass('hidden-by-default');
-            $('#get-size').removeClass('loader')
+            $('body').removeClass('loader')
 
         }, 1500);
 
@@ -686,7 +686,7 @@ Backbone.widget({
         var matrixData = {
             'mapMatrix': this.mapMatrix,
             'gridSize': this.boxSize
-        }
+        };
         this.fire('SEND_MATRIX_DATA', matrixData)
     }
 

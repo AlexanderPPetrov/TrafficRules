@@ -2,11 +2,3 @@
     display: flex;
     align-items: center;
 }
-
-.home-background {
-    background-image: url('https://res.cloudinary.com/mateassets/image/upload/v1534883304/game/home_background.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    padding: 0;
-}

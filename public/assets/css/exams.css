@@ -3,6 +3,9 @@
     align-items: center;
 }
 
+.webview.home-background {
+    background: #1d1d1d;
+}
 .exams-container {
     margin: auto;
     width: 1200px;
@@ -16,6 +19,7 @@
 }
 .exams-list-container {
     flex-wrap: wrap;
+    padding: 65px 0 !important;
 }
 .webview .exams-list-container {
     height: 112px;
@@ -23,7 +27,6 @@
     overflow-y: hidden;
     padding: 0 !important;
     flex-wrap: nowrap;
-
 }
 .exam {
     flex: 0 0 50%;

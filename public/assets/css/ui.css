@@ -515,3 +515,24 @@ input:focus {
 .ui-container.hidden-by-default {
     opacity: 0;
 }
+.home-background {
+    background-image: url('https://res.cloudinary.com/mateassets/image/upload/v1534883304/game/home_background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 0;
+}
+.game-frame {
+    width: 1200px;
+    height: 600px;
+    padding: 20px;
+    background-color: #303b42;
+    box-shadow: 0px 4px 6px rgba(0,0,0,0.5);
+}
+.webview .game-frame {
+    padding: 0;
+    height: auto;
+    width: auto;
+    background: none;
+    box-shadow: none;
+}

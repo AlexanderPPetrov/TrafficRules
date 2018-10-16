@@ -53,7 +53,7 @@ Backbone.widget({
             dots: false,
             items:1,
             onInitialized: function(){
-                $('.container-fluid').removeClass('loader');
+                $('body').removeClass('loader');
             }
         })
     },
@@ -93,6 +93,7 @@ Backbone.widget({
         this.goToItem($matching.first());
     },
     startGame: function (e) {
+        $('body').addClass('loader');
         Backbone.router.navigate('#exams', true);
     },
     setUser: function (data) {

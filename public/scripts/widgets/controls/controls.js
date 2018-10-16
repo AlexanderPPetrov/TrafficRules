@@ -55,6 +55,7 @@ Backbone.widget({
     confirmExit: function () {
         this.$el.find('#confirmExit').modal('hide');
         $('#confirmExit').on('hidden.bs.modal', function (e) {
+            $('body').addClass('loader');
             Backbone.router.navigate('#exams', true);
         })
     }

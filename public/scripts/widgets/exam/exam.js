@@ -201,6 +201,7 @@ Backbone.widget({
         this.$el.find('#successEnd').modal('hide');
         var context = this;
         setTimeout(function(){
+            $('body').addClass('loader');
             Backbone.router.navigate('#result/' + context.model.resultId, true);
         }, 300);
     }

@@ -57,6 +57,9 @@ Backbone.widget({
             nav: false,
             dots: false,
             items: items,
+            onInitialized: function(){
+                $('body').removeClass('loader');
+            }
         })
     },
 
@@ -81,6 +84,7 @@ Backbone.widget({
     },
     startGame: function () {
         var context = this;
+        $('body').addClass('loader');
         setTimeout(function () {
             Backbone.router.navigate('#gameplay/' + context.model.examId, true);
         }, 300);

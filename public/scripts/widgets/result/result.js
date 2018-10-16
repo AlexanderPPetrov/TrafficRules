@@ -83,12 +83,13 @@ Backbone.widget({
                 result: this.model.result
             },
             renderCallback: function () {
-                $('.results-container').removeClass('loader')
+                $('body').removeClass('loader')
             }
         })
 
     },
     examsMenu: function (){
+        $('body').addClass('loader')
         Backbone.router.navigate('#exams', true);
     }
 
