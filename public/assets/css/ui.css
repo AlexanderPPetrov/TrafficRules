@@ -8,6 +8,16 @@ html, body, #layouts {
 input:focus {
     outline: 0;
 }
+
+.modal.fade .modal-dialog {
+    transition: transform .3s ease-out;
+    transform: scale(.9)
+}
+
+.modal.show .modal-dialog {
+    transform: scale(1)
+}
+
 .modal-content {
     background-color: #292929;
 }

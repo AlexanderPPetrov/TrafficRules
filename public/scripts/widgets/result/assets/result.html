@@ -25,15 +25,15 @@
 <div class="base-container">
     <div class="student-results-details h-100">
         <div class="d-flex">
-            <div class="d-flex align-items-center subject-name-container">
-                <div class="subject-name-text">{{result.exam.subjectName}}</div>
+            <div class="d-flex align-items-center subject-name-container justify-content-end">
+                <div class="subject-name-text text-right">{{result.exam.subjectName}}</div>
                 <div class="variant text-info rounded">
                       Вариант: {{result.exam.variant}}
 
                 </div>
             </div>
-            <div class="percentage-container ml-auto">
-                <div class=" ml-auto align-self-end {{result.percentageClass}}">
+            <div class="percentage-container d-flex align-items-center px-3">
+                <div class="{{result.percentageClass}} error-label d-flex align-items-center">
                     <span class="percentage">{{result.percentage}}</span>
                     <span class="percentage-sign">%</span>
                 </div>
@@ -43,49 +43,51 @@
     </div>
 
     <div class="answers-list">
-
-        <table class="table result-table">
-            <thead>
-            <tr>
-                <th scope="col" colspan="2">Въпрос</th>
-                <th scope="col" class="th-answer">Верен отговор</th>
-                <th scope="col" class="th-answer">Даден отговор</th>
-                <th scope="col" class="text-right">
-                    <span class="score">{{ result.score }}</span>
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr iterate="result.questions">
-                <td scope="row">
+        <div class="table-responsive">
+            <table class="table result-table">
+                <thead>
+                <tr>
+                    <th scope="col" colspan="2">Въпрос</th>
+                    <th scope="col" class="th-answer">Верен отговор</th>
+                    <th scope="col" class="th-answer">Даден отговор</th>
+                    <th scope="col" class="text-right">
+                        <span class="score">{{ result.score }}</span>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr iterate="result.questions">
+                    <td scope="row">
                     <span class="question-index">
                         {{index}}
                     </span>
-                </td>
-                <td class="pl-0">
+                    </td>
+                    <td class="pl-0">
                     <span class="gray-label">
                     {{text}}
                     </span>
-                </td>
-                <td class="">
+                    </td>
+                    <td class="">
                     <span class="correct-answer-value">
                     {{correctValue}}
                     </span>
-                </td>
-                <td class="">
+                    </td>
+                    <td class="">
                     <span class="answer-given-value {{ answerClass }}">
                         {{givenValue}}
                     </span>
-                </td>
-                <td class="text-right">
-                    <div class="answer-evaluation-container d-flex align-items-center justify-content-center">
-                        <span class="answer-evaluation {{ indicatorClass }}"></span>
-                    </div>
-                </td>
-            </tr>
+                    </td>
+                    <td class="text-right">
+                        <div class="answer-evaluation-container d-flex align-items-center justify-content-center">
+                            <span class="answer-evaluation {{ indicatorClass }}"></span>
+                        </div>
+                    </td>
+                </tr>
 
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
+
     </div>
 </div>
 <div class="bottom-menu d-flex justify-content-end align-items-center ui-container">

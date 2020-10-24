@@ -16,6 +16,7 @@
     min-width: initial;
     max-width: initial;
     width: 100%;
+    padding: 30px;
 }
 .exams-list-container {
     flex-wrap: wrap;

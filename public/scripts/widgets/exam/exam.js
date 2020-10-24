@@ -165,7 +165,7 @@ Backbone.widget({
         var view = this;
         setTimeout(function(){
             view.submitAnswer()
-        }, 1000)
+        }, 500)
     },
 
     checkAnswer: function() {
