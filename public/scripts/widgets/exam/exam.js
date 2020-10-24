@@ -20,26 +20,67 @@ Backbone.widget({
 
     loaded: function () {
         this.readUserData();
-        this.loadSelectedExam();
-    },
+        if(!localStorage.getItem('exams')){
+            this.loadExams();
+        }else{
+            this.model.exams = JSON.parse(localStorage.getItem('exams'));
+            this.model.currentExamIndex = parseInt(localStorage.getItem("currentExamIndex")) + 1;
+            if(this.model.currentExamIndex > this.model.exams.length - 1){
+                this.model.currentExamIndex = 0;
+            }
+            localStorage.setItem("currentExamIndex", this.model.currentExamIndex)
 
-    readUserData: function () {
-
-        if (_.size(Backbone.session)) {
-            this.model.userData = Backbone.session;
-        } else {
-            this.model.userData = JSON.parse(localStorage.getItem('playerData'))
+            this.loadSelectedExam();
         }
+    },
+    loadExams: function (){
+
+        this.ajaxRequest({
+            url: 'exams',
+            type: "GET",
+            success: function (response) {
+
+                this.model.exams = _.sortBy(response, function(exam) {
+                    return exam.variant;
+                });
+
+                for(var i = 0; i < this.model.exams.length; i++) {
+                    this.model.exams[i].index = i;
+                }
+                localStorage.setItem("exams", JSON.stringify(this.model.exams));
+                localStorage.setItem("currentExamIndex", 0);
+                this.model.currentExamIndex = 0;
+                this.loadSelectedExam();
+            }
+        });
+    },
+    readUserData: function () {
+        this.model.userData = {
+            avatar: "https://upload.wikimedia.org/wikipedia/commons/e/e8/CandymyloveYasu.png",
+            group: "4а",
+            imageUrl: "https://res.cloudinary.com/mateassets/image/upload/v1534874788/game/avatar.png",
+            index: 2,
+            name: "Антония Динкова Паничерска",
+            searchString: "антониядинковапаничерска",
+            __v: 0,
+            _id: "5bbaf0f6cc28f80013e97d42",
+        };
+
+        // if (_.size(Backbone.session)) {
+        //     this.model.userData = Backbone.session;
+        // } else {
+        //     this.model.userData = JSON.parse(localStorage.getItem('playerData'))
+        // }
 
     },
 
     loadSelectedExam: function () {
-        this.model.examId = window.location.href.split('#gameplay/')[1];
-        this.loadExam(this.model.examId)
+        var examId = this.model.exams[this.model.currentExamIndex]._id;
+
+        this.loadExam(examId)
     },
 
     loadExam: function (examId) {
-
         this.ajaxRequest({
             url: 'exams/' + examId,
 

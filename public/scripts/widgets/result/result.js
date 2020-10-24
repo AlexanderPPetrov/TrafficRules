@@ -90,7 +90,7 @@ Backbone.widget({
     },
     examsMenu: function (){
         $('body').addClass('loader')
-        Backbone.router.navigate('#exams', true);
+        Backbone.router.navigate('#', true);
     }
 
 
