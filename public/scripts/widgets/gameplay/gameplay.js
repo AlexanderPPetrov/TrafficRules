@@ -163,8 +163,8 @@ Backbone.widget({
 
     initFogOfWar: function () {
 
-        var fogWidth = (this.columnCount * 12) * this.boxSize,
-            fogHeight = (this.rowCount * 12) * this.boxSize
+        var fogWidth = (this.columnCount * 4) * this.boxSize,
+            fogHeight = (this.rowCount * 4) * this.boxSize
 
         // init canvas
         var canvas = $('canvas'),
@@ -173,7 +173,7 @@ Backbone.widget({
 
         canvas.attr('width', fogWidth);
         canvas.attr('height', fogHeight);
-        canvas.css({top: -this.boxSize*this.rowCount*3 + 'px', left: -this.boxSize *this.columnCount*3 + 'px'})
+        canvas.css({top: -this.boxSize*this.rowCount + 'px', left: -this.boxSize *this.columnCount + 'px'})
         // black out the canvas
         ctx.fillStyle = overlay;
         ctx.fillRect(0, 0, fogWidth, fogHeight);
@@ -184,23 +184,23 @@ Backbone.widget({
     },
 
     revealFog: function (posX, posY) {
-        var fogWidth = (this.columnCount * 12) * this.boxSize,
-            fogHeight = (this.rowCount * 12) * this.boxSize,
+        var fogWidth = (this.columnCount * 4) * this.boxSize,
+            fogHeight = (this.rowCount * 4) * this.boxSize,
             canvas = $('canvas'),
             ctx = canvas[0].getContext('2d'),
             ctx2 = canvas[1].getContext('2d'),
             r1 = this.boxSize * 1.5,
             r2 = this.boxSize * 4,
             density = .4,
-            hideFill = 'rgba( 118, 236, 245, 0.1)';
+            hideFill = 'rgba(50,94,101,0.1)';
 
-        var pX = posX + this.boxSize*this.columnCount*3 + this.boxSize * 0.5,
-            pY = posY + this.boxSize*this.rowCount*3 + this.boxSize * 0.5;
+        var pX = posX + this.boxSize*this.columnCount + this.boxSize * 0.5,
+            pY = posY + this.boxSize*this.rowCount + this.boxSize * 0.5;
 
         // reveal wherever we move
         var radGrd = ctx.createRadialGradient(pX, pY, r1, pX, pY, r2);
-        radGrd.addColorStop(0, 'rgba( 118, 236, 245,  1 )');
-        radGrd.addColorStop(density, 'rgba( 118, 236, 245, .2 )');
+        radGrd.addColorStop(0, 'rgb(59,112,119)');
+        radGrd.addColorStop(density, 'rgba(58,117,122,0.2)');
         radGrd.addColorStop(1, 'rgba( 118, 236, 245,  0 )');
 
         ctx.fillStyle = radGrd;
