@@ -29,7 +29,13 @@ body {
     top: -166%;
     position: absolute;
 }
+
 #layouts {
     max-width: 1200px;
     margin: 0 auto;
+}
+
+.webview #layouts {
+    max-width: none;
+    margin: 0;
 }

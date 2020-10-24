@@ -423,7 +423,7 @@ input:focus {
 .webview .bottom-menu {
     bottom: 0;
     width: 100%;
-    padding: 12px;
+    padding: 25px;
     position: fixed;
 }
 
@@ -436,13 +436,13 @@ input:focus {
 }
 
 .bottom-menu .btn {
-    box-shadow: 0 0 25px 5px rgba(0,0,0,0.5);
+    box-shadow: 0 0 5px 4px rgba(0,0,0,0.3);
 }
 
 .top-menu {
     position: absolute;
     width: 100%;
-    top: 0;
+    top: 10px;
     padding: 12px;
     left: 0;
 }
@@ -451,17 +451,22 @@ input:focus {
 }
 
 .bar-container {
-    width: 100px;
-    height: 25px;
+    width: 180px;
+    height: 35px;
     border-radius: 50px;
     border: 2px solid #fffefe;
     padding: 3px;
-    background: #474747;
-    background: -moz-linear-gradient(top, #474747 0%, #000000 50%, #474747 100%);
-    background: -webkit-linear-gradient(top, #474747 0%,#000000 50%,#474747 100%);
-    background: linear-gradient(to bottom, #474747 0%,#000000 50%,#474747 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#474747', endColorstr='#474747',GradientType=0 );
-    box-shadow: 0 0 25px 5px rgba(0,0,0,0.3);
+    background: rgba(25, 25, 25, 0.7);
+    box-shadow: 0 0 5px 4px rgba(0,0,0,0.3);
+}
+#next-question {
+    border-radius: 50%;
+    width: 90px;
+    min-width: 90px;
+    height: 90px;
+    font-size: 50px;
+    padding: 0;
+    padding-left: 5px;
 }
 .bar-wrapper {
     width: 100%;
