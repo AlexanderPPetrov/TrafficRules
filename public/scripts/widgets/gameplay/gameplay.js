@@ -582,7 +582,10 @@ Backbone.widget({
         this.addMoveArrow();
 
         if($($playerPosition).attr('question') == 'true'){
-            this.fire('DISPLAY_NEXT_QUESTION');
+            var view = this;
+            setTimeout(function(){
+                view.fire('DISPLAY_NEXT_QUESTION');
+            }, 500)
             $($playerPosition).removeAttr('question');
         }
 
