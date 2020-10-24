@@ -6,7 +6,7 @@ Backbone.widget({
     currentQuestion: 0,
     template: false,
     events: {
-        'click #exams-menu': 'examsMenu',
+        'click #next-question': 'examsMenu',
     },
 
     listen: {

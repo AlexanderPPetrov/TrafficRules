@@ -50,10 +50,6 @@ canvas{
     z-index: 1000;
     pointer-events: none;
 }
-.fog {
-    display:none;
-}
-
 
 .base-grid-marker{
     position:absolute;

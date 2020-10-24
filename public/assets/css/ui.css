@@ -14,11 +14,11 @@ input:focus {
 
 .webview .modal-header {
     padding: .5rem .75rem;
-    font-size: 0.75em;
+    font-size: 1rem;
 }
 .modal-header {
-    border-bottom: 1px solid black;
-
+    border-bottom: none;
+    background-color: #1d1d1d;
 }
 
 #submit-answer {
@@ -249,7 +249,7 @@ input:focus {
 }
 
 .answer-container {
-    border-radius: 8px;
+    border-radius: 10px;
     background-color: #111111;
     color: #cecece;
     border: 3px solid #555555;
@@ -257,8 +257,9 @@ input:focus {
     margin-bottom: 15px;
 }
 .webview .answer-container {
-    padding: 3px 10px;
+    padding: 10px;
     margin-bottom: 7px;
+    min-height: 84px;
 }
 
 .given-answer {
@@ -319,7 +320,6 @@ input:focus {
 
 
 .question-info-container {
-    background-color: #171717;
     padding: 15px 23px;
 }
 
@@ -328,7 +328,7 @@ input:focus {
 }
 .webview .question-info {
     padding: 0.5em 12px;
-    font-size: 0.75em;
+    font-size: 1rem;
 }
 .question-info {
     color: #fffeb4;
@@ -337,6 +337,7 @@ input:focus {
     padding: 8px 12px;
     border-radius: 5px;
     flex: 1;
+    min-height: 100px;
 }
 .question-wrapper {
     flex: 1;
@@ -352,7 +353,6 @@ input:focus {
 }
 
 .possible-answers {
-    border-top: 1px solid #2d2d2d;
 }
 .webview .answer-id {
     font-size: 0.875em;
@@ -364,7 +364,8 @@ input:focus {
     letter-spacing: 3px;
 }
 .webview .answer-description {
-    font-size: 0.75em;
+    font-size: 1rem;
+    line-height: 1.2;
 }
 
 .loader:before {
@@ -443,7 +444,7 @@ input:focus {
     position: absolute;
     width: 100%;
     top: 10px;
-    padding: 12px;
+    padding: 24px;
     left: 0;
 }
 .webview .top-menu {
@@ -451,8 +452,10 @@ input:focus {
 }
 
 .bar-container {
-    width: 180px;
-    height: 35px;
+    width: 35vw;
+    height: 9vw;
+    max-width: 180px;
+    max-height: 35px;
     border-radius: 50px;
     border: 2px solid #fffefe;
     padding: 3px;
@@ -460,10 +463,12 @@ input:focus {
     box-shadow: 0 0 5px 4px rgba(0,0,0,0.3);
 }
 #next-question {
+    width: 20vw;
+    height: 20vw;
+    max-width: 80px;
+    max-height: 80px;
+    min-width: auto;
     border-radius: 50%;
-    width: 90px;
-    min-width: 90px;
-    height: 90px;
     font-size: 50px;
     padding: 0;
     padding-left: 5px;

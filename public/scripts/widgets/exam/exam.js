@@ -162,7 +162,10 @@ Backbone.widget({
         this.$el.find('.selected').removeClass('selected');
         $selectedAnswer.addClass('selected');
         this.$el.find('#submit-answer').removeAttr('disabled');
-
+        var view = this;
+        setTimeout(function(){
+            view.submitAnswer()
+        }, 1000)
     },
 
     checkAnswer: function() {
@@ -209,11 +212,7 @@ Backbone.widget({
     },
 
     submitAnswer: function () {
-
         this.checkAnswer();
-
-
-
     },
 
     calculateProgress: function(){

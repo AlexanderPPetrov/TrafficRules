@@ -169,7 +169,7 @@ Backbone.widget({
         // init canvas
         var canvas = $('canvas'),
             ctx = canvas[0].getContext('2d'),
-            overlay = 'rgba( 118, 236, 245, 0.5 )';
+            overlay = 'rgba(0,0,0,0.9)';
 
         canvas.attr('width', fogWidth);
         canvas.attr('height', fogHeight);
@@ -189,8 +189,8 @@ Backbone.widget({
             canvas = $('canvas'),
             ctx = canvas[0].getContext('2d'),
             ctx2 = canvas[1].getContext('2d'),
-            r1 = this.boxSize*2,
-            r2 = this.boxSize * 6,
+            r1 = this.boxSize * 1.5,
+            r2 = this.boxSize * 4,
             density = .4,
             hideFill = 'rgba( 118, 236, 245, 0.1)';
 

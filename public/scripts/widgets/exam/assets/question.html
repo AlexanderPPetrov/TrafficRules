@@ -8,7 +8,7 @@
             </div>
         </div>
         <div class="question-wrapper">
-            <div class="question-info text-center" style="background-color: #ffffff;">
+            <div class="h-100 d-flex justify-content-center align-items-center question-info" style="background-color: #ffffff;">
                 <img class="question-image" src="{{ imgUrl }}">
             </div>
         </div>
@@ -18,7 +18,7 @@
     <div class="answers-container d-flex">
         <div iterate="answers" class="given-answer">
             <div class="answer-container d-flex" id="{{ _id }}">
-                <span class="answer-id d-flex">{{ _id }})</span>
+                <span class="answer-id d-flex align-items-center">{{ _id }})</span>
                 <span class="d-flex answer-description align-items-center">{{ text }}</span>
             </div>
         </div>
