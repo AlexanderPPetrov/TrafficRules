@@ -87,7 +87,7 @@ Backbone.widget({
             k = 18;
 
         if($('body').hasClass('webview')){
-            k = 11;
+            k = 12;
         }
         if(sceneWidth < sceneHeight){
             sceneWidth = sceneHeight
